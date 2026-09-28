@@ -14,22 +14,27 @@ import {
 import { PROPERTIES, PROPERTY_CATEGORIES, CITIES } from '../data/properties';
 import { PropertyCard } from '../components/property/PropertyCard';
 import { ImageWithFallback } from '../components/common/ImageWithFallback';
-import { HeroSearchFilter, SearchFilterState } from '../components/home/HeroSearchFilter';
 import { PropertyCategory, ListingType } from '../types/property';
 
 export const HomePage: React.FC = () => {
   const navigate = useNavigate();
   
+  // Search bar state
+  const [searchType, setSearchType] = useState<ListingType>('buy');
+  const [searchLocation, setSearchLocation] = useState('');
+  const [searchCategory, setSearchCategory] = useState<PropertyCategory | 'all'>('all');
+  const [searchPriceRange, setSearchPriceRange] = useState('all');
+
   // Featured section filter
   const [featuredTab, setFeaturedTab] = useState<'all' | 'Offices' | 'Villas' | 'Penthouses'>('all');
-  const [showAllCategories, setShowAllCategories] = useState(false);
 
-  const handleHeroSearch = (state: SearchFilterState) => {
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     const params = new URLSearchParams();
-    if (state.type) params.set('type', state.type);
-    if (state.location) params.set('location', state.location);
-    if (state.category && state.category !== 'all') params.set('category', state.category);
-    if (state.price && state.price !== 'all') params.set('price', state.price);
+    if (searchType) params.set('type', searchType);
+    if (searchLocation) params.set('location', searchLocation);
+    if (searchCategory !== 'all') params.set('category', searchCategory);
+    if (searchPriceRange !== 'all') params.set('price', searchPriceRange);
     navigate(`/properties?${params.toString()}`);
   };
 
@@ -37,8 +42,6 @@ export const HomePage: React.FC = () => {
     if (featuredTab === 'all') return true;
     return p.category === featuredTab;
   });
-
-  const displayedCategories = showAllCategories ? PROPERTY_CATEGORIES : PROPERTY_CATEGORIES.slice(0, 4);
 
   return (
     <div className="space-y-24 sm:space-y-32 pb-24 w-full">
@@ -77,19 +80,31 @@ export const HomePage: React.FC = () => {
               Rent, purchase, and manage verified commercial headquarters, modern residences, and urban development parcels with institutional precision.
             </p>
             
-            <div className="mt-10 flex flex-wrap items-center gap-4 sm:gap-6">
+            <div className="mt-10 flex flex-wrap items-center gap-3 sm:gap-4">
               <Link
                 to="/properties"
-                className="px-8 py-4 bg-white text-stone-950 font-semibold text-sm sm:text-base tracking-tight hover:bg-stone-100 transition-colors inline-flex items-center gap-2.5 shadow-md"
+                className="px-7 py-3.5 bg-white text-stone-950 font-semibold text-sm sm:text-base tracking-tight hover:bg-stone-100 transition-colors inline-flex items-center gap-2 shadow-md"
               >
-                <span>Explore Properties</span>
+                <span>Explore</span>
                 <ArrowRight className="w-4 h-4 stroke-[1.5]" />
               </Link>
               <Link
-                to="/sell"
-                className="px-8 py-4 bg-stone-900/80 text-white border border-stone-600 font-semibold text-sm sm:text-base tracking-tight hover:bg-stone-800 transition-colors backdrop-blur-xs"
+                to="/properties?type=buy"
+                className="px-6 py-3.5 bg-stone-900/80 text-white border border-stone-600 font-semibold text-sm sm:text-base tracking-tight hover:bg-stone-800 transition-colors backdrop-blur-xs"
               >
-                List Your Property
+                Buy Properties
+              </Link>
+              <Link
+                to="/properties?type=rent"
+                className="px-6 py-3.5 bg-stone-900/80 text-white border border-stone-600 font-semibold text-sm sm:text-base tracking-tight hover:bg-stone-800 transition-colors backdrop-blur-xs"
+              >
+                Rent / Lease
+              </Link>
+              <Link
+                to="/sell"
+                className="px-6 py-3.5 bg-stone-900/80 text-white border border-stone-600 font-semibold text-sm sm:text-base tracking-tight hover:bg-stone-800 transition-colors backdrop-blur-xs"
+              >
+                Sell
               </Link>
             </div>
           </div>
@@ -105,93 +120,168 @@ export const HomePage: React.FC = () => {
           </div>
         </div>
 
-        {/* 2. SEARCH EXPERIENCE & TRUST SIGNALS */}
-        <div className="relative -mt-12 sm:-mt-16 w-full max-w-5xl mx-auto z-20 px-2 sm:px-4">
-          <HeroSearchFilter onSearch={handleHeroSearch} />
+        {/* 2. SEARCH EXPERIENCE: Expanded width, increased padding, larger inputs */}
+        <div className="relative -mt-10 sm:-mt-14 w-full max-w-5xl mx-auto z-20 px-2 sm:px-4">
+          <form
+            onSubmit={handleSearchSubmit}
+            className="bg-white border border-stone-300 p-6 sm:p-8 shadow-lg"
+          >
+            {/* Search Tabs: Buy vs Rent */}
+            <div className="flex items-center gap-2 mb-6 border-b border-stone-200 pb-4">
+              <button
+                type="button"
+                onClick={() => setSearchType('buy')}
+                className={`px-5 py-2.5 text-sm sm:text-base font-semibold tracking-tight transition-colors ${
+                  searchType === 'buy'
+                    ? 'bg-stone-900 text-white'
+                    : 'text-stone-600 hover:text-stone-950 bg-stone-100'
+                }`}
+              >
+                Buy Properties
+              </button>
+              <button
+                type="button"
+                onClick={() => setSearchType('rent')}
+                className={`px-5 py-2.5 text-sm sm:text-base font-semibold tracking-tight transition-colors ${
+                  searchType === 'rent'
+                    ? 'bg-stone-900 text-white'
+                    : 'text-stone-600 hover:text-stone-950 bg-stone-100'
+                }`}
+              >
+                Rent / Lease
+              </button>
+            </div>
 
-          {/* Connected Marketplace Trust Signals */}
-          <div className="mt-8 pt-7 border-t border-stone-200/80">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-stone-200/80">
-              <div className="pt-4 sm:pt-0 sm:px-5 first:pl-0 text-left">
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-stone-950 font-architectural tabular-nums">
-                  11<span className="text-stone-400 font-sans font-light text-2xl sm:text-3xl lg:text-4xl">+</span>
+            {/* Inputs Grid with larger typography & controls */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+              {/* Location Input */}
+              <div className="flex flex-col">
+                <label className="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-1.5">
+                  Metropolitan Area
+                </label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={searchLocation}
+                    onChange={(e) => setSearchLocation(e.target.value)}
+                    placeholder="San Francisco, New York..."
+                    className="w-full text-sm sm:text-base font-medium text-stone-900 py-3 px-3.5 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
+                  />
                 </div>
-                <div className="text-xs sm:text-sm font-semibold text-stone-900 mt-1.5 tracking-tight">
-                  Years in Marketplace
-                </div>
-                <p className="text-[11px] sm:text-xs text-stone-500 mt-0.5 leading-relaxed">
-                  Active advisory & brokerage platform
-                </p>
               </div>
 
-              <div className="pt-4 sm:pt-0 sm:px-5 text-left">
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-stone-950 font-architectural tabular-nums">
-                  1,200<span className="text-stone-400 font-sans font-light text-2xl sm:text-3xl lg:text-4xl">+</span>
-                </div>
-                <div className="text-xs sm:text-sm font-semibold text-stone-900 mt-1.5 tracking-tight">
-                  Closed Deals & Leases
-                </div>
-                <p className="text-[11px] sm:text-xs text-stone-500 mt-0.5 leading-relaxed">
-                  Institutional & residential transactions
-                </p>
+              {/* Property Category */}
+              <div className="flex flex-col">
+                <label className="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-1.5">
+                  Property Asset Class
+                </label>
+                <select
+                  value={searchCategory}
+                  onChange={(e) => setSearchCategory(e.target.value as any)}
+                  className="w-full text-sm sm:text-base font-medium text-stone-900 py-3 px-3.5 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
+                >
+                  <option value="all">All Asset Classes</option>
+                  <option value="Offices">Offices & Headquarters</option>
+                  <option value="Villas">Villas & Estates</option>
+                  <option value="Apartments">Apartments & Flats</option>
+                  <option value="Penthouses">Crown Penthouses</option>
+                  <option value="Industrial">Industrial & Logistics</option>
+                  <option value="Land">Development Land</option>
+                  <option value="Retail">Commercial Retail</option>
+                </select>
               </div>
 
-              <div className="pt-4 sm:pt-0 sm:px-5 text-left">
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-stone-950 font-architectural tabular-nums">
-                  4,200<span className="text-stone-400 font-sans font-light text-2xl sm:text-3xl lg:text-4xl">+</span>
-                </div>
-                <div className="text-xs sm:text-sm font-semibold text-stone-900 mt-1.5 tracking-tight">
-                  Verified Properties
-                </div>
-                <p className="text-[11px] sm:text-xs text-stone-500 mt-0.5 leading-relaxed">
-                  ESTRA audited title registration
-                </p>
+              {/* Price Band */}
+              <div className="flex flex-col">
+                <label className="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-1.5">
+                  Target Price Range
+                </label>
+                <select
+                  value={searchPriceRange}
+                  onChange={(e) => setSearchPriceRange(e.target.value)}
+                  className="w-full text-sm sm:text-base font-medium text-stone-900 py-3 px-3.5 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
+                >
+                  <option value="all">Any Valuation</option>
+                  <option value="under-5m">Under $5,000,000</option>
+                  <option value="5m-15m">$5,000,000 – $15,000,000</option>
+                  <option value="15m-plus">$15,000,000+</option>
+                </select>
               </div>
 
-              <div className="pt-4 sm:pt-0 sm:px-5 last:pr-0 text-left">
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-stone-950 font-architectural tabular-nums">
-                  98<span className="text-stone-400 font-sans font-light text-2xl sm:text-3xl lg:text-4xl">%</span>
-                </div>
-                <div className="text-xs sm:text-sm font-semibold text-stone-900 mt-1.5 tracking-tight">
-                  Client Satisfaction
-                </div>
-                <p className="text-[11px] sm:text-xs text-stone-500 mt-0.5 leading-relaxed">
-                  Verified client approval rating
-                </p>
+              {/* Submit Button */}
+              <div className="flex flex-col justify-end">
+                <button
+                  type="submit"
+                  className="w-full py-3 px-5 bg-stone-900 hover:bg-stone-800 text-white text-sm sm:text-base font-semibold tracking-tight flex items-center justify-center gap-2.5 transition-colors h-[46px] shadow-sm"
+                >
+                  <Search className="w-4 h-4 stroke-[1.5]" />
+                  <span>Search Properties</span>
+                </button>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </section>
 
-      {/* 3. ABOUT ESTRA / PLATFORM CHARTER: Edge-to-edge full width */}
+      {/* 3. ABOUT ESTRA / STATISTICS: Edge-to-edge full width with generous padding */}
       <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
-        <div className="bg-stone-900 text-white rounded-3xl p-8 sm:p-12 lg:p-16 border border-stone-800 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          <div className="lg:col-span-8 space-y-4">
-            <div className="text-xs uppercase tracking-widest text-stone-400 font-mono">
-              ESTRA Platform Charter
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight font-architectural leading-tight">
-              Institutional due diligence for every square foot.
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left: About Text */}
+          <div className="lg:col-span-6 space-y-6">
+            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-stone-950 font-architectural">
+              About ESTRA
             </h2>
-            <p className="text-stone-300 text-sm sm:text-base max-w-2xl leading-relaxed">
-              Operating nationwide since 2015, ESTRA unifies county deed ownership records, structural plan measurements, environmental site reviews, and legal transaction escrow under one transparent digital marketplace.
+            <p className="text-base sm:text-lg text-stone-600 leading-relaxed">
+              ESTRA is a nationwide digital real estate marketplace and advisory platform operating since 2015. We partner with founders, enterprise corporations, and private investors to discover, lease, and acquire office, residential, warehouse, and land assets.
             </p>
+            <p className="text-base sm:text-lg text-stone-600 leading-relaxed">
+              Our multidisciplinary team unifies title verification, structural condition reviews, environmental compliance, and legal transaction escrow under one transparent digital platform.
+            </p>
+            <div className="pt-2">
+              <Link
+                to="/about"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-stone-950 border-b-2 border-stone-900 pb-0.5 hover:text-stone-700 transition-colors"
+              >
+                <span>Read Platform Charter & Verification Standards</span>
+                <ArrowRight className="w-4 h-4 stroke-[1.5]" />
+              </Link>
+            </div>
           </div>
-          <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
-            <Link
-              to="/about"
-              className="px-6 py-3.5 bg-white text-stone-950 font-semibold text-sm hover:bg-stone-100 transition-colors inline-flex items-center justify-center gap-2 text-center shadow-xs"
-            >
-              <span>Read Platform Charter</span>
-              <ArrowRight className="w-4 h-4 stroke-[1.5]" />
-            </Link>
-            <Link
-              to="/how-it-works"
-              className="px-6 py-3.5 bg-stone-800/80 text-white border border-stone-700 font-semibold text-sm hover:bg-stone-700 transition-colors inline-flex items-center justify-center gap-2 text-center"
-            >
-              <span>Verification Protocol</span>
-            </Link>
+
+          {/* Right: 2x2 Statistics Matrix */}
+          <div className="lg:col-span-6 grid grid-cols-2 gap-8 sm:gap-14 pt-2 border-t lg:border-t-0 lg:border-l border-stone-200 lg:pl-16">
+            <div>
+              <div className="text-5xl sm:text-6xl font-bold tracking-tight text-stone-950 font-mono tabular-nums">
+                11+
+              </div>
+              <p className="text-sm sm:text-base text-stone-500 mt-2 font-medium">
+                Years Operating in Marketplace
+              </p>
+            </div>
+            <div>
+              <div className="text-5xl sm:text-6xl font-bold tracking-tight text-stone-950 font-mono tabular-nums">
+                1,200+
+              </div>
+              <p className="text-sm sm:text-base text-stone-500 mt-2 font-medium">
+                Closed Deals & Leases
+              </p>
+            </div>
+            <div>
+              <div className="text-5xl sm:text-6xl font-bold tracking-tight text-stone-950 font-mono tabular-nums">
+                4,200+
+              </div>
+              <p className="text-sm sm:text-base text-stone-500 mt-2 font-medium">
+                Verified Properties in Database
+              </p>
+            </div>
+            <div>
+              <div className="text-5xl sm:text-6xl font-bold tracking-tight text-stone-950 font-mono tabular-nums">
+                98%
+              </div>
+              <p className="text-sm sm:text-base text-stone-500 mt-2 font-medium">
+                Institutional Client Satisfaction
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -207,64 +297,43 @@ export const HomePage: React.FC = () => {
               Curated categories across corporate, industrial, and residential classes
             </p>
           </div>
-          <div className="flex items-center gap-4 self-start sm:self-auto">
-            <button
-              onClick={() => setShowAllCategories(!showAllCategories)}
-              className="text-xs sm:text-sm font-medium text-stone-600 hover:text-stone-950 transition-colors py-1 px-2.5 rounded-md hover:bg-stone-100 border border-stone-200"
-            >
-              {showAllCategories ? 'Show Featured' : `All Categories (${PROPERTY_CATEGORIES.length})`}
-            </button>
-            <Link
-              to="/properties"
-              className="text-sm font-semibold text-stone-900 hover:text-stone-600 transition-colors flex items-center gap-1.5"
-            >
-              <span>View All Asset Classes</span>
-              <ArrowRight className="w-4 h-4 stroke-[1.5]" />
-            </Link>
-          </div>
+          <Link
+            to="/properties"
+            className="text-sm font-semibold text-stone-900 hover:text-stone-600 transition-colors flex items-center gap-1.5 self-start sm:self-auto"
+          >
+            <span>View All Asset Classes</span>
+            <ArrowRight className="w-4 h-4 stroke-[1.5]" />
+          </Link>
         </div>
 
-        {/* Category Cards Grid */}
+        {/* Tall Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {displayedCategories.map((cat) => (
+          {PROPERTY_CATEGORIES.slice(0, 4).map((cat) => (
             <Link
               key={cat.name}
               to={`/properties?category=${cat.name}`}
-              className="group relative overflow-hidden rounded-2xl aspect-[4/5] min-h-[380px] shadow-sm hover:shadow-xl transition-all duration-300 block border border-stone-800/10 focus:outline-none focus:ring-2 focus:ring-stone-900 focus:ring-offset-2"
+              className="group block"
             >
-              {/* Background image filling entire card */}
-              <img
-                src={cat.image}
-                alt={cat.name}
-                loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              />
-
-              {/* Dark gradient overlay on top of image */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/85 transition-colors duration-300 pointer-events-none" />
-
-              {/* Card text content */}
-              <div className="relative z-10 flex flex-col justify-between h-full p-6 text-white">
-                {/* Top: Property Count badge & subtle arrow affordance */}
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-mono font-medium tracking-wide text-white/90 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full border border-white/15">
+              <div className="aspect-3/4 rounded-xl sm:rounded-2xl overflow-hidden bg-stone-100 border border-stone-200 relative mb-3">
+                <ImageWithFallback
+                  src={cat.image}
+                  alt={cat.name}
+                  fallbackTitle={cat.name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-104"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-stone-950/75 via-transparent to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                <div className="absolute bottom-5 left-5 right-5 text-white">
+                  <span className="text-xs font-mono text-stone-300 block">
                     {cat.count}
                   </span>
-                  <span className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white/80 group-hover:text-white group-hover:bg-white/20 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                    <ArrowUpRight className="w-4 h-4 stroke-[1.5]" />
-                  </span>
-                </div>
-
-                {/* Bottom: Title & Description */}
-                <div className="space-y-1.5">
-                  <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-architectural drop-shadow-xs">
+                  <h3 className="text-xl font-bold tracking-tight mt-1">
                     {cat.name}
                   </h3>
-                  <p className="text-sm text-stone-200 line-clamp-2 leading-relaxed drop-shadow-xs opacity-90 group-hover:opacity-100 transition-opacity">
-                    {cat.description}
-                  </p>
                 </div>
               </div>
+              <p className="text-xs sm:text-sm text-stone-500 line-clamp-1">
+                {cat.description}
+              </p>
             </Link>
           ))}
         </div>

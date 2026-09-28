@@ -8,26 +8,36 @@ export const Header: React.FC = () => {
   const location = useLocation();
   const { savedIds, compareIds, user, setAuthModalOpen } = useMarketplace();
 
-  const isActive = (path: string) => {
-    const [pathPart, queryPart] = path.split('?');
-    if (pathPart === '/' && location.pathname === '/') return true;
+  const isActive = (href: string) => {
+    const [path, query] = href.split('?');
+    // If href is home '/'
+    if (href === '/') {
+      return location.pathname === '/' && !location.search;
+    }
 
-    if (pathPart === '/properties') {
+    // If href has query params (like '/properties?type=buy' or '/properties?type=rent')
+    if (query) {
+      if (location.pathname !== path) return false;
+      const hrefParams = new URLSearchParams(query);
+      const currentParams = new URLSearchParams(location.search);
+      for (const [key, value] of hrefParams.entries()) {
+        if (currentParams.get(key) !== value) return false;
+      }
+      return true;
+    }
+
+    // If href is '/properties' (Explore)
+    if (href === '/properties') {
       if (location.pathname !== '/properties') return false;
       const currentParams = new URLSearchParams(location.search);
       const currentType = currentParams.get('type');
-      if (queryPart) {
-        const linkParams = new URLSearchParams(queryPart);
-        const linkType = linkParams.get('type');
-        return currentType === linkType;
-      } else {
-        // 'Explore' link: active only when on /properties AND no type param (or type === 'all')
-        return !currentType || currentType === 'all';
-      }
+      // If user is explicitly on ?type=buy or ?type=rent, Buy/Rent is active, not Explore
+      if (currentType === 'buy' || currentType === 'rent') return false;
+      return true;
     }
 
-    if (pathPart !== '/' && location.pathname.startsWith(pathPart)) return true;
-    return false;
+    // For other paths like '/sell', '/agents', '/how-it-works'
+    return location.pathname === path || location.pathname.startsWith(`${path}/`);
   };
 
   const navLinks = [
@@ -149,11 +159,7 @@ export const Header: React.FC = () => {
                 key={link.label}
                 to={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block py-1 transition-colors ${
-                  isActive(link.href)
-                    ? 'text-stone-950 font-bold border-l-2 border-stone-900 pl-3'
-                    : 'text-stone-700 hover:text-stone-950'
-                }`}
+                className="block py-1 hover:text-stone-950"
               >
                 {link.label}
               </Link>
