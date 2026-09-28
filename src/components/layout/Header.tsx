@@ -161,7 +161,7 @@ export const Header: React.FC = () => {
             </Link>
           </div>
 
-          <div className="pt-6 space-y-3">
+          <div className="pt-6">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
@@ -171,13 +171,6 @@ export const Header: React.FC = () => {
             >
               {user ? `Signed in as ${user.name}` : 'Sign In to Account'}
             </button>
-            <Link
-              to="/sell"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block w-full py-2.5 px-4 text-xs font-medium text-white bg-stone-900 hover:bg-stone-800 transition-colors text-center"
-            >
-              List a Property
-            </Link>
           </div>
         </div>
       )}

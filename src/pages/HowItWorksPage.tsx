@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { 
   Search, 
-  Columns2, 
+  BarChart3, 
   Calendar, 
   FileCheck, 
   KeyRound, 
@@ -33,9 +33,9 @@ export const HowItWorksPage: React.FC = () => {
     },
     {
       step: '02',
-      title: 'Side-by-Side Spatial & Valuation Comparison',
-      desc: 'Add up to four candidate properties to the technical comparison matrix to benchmark price per square foot, operational HOA costs, and building amenities.',
-      icon: Columns2
+      title: 'Spatial & Valuation Analysis',
+      desc: 'Examine detailed spatial specifications, price per square foot valuations, operational HOA expenditures, and verified building amenities.',
+      icon: BarChart3
     },
     {
       step: '03',

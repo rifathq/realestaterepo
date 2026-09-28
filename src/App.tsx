@@ -10,7 +10,6 @@ import { AuthModal } from './components/common/AuthModal';
 import { HomePage } from './pages/HomePage';
 import { PropertiesPage } from './pages/PropertiesPage';
 import { PropertyDetailPage } from './pages/PropertyDetailPage';
-import { ComparePage } from './pages/ComparePage';
 import { SavedPage } from './pages/SavedPage';
 import { SellPage } from './pages/SellPage';
 import { TourPage } from './pages/TourPage';
@@ -45,7 +44,6 @@ export default function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/properties" element={<PropertiesPage />} />
               <Route path="/properties/:slug" element={<PropertyDetailPage />} />
-              <Route path="/compare" element={<ComparePage />} />
               <Route path="/saved" element={<SavedPage />} />
               <Route path="/sell" element={<SellPage />} />
               <Route path="/tour/:property" element={<TourPage />} />

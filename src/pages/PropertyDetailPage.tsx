@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { 
   Bookmark, 
-  Columns2, 
   Share2, 
   Calendar, 
   MapPin, 
@@ -26,7 +25,7 @@ import { PropertyCard } from '../components/property/PropertyCard';
 export const PropertyDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const { isSaved, toggleSave, isComparing, toggleCompare, notify } = useMarketplace();
+  const { isSaved, toggleSave, notify } = useMarketplace();
 
   const property = PROPERTIES.find((p) => p.slug === slug);
   const agent = property ? AGENTS.find((a) => a.id === property.agentId) || AGENTS[0] : null;
@@ -59,7 +58,6 @@ export const PropertyDetailPage: React.FC = () => {
   }
 
   const saved = isSaved(property.id);
-  const comparing = isComparing(property.id);
 
   const handleShare = () => {
     if (navigator.clipboard) {
@@ -105,18 +103,6 @@ export const PropertyDetailPage: React.FC = () => {
             >
               <Share2 className="w-3.5 h-3.5 stroke-[1.5]" />
               <span className="hidden sm:inline">Share</span>
-            </button>
-            <button
-              onClick={() => toggleCompare(property.id)}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 border transition-colors ${
-                comparing 
-                  ? 'bg-stone-900 text-white border-stone-900' 
-                  : 'border-stone-200 text-stone-700 hover:text-stone-950 hover:bg-stone-50'
-              }`}
-              title="Toggle compare"
-            >
-              <Columns2 className="w-3.5 h-3.5 stroke-[1.5]" />
-              <span className="hidden sm:inline">{comparing ? 'In Comparison' : 'Compare'}</span>
             </button>
             <button
               onClick={() => toggleSave(property.id)}

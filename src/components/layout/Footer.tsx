@@ -14,7 +14,7 @@ export const Footer: React.FC = () => {
               ESTRA
             </Link>
             <p className="text-sm text-stone-400 max-w-sm leading-relaxed">
-              A unified marketplace to discover, compare, and acquire verified architectural residences and commercial properties with total data transparency.
+              A unified marketplace to discover, evaluate, and acquire verified architectural residences and commercial properties with total data transparency.
             </p>
             <div className="pt-2">
               <span className="inline-flex items-center gap-2 text-xs text-stone-400">
@@ -48,11 +48,6 @@ export const Footer: React.FC = () => {
               <li>
                 <Link to="/sell" className="hover:text-white transition-colors">
                   Sell & List
-                </Link>
-              </li>
-              <li>
-                <Link to="/compare" className="hover:text-white transition-colors">
-                  Property Compare
                 </Link>
               </li>
             </ul>

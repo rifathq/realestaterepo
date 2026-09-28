@@ -8,13 +8,6 @@ interface MarketplaceContextType {
   isSaved: (id: string) => boolean;
   savedProperties: Property[];
   
-  compareIds: string[];
-  toggleCompare: (id: string) => void;
-  removeFromCompare: (id: string) => void;
-  clearCompare: () => void;
-  isComparing: (id: string) => boolean;
-  compareProperties: Property[];
-  
   notification: string | null;
   notify: (message: string) => void;
   
@@ -28,7 +21,6 @@ interface MarketplaceContextType {
 const MarketplaceContext = createContext<MarketplaceContextType | undefined>(undefined);
 
 const SAVED_STORAGE_KEY = 'estra_saved_properties_v1';
-const COMPARE_STORAGE_KEY = 'estra_compare_properties_v1';
 const USER_STORAGE_KEY = 'estra_user_session_v1';
 
 export const MarketplaceProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -36,16 +28,6 @@ export const MarketplaceProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const [savedIds, setSavedIds] = useState<string[]>(() => {
     try {
       const stored = localStorage.getItem(SAVED_STORAGE_KEY);
-      return stored ? JSON.parse(stored) : ['prop-1', 'prop-2'];
-    } catch {
-      return ['prop-1', 'prop-2'];
-    }
-  });
-
-  // Compare IDs
-  const [compareIds, setCompareIds] = useState<string[]>(() => {
-    try {
-      const stored = localStorage.getItem(COMPARE_STORAGE_KEY);
       return stored ? JSON.parse(stored) : ['prop-1', 'prop-2'];
     } catch {
       return ['prop-1', 'prop-2'];
@@ -73,14 +55,6 @@ export const MarketplaceProvider: React.FC<{ children: React.ReactNode }> = ({ c
       console.error(e);
     }
   }, [savedIds]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(COMPARE_STORAGE_KEY, JSON.stringify(compareIds));
-    } catch (e) {
-      console.error(e);
-    }
-  }, [compareIds]);
 
   useEffect(() => {
     try {
@@ -115,35 +89,7 @@ export const MarketplaceProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
   const isSaved = (id: string) => savedIds.includes(id);
 
-  const toggleCompare = (id: string) => {
-    const property = PROPERTIES.find(p => p.id === id);
-    const title = property ? property.title : 'Property';
-    if (compareIds.includes(id)) {
-      setCompareIds(prev => prev.filter(item => item !== id));
-      notify(`Removed "${title}" from comparison matrix`);
-    } else {
-      if (compareIds.length >= 4) {
-        notify('Comparison limit reached (maximum 4 properties)');
-        return;
-      }
-      setCompareIds(prev => [...prev, id]);
-      notify(`Added "${title}" to comparison`);
-    }
-  };
-
-  const removeFromCompare = (id: string) => {
-    setCompareIds(prev => prev.filter(item => item !== id));
-  };
-
-  const clearCompare = () => {
-    setCompareIds([]);
-    notify('Comparison cleared');
-  };
-
-  const isComparing = (id: string) => compareIds.includes(id);
-
   const savedProperties = PROPERTIES.filter(p => savedIds.includes(p.id));
-  const compareProperties = PROPERTIES.filter(p => compareIds.includes(p.id));
 
   const login = (name: string, email: string) => {
     setUser({ name, email });
@@ -163,12 +109,6 @@ export const MarketplaceProvider: React.FC<{ children: React.ReactNode }> = ({ c
         toggleSave,
         isSaved,
         savedProperties,
-        compareIds,
-        toggleCompare,
-        removeFromCompare,
-        clearCompare,
-        isComparing,
-        compareProperties,
         notification,
         notify,
         user,

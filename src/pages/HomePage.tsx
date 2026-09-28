@@ -1,30 +1,81 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { 
-  Search, 
-  ArrowRight, 
+  ChevronLeft,
+  ChevronRight,
+  Search,
   CheckCircle2, 
   ShieldCheck, 
   FileText, 
-  Eye, 
-  Building,
-  KeyRound,
-  ArrowUpRight
+  Eye
 } from 'lucide-react';
-import { PROPERTIES, PROPERTY_CATEGORIES, CITIES } from '../data/properties';
-import { PropertyCard } from '../components/property/PropertyCard';
+import { PROPERTIES } from '../data/properties';
+import { RedfinPropertyCard } from '../components/property/RedfinPropertyCard';
 import { ImageWithFallback } from '../components/common/ImageWithFallback';
 import { HeroSearchBar } from '../components/home/HeroSearchBar';
-import { PropertyCategory, ListingType } from '../types/property';
 
 export const HomePage: React.FC = () => {
-  // Featured section filter
-  const [featuredTab, setFeaturedTab] = useState<'all' | 'Offices' | 'Villas' | 'Penthouses'>('all');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [cardsPerView, setCardsPerView] = useState(3);
 
-  const filteredFeatured = PROPERTIES.filter((p) => {
-    if (featuredTab === 'all') return true;
-    return p.category === featuredTab;
-  });
+  // Touch tracking for mobile swipe
+  const touchStartX = useRef<number | null>(null);
+  const touchDeltaX = useRef<number>(0);
+
+  // Responsive cards-per-view tracking (1 mobile, 2 tablet, 3 desktop)
+  useEffect(() => {
+    const handleResize = () => {
+      if (typeof window !== 'undefined') {
+        if (window.innerWidth >= 1024) {
+          setCardsPerView(3);
+        } else if (window.innerWidth >= 640) {
+          setCardsPerView(2);
+        } else {
+          setCardsPerView(1);
+        }
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const featuredProperties = PROPERTIES;
+  const maxIndex = Math.max(0, featuredProperties.length - cardsPerView);
+  const validIndex = Math.min(currentIndex, maxIndex);
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => Math.max(0, prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
+  };
+
+  // Touch gestures for swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchDeltaX.current = 0;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (touchStartX.current !== null) {
+      touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current !== null) {
+      if (touchDeltaX.current > 45 && validIndex > 0) {
+        handlePrev();
+      } else if (touchDeltaX.current < -45 && validIndex < maxIndex) {
+        handleNext();
+      }
+    }
+    touchStartX.current = null;
+    touchDeltaX.current = 0;
+  };
 
   return (
     <div className="space-y-24 sm:space-y-32 pb-24 w-full">
@@ -81,174 +132,92 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. ABOUT ESTRA / STATISTICS: Edge-to-edge full width with generous padding */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left: About Text */}
-          <div className="lg:col-span-6 space-y-6">
-            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-stone-950 font-architectural">
-              About ESTRA
-            </h2>
-            <p className="text-base sm:text-lg text-stone-600 leading-relaxed">
-              ESTRA is a nationwide digital real estate marketplace and advisory platform operating since 2015. We partner with founders, enterprise corporations, and private investors to discover, lease, and acquire office, residential, warehouse, and land assets.
-            </p>
-            <p className="text-base sm:text-lg text-stone-600 leading-relaxed">
-              Our multidisciplinary team unifies title verification, structural condition reviews, environmental compliance, and legal transaction escrow under one transparent digital platform.
-            </p>
-            <div className="pt-2">
-              <Link
-                to="/about"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-stone-950 border-b-2 border-stone-900 pb-0.5 hover:text-stone-700 transition-colors"
-              >
-                <span>Read Platform Charter & Verification Standards</span>
-                <ArrowRight className="w-4 h-4 stroke-[1.5]" />
-              </Link>
-            </div>
-          </div>
-
-          {/* Right: 2x2 Statistics Matrix */}
-          <div className="lg:col-span-6 grid grid-cols-2 gap-8 sm:gap-14 pt-2 border-t lg:border-t-0 lg:border-l border-stone-200 lg:pl-16">
-            <div>
-              <div className="text-5xl sm:text-6xl font-bold tracking-tight text-stone-950 font-mono tabular-nums">
-                11+
-              </div>
-              <p className="text-sm sm:text-base text-stone-500 mt-2 font-medium">
-                Years Operating in Marketplace
-              </p>
-            </div>
-            <div>
-              <div className="text-5xl sm:text-6xl font-bold tracking-tight text-stone-950 font-mono tabular-nums">
-                1,200+
-              </div>
-              <p className="text-sm sm:text-base text-stone-500 mt-2 font-medium">
-                Closed Deals & Leases
-              </p>
-            </div>
-            <div>
-              <div className="text-5xl sm:text-6xl font-bold tracking-tight text-stone-950 font-mono tabular-nums">
-                4,200+
-              </div>
-              <p className="text-sm sm:text-base text-stone-500 mt-2 font-medium">
-                Verified Properties in Database
-              </p>
-            </div>
-            <div>
-              <div className="text-5xl sm:text-6xl font-bold tracking-tight text-stone-950 font-mono tabular-nums">
-                98%
-              </div>
-              <p className="text-sm sm:text-base text-stone-500 mt-2 font-medium">
-                Institutional Client Satisfaction
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. PROPERTY CATALOG: Full width edge-to-edge */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+      {/* 2. FEATURED PROPERTIES: Interactive 3-Card Carousel (Redfin Style) */}
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-8 sm:py-10">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
           <div>
-            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-stone-950 font-architectural">
-              Property Catalog
-            </h2>
-            <p className="text-sm sm:text-base text-stone-500 mt-1">
-              Curated categories across corporate, industrial, and residential classes
-            </p>
-          </div>
-          <Link
-            to="/properties"
-            className="text-sm font-semibold text-stone-900 hover:text-stone-600 transition-colors flex items-center gap-1.5 self-start sm:self-auto"
-          >
-            <span>View All Asset Classes</span>
-            <ArrowRight className="w-4 h-4 stroke-[1.5]" />
-          </Link>
-        </div>
-
-        {/* Tall Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {PROPERTY_CATEGORIES.slice(0, 4).map((cat) => (
-            <Link
-              key={cat.name}
-              to={`/properties?category=${cat.name}`}
-              className="group block"
-            >
-              <div className="aspect-3/4 rounded-xl sm:rounded-2xl overflow-hidden bg-stone-100 border border-stone-200 relative mb-3">
-                <ImageWithFallback
-                  src={cat.image}
-                  alt={cat.name}
-                  fallbackTitle={cat.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-104"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-stone-950/75 via-transparent to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
-                <div className="absolute bottom-5 left-5 right-5 text-white">
-                  <span className="text-xs font-mono text-stone-300 block">
-                    {cat.count}
-                  </span>
-                  <h3 className="text-xl font-bold tracking-tight mt-1">
-                    {cat.name}
-                  </h3>
-                </div>
-              </div>
-              <p className="text-xs sm:text-sm text-stone-500 line-clamp-1">
-                {cat.description}
-              </p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* 5. FEATURED PROPERTIES: Asymmetric Editorial Grid - Full width */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-          <div>
-            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-stone-950 font-architectural">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-stone-950 font-architectural">
               Properties Worth Seeing
             </h2>
-            <p className="text-sm sm:text-base text-stone-500 mt-1">
+            <p className="text-xs sm:text-sm text-stone-500 mt-1">
               Curated architectural residences, corporate pavilions, and prime penthouses
             </p>
           </div>
 
-          {/* Interactive filter tabs */}
-          <div className="flex items-center gap-1.5 p-1 bg-stone-100 border border-stone-200 self-start md:self-auto overflow-x-auto">
-            {(['all', 'Offices', 'Villas', 'Penthouses'] as const).map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setFeaturedTab(tab)}
-                className={`px-4 py-2 text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
-                  featuredTab === tab
-                    ? 'bg-white text-stone-900 shadow-xs font-semibold'
-                    : 'text-stone-600 hover:text-stone-900'
-                }`}
+          {/* Carousel Previous / Next Navigation Arrows (Redfin Style) */}
+          <div className="flex items-center gap-2 self-start sm:self-auto">
+            <button
+              type="button"
+              onClick={handlePrev}
+              disabled={validIndex <= 0}
+              aria-label="Previous properties"
+              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full border flex items-center justify-center transition-all ${
+                validIndex <= 0
+                  ? 'border-stone-200 text-stone-300 cursor-not-allowed bg-stone-50/50'
+                  : 'border-stone-300 bg-white text-stone-800 hover:bg-stone-900 hover:text-white hover:border-stone-900 shadow-2xs active:scale-95 cursor-pointer'
+              }`}
+            >
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
+            </button>
+
+            <button
+              type="button"
+              onClick={handleNext}
+              disabled={validIndex >= maxIndex}
+              aria-label="Next properties"
+              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full border flex items-center justify-center transition-all ${
+                validIndex >= maxIndex
+                  ? 'border-stone-200 text-stone-300 cursor-not-allowed bg-stone-50/50'
+                  : 'border-stone-300 bg-white text-stone-800 hover:bg-stone-900 hover:text-white hover:border-stone-900 shadow-2xs active:scale-95 cursor-pointer'
+              }`}
+            >
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
+            </button>
+          </div>
+        </div>
+
+        {/* Carousel Viewport Container */}
+        <div
+          className="w-full overflow-hidden select-none"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div
+            className="flex gap-6 transition-transform duration-500 ease-out will-change-transform"
+            style={{
+              transform: `translateX(calc(-${validIndex} * ((100% + 24px) / ${cardsPerView})))`
+            }}
+          >
+            {featuredProperties.map((property) => (
+              <div
+                key={property.id}
+                className="shrink-0 w-full sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)]"
               >
-                {tab === 'all' ? 'All Curated' : tab}
-              </button>
+                <RedfinPropertyCard property={property} />
+              </div>
             ))}
           </div>
         </div>
 
-        {/* Asymmetric Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {/* Marquee property if all or first available */}
-          {filteredFeatured.map((property, idx) => (
-            <PropertyCard
-              key={property.id}
-              property={property}
-              isLargeFeatured={idx === 0}
-              className={idx === 0 ? 'md:col-span-2 lg:col-span-2' : ''}
-            />
-          ))}
-        </div>
-
-        <div className="mt-10 text-center">
-          <Link
-            to="/properties"
-            className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-stone-900 text-white text-sm font-semibold hover:bg-stone-800 transition-colors shadow-sm"
-          >
-            <span>Browse Full Directory (4,200+ Listings)</span>
-            <ArrowRight className="w-4 h-4 stroke-[1.5]" />
-          </Link>
-        </div>
+        {/* Carousel Pagination Dots */}
+        {maxIndex > 0 && (
+          <div className="flex items-center justify-center gap-2 mt-6">
+            {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={() => setCurrentIndex(index)}
+                aria-label={`Go to slide ${index + 1}`}
+                className={`transition-all duration-300 rounded-full cursor-pointer ${
+                  validIndex === index
+                    ? 'w-6 h-2 bg-stone-900'
+                    : 'w-2 h-2 bg-stone-300 hover:bg-stone-400'
+                }`}
+              />
+            ))}
+          </div>
+        )}
       </section>
 
       {/* 6. HOW WE WORK: Full width */}
@@ -352,128 +321,6 @@ export const HomePage: React.FC = () => {
                   Full legal advisory and settlement assistance until final lease execution or title deed handover.
                 </p>
               </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* 7. METROPOLITAN HUBS: City exploration cards - Full width */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-          <div>
-            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-stone-950 font-architectural">
-              Explore Prime Regions
-            </h2>
-            <p className="text-sm sm:text-base text-stone-500 mt-1">
-              Active marketplaces with verified listings across coastal and interior corridors
-            </p>
-          </div>
-          <Link
-            to="/properties"
-            className="text-sm font-semibold text-stone-900 hover:text-stone-600 transition-colors flex items-center gap-1.5"
-          >
-            <span>Explore All 24 Hubs</span>
-            <ArrowRight className="w-4 h-4 stroke-[1.5]" />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {CITIES.map((city) => (
-            <Link
-              key={city.name}
-              to={`/properties?location=${city.name}`}
-              className="group block relative aspect-4/3 overflow-hidden rounded-xl bg-stone-100 border border-stone-200"
-            >
-              <ImageWithFallback
-                src={city.image}
-                alt={city.name}
-                fallbackTitle={city.name}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/20 to-transparent" />
-              <div className="absolute bottom-5 left-5 right-5 text-white">
-                <span className="text-xs font-mono text-stone-300 block">
-                  {city.count}
-                </span>
-                <h3 className="text-lg font-bold tracking-tight">
-                  {city.name}
-                </h3>
-                <span className="text-xs text-stone-400">
-                  {city.region}
-                </span>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* 8. THREE-PATH CONVERSION: Buy / Rent / Sell - Full width */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
-        <div className="border-t border-stone-200 pt-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
-            <div className="p-8 sm:p-10 bg-white border border-stone-200 flex flex-col justify-between space-y-6">
-              <div>
-                <div className="w-12 h-12 rounded-full bg-stone-100 text-stone-900 flex items-center justify-center mb-5">
-                  <KeyRound className="w-6 h-6 stroke-[1.5]" />
-                </div>
-                <h3 className="text-2xl font-bold tracking-tight text-stone-950">
-                  Acquire Property
-                </h3>
-                <p className="text-sm sm:text-base text-stone-600 mt-2 leading-relaxed">
-                  Discover verified residential estates, architectural pavilions, and corporate buildings with transparent pricing and title surveys.
-                </p>
-              </div>
-              <Link
-                to="/properties?type=buy"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-stone-950 hover:text-stone-700 transition-colors"
-              >
-                <span>Browse Properties For Sale</span>
-                <ArrowRight className="w-4 h-4 stroke-[1.5]" />
-              </Link>
-            </div>
-
-            <div className="p-8 sm:p-10 bg-white border border-stone-200 flex flex-col justify-between space-y-6">
-              <div>
-                <div className="w-12 h-12 rounded-full bg-stone-100 text-stone-900 flex items-center justify-center mb-5">
-                  <Building className="w-6 h-6 stroke-[1.5]" />
-                </div>
-                <h3 className="text-2xl font-bold tracking-tight text-stone-950">
-                  Lease & Rent
-                </h3>
-                <p className="text-sm sm:text-base text-stone-600 mt-2 leading-relaxed">
-                  Executive offices, penthouses, and design ateliers on clear commercial and residential lease agreements.
-                </p>
-              </div>
-              <Link
-                to="/properties?type=rent"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-stone-950 hover:text-stone-700 transition-colors"
-              >
-                <span>Browse Properties For Lease</span>
-                <ArrowRight className="w-4 h-4 stroke-[1.5]" />
-              </Link>
-            </div>
-
-            <div className="p-8 sm:p-10 bg-stone-900 text-white border border-stone-800 flex flex-col justify-between space-y-6">
-              <div>
-                <div className="w-12 h-12 rounded-full bg-stone-800 text-white flex items-center justify-center mb-5">
-                  <ArrowUpRight className="w-6 h-6 stroke-[1.5]" />
-                </div>
-                <h3 className="text-2xl font-bold tracking-tight text-white">
-                  List Your Property
-                </h3>
-                <p className="text-sm sm:text-base text-stone-300 mt-2 leading-relaxed">
-                  Present your property to qualified investors, tenants, and institutions through ESTRA verified marketing network.
-                </p>
-              </div>
-              <Link
-                to="/sell"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-stone-300 transition-colors"
-              >
-                <span>Initiate Property Listing</span>
-                <ArrowRight className="w-4 h-4 stroke-[1.5]" />
-              </Link>
             </div>
 
           </div>
