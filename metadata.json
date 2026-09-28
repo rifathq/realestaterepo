@@ -1,0 +1,6 @@
+{
+  "name": "ESTRA Real Estate Marketplace",
+  "description": "Discover, compare, tour, buy, rent, and sell verified architectural properties through a unified, premium digital marketplace.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
