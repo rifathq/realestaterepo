@@ -11,7 +11,7 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   alt = 'Architectural property view',
   fallbackTitle,
   className = '',
-  containerClassName = '',
+  containerClassName = 'w-full h-full',
   ...props
 }) => {
   const [error, setError] = useState(false);

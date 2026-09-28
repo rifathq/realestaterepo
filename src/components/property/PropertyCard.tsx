@@ -38,7 +38,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
         {/* Top bar over image: clean unobtrusive status & action affordances */}
         <div className="absolute top-3 inset-x-3 flex items-center justify-between pointer-events-none">
           {/* Subtle status tag (unboxed or minimal crisp label) */}
-          <span className="pointer-events-auto bg-stone-900/80 backdrop-blur-xs text-white text-[11px] font-medium px-2 py-0.5 tracking-tight uppercase">
+          <span className="pointer-events-auto bg-stone-900/90 backdrop-blur-xs text-white text-xs font-semibold px-2.5 py-1 tracking-tight uppercase">
             {property.listingType === 'buy' ? 'For Sale' : 'For Lease'}
           </span>
 
@@ -50,15 +50,15 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
                 e.stopPropagation();
                 toggleCompare(property.id);
               }}
-              className={`p-1.5 backdrop-blur-xs transition-colors ${
+              className={`p-2 backdrop-blur-xs transition-colors ${
                 comparing
                   ? 'bg-stone-900 text-white'
-                  : 'bg-white/85 text-stone-700 hover:bg-white hover:text-stone-950'
+                  : 'bg-white/90 text-stone-700 hover:bg-white hover:text-stone-950'
               }`}
               title={comparing ? 'Remove from compare' : 'Add to compare'}
               aria-label="Toggle comparison"
             >
-              <Columns2 className="w-3.5 h-3.5 stroke-[1.5]" />
+              <Columns2 className="w-4 h-4 stroke-[1.5]" />
             </button>
 
             {/* Save / Favorite toggle */}
@@ -68,23 +68,23 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
                 e.stopPropagation();
                 toggleSave(property.id);
               }}
-              className={`p-1.5 backdrop-blur-xs transition-colors ${
+              className={`p-2 backdrop-blur-xs transition-colors ${
                 saved
                   ? 'bg-stone-900 text-white'
-                  : 'bg-white/85 text-stone-700 hover:bg-white hover:text-stone-950'
+                  : 'bg-white/90 text-stone-700 hover:bg-white hover:text-stone-950'
               }`}
               title={saved ? 'Remove from saved' : 'Save property'}
               aria-label="Toggle favorite"
             >
-              <Bookmark className={`w-3.5 h-3.5 stroke-[1.5] ${saved ? 'fill-current' : ''}`} />
+              <Bookmark className={`w-4 h-4 stroke-[1.5] ${saved ? 'fill-current' : ''}`} />
             </button>
           </div>
         </div>
 
         {/* Editorial highlight label if present */}
         {property.editorialHighlight && (
-          <div className="absolute bottom-2.5 left-3 pointer-events-none">
-            <span className="text-[11px] font-medium text-white/95 bg-stone-950/70 backdrop-blur-xs px-2 py-0.5 tracking-tight">
+          <div className="absolute bottom-3 left-3 pointer-events-none">
+            <span className="text-xs font-semibold text-white/95 bg-stone-950/80 backdrop-blur-xs px-2.5 py-1 tracking-tight">
               {property.editorialHighlight}
             </span>
           </div>
@@ -92,18 +92,18 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
       </div>
 
       {/* Content section */}
-      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+      <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
         <div>
           {/* Unboxed category and location metadata */}
-          <div className="flex items-center gap-2 text-xs text-stone-500 mb-1.5 tracking-tight">
-            <span>{property.category}</span>
-            <span aria-hidden="true">·</span>
-            <span>{property.location.neighborhood}, {property.location.city}</span>
+          <div className="flex items-center gap-2 text-sm text-stone-600 font-medium mb-2 tracking-tight">
+            <span className="text-stone-900 font-semibold">{property.category}</span>
+            <span aria-hidden="true" className="text-stone-300">·</span>
+            <span className="truncate">{property.location.neighborhood}, {property.location.city}</span>
           </div>
 
           {/* Title */}
           <h3 className={`font-semibold tracking-tight text-stone-900 group-hover:text-stone-700 transition-colors line-clamp-1 ${
-            isLargeFeatured ? 'text-lg sm:text-xl' : 'text-base'
+            isLargeFeatured ? 'text-xl sm:text-2xl' : 'text-lg sm:text-xl'
           }`}>
             <Link to={`/properties/${property.slug}`}>
               {property.title}
@@ -111,15 +111,15 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           </h3>
 
           {/* Subtitle / Tagline */}
-          <p className="text-xs text-stone-500 line-clamp-2 mt-1 leading-relaxed">
+          <p className="text-sm text-stone-600 line-clamp-2 mt-2 leading-relaxed">
             {property.tagline}
           </p>
         </div>
 
         {/* Specs bar & Price: Zero-Pill, unboxed text with typographic separators */}
-        <div className="pt-4 mt-4 border-t border-stone-100 flex items-end justify-between gap-3">
+        <div className="pt-4 mt-5 border-t border-stone-100 flex items-end justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 text-xs text-stone-600 font-mono tabular-nums">
+            <div className="flex flex-wrap items-center gap-2 text-sm sm:text-base text-stone-800 font-mono font-medium tabular-nums">
               {property.specs.beds > 0 && (
                 <>
                   <span>{property.specs.beds} Beds</span>
@@ -139,21 +139,21 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
               )}
             </div>
             
-            <div className="text-[11px] text-stone-400 mt-0.5">
+            <div className="text-xs sm:text-sm text-stone-500 font-medium mt-1">
               {property.specs.pricePerSqft > 0 && (
                 <span>${property.specs.pricePerSqft}/sqft</span>
               )}
             </div>
           </div>
 
-          <div className="text-right">
-            <span className="text-xs text-stone-400 block font-normal">
+          <div className="text-right shrink-0">
+            <span className="text-xs sm:text-sm text-stone-500 block font-normal">
               {property.listingType === 'buy' ? 'Guide Price' : 'Monthly Rent'}
             </span>
-            <span className="text-base sm:text-lg font-bold text-stone-950 font-mono tabular-nums tracking-tight">
+            <span className="text-xl sm:text-2xl font-bold text-stone-950 font-mono tabular-nums tracking-tight">
               {property.priceDisplay}
               {property.period && (
-                <span className="text-xs font-normal text-stone-500">/mo</span>
+                <span className="text-sm font-normal text-stone-500">/mo</span>
               )}
             </span>
           </div>

@@ -61,15 +61,15 @@ export const AgentDetailPage: React.FC = () => {
       <div>
         <Link
           to="/agents"
-          className="inline-flex items-center gap-1.5 text-xs text-stone-500 hover:text-stone-950 transition-colors"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-stone-600 hover:text-stone-950 transition-colors"
         >
-          <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5]" />
+          <ArrowLeft className="w-4 h-4 stroke-[1.5]" />
           <span>All Advisory Network Partners</span>
         </Link>
       </div>
 
       {/* Advisor Profile Card */}
-      <div className="bg-white border border-stone-200 p-6 sm:p-10">
+      <div className="bg-white border border-stone-200 p-6 sm:p-10 shadow-xs">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Avatar & Fast Credentials */}
@@ -82,85 +82,85 @@ export const AgentDetailPage: React.FC = () => {
               />
             </div>
             
-            <div className="space-y-2 text-xs font-mono text-stone-600">
-              <div className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-stone-400 stroke-[1.5]" />
+            <div className="space-y-2 text-sm font-mono text-stone-700">
+              <div className="flex items-center gap-2.5">
+                <Phone className="w-4 h-4 text-stone-400 stroke-[1.5]" />
                 <span>{agent.phone}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-3.5 h-3.5 text-stone-400 stroke-[1.5]" />
+              <div className="flex items-center gap-2.5">
+                <Mail className="w-4 h-4 text-stone-400 stroke-[1.5]" />
                 <span>{agent.email}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-stone-400 stroke-[1.5]" />
+              <div className="flex items-center gap-2.5">
+                <MapPin className="w-4 h-4 text-stone-400 stroke-[1.5]" />
                 <span>{agent.officeLocation}</span>
               </div>
             </div>
 
             <div className="pt-2">
-              <span className="text-[11px] text-stone-400 font-mono block">State Licensing:</span>
-              <span className="text-xs font-mono font-semibold text-stone-900">{agent.licenseNumber}</span>
+              <span className="text-xs text-stone-500 font-mono block uppercase tracking-wider font-semibold">State Licensing:</span>
+              <span className="text-sm font-mono font-bold text-stone-950">{agent.licenseNumber}</span>
             </div>
           </div>
 
           {/* Details & Biography */}
           <div className="lg:col-span-8 space-y-6">
             <div>
-              <div className="flex items-center gap-2 text-xs font-mono text-emerald-800 mb-1">
-                <ShieldCheck className="w-4 h-4 stroke-[1.5]" />
+              <div className="flex items-center gap-2 text-sm font-mono text-emerald-800 mb-1.5 font-medium">
+                <ShieldCheck className="w-4.5 h-4.5 stroke-[1.5]" />
                 <span>ESTRA Certified Principal Advisor · {agent.agency}</span>
               </div>
-              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-stone-950 font-architectural">
+              <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-stone-950 font-architectural">
                 {agent.name}
               </h1>
-              <p className="text-sm font-semibold text-stone-600 mt-1">
+              <p className="text-base font-semibold text-stone-700 mt-1">
                 {agent.role}
               </p>
             </div>
 
             {/* Performance Matrix */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 bg-stone-50 border border-stone-200 text-center font-mono">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 bg-stone-50 border border-stone-200 text-center font-mono">
               <div>
-                <span className="text-2xl font-bold text-stone-950">{agent.yearsExperience}</span>
-                <span className="text-[11px] text-stone-500 block font-sans">Years in Practice</span>
+                <span className="text-3xl font-bold text-stone-950">{agent.yearsExperience}</span>
+                <span className="text-xs sm:text-sm text-stone-600 block font-sans font-medium mt-1">Years in Practice</span>
               </div>
               <div>
-                <span className="text-2xl font-bold text-stone-950">{agent.dealsClosed}</span>
-                <span className="text-[11px] text-stone-500 block font-sans">Deals Closed</span>
+                <span className="text-3xl font-bold text-stone-950">{agent.dealsClosed}</span>
+                <span className="text-xs sm:text-sm text-stone-600 block font-sans font-medium mt-1">Deals Closed</span>
               </div>
               <div>
-                <span className="text-2xl font-bold text-stone-950">{agent.activeListingsCount}</span>
-                <span className="text-[11px] text-stone-500 block font-sans">Active Mandates</span>
+                <span className="text-3xl font-bold text-stone-950">{agent.activeListingsCount}</span>
+                <span className="text-xs sm:text-sm text-stone-600 block font-sans font-medium mt-1">Active Mandates</span>
               </div>
               <div>
-                <span className="text-2xl font-bold text-emerald-800">{agent.satisfactionRating}%</span>
-                <span className="text-[11px] text-stone-500 block font-sans">Client Rating</span>
+                <span className="text-3xl font-bold text-emerald-800">{agent.satisfactionRating}%</span>
+                <span className="text-xs sm:text-sm text-stone-600 block font-sans font-medium mt-1">Client Rating</span>
               </div>
             </div>
 
             {/* Biography */}
-            <div className="space-y-3 text-stone-700 text-xs sm:text-sm leading-relaxed">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-stone-950 font-sans">
+            <div className="space-y-3 text-stone-700 text-base sm:text-lg leading-relaxed">
+              <h3 className="text-sm sm:text-base font-bold uppercase tracking-wider text-stone-950 font-sans">
                 Professional Background
               </h3>
               <p>{agent.bio}</p>
             </div>
 
             {/* Specializations & Languages */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-stone-100 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-stone-100 text-sm">
               <div>
-                <span className="text-stone-400 uppercase tracking-wider block font-mono">
+                <span className="text-stone-500 uppercase tracking-wider block font-mono text-xs font-semibold">
                   Asset Specializations
                 </span>
-                <span className="text-stone-900 font-medium mt-1 block">
+                <span className="text-stone-900 font-semibold mt-1 block">
                   {agent.specializations.join(' · ')}
                 </span>
               </div>
               <div>
-                <span className="text-stone-400 uppercase tracking-wider block font-mono">
+                <span className="text-stone-500 uppercase tracking-wider block font-mono text-xs font-semibold">
                   Working Languages
                 </span>
-                <span className="text-stone-900 font-medium mt-1 block">
+                <span className="text-stone-900 font-semibold mt-1 block">
                   {agent.languages.join(' · ')}
                 </span>
               </div>

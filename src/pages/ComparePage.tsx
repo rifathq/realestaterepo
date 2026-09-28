@@ -28,27 +28,27 @@ export const ComparePage: React.FC = () => {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-stone-200 pb-6">
         <div>
-          <div className="text-xs text-stone-500 uppercase tracking-widest font-mono mb-1">
+          <div className="text-sm text-stone-500 uppercase tracking-widest font-mono mb-1.5">
             Technical Evaluation
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-stone-950 font-architectural">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-stone-950 font-architectural">
             Property Comparison Matrix
           </h1>
-          <p className="text-xs sm:text-sm text-stone-500 mt-1">
+          <p className="text-sm sm:text-base text-stone-600 mt-1.5">
             Side-by-side architectural metrics, valuation benchmarks, and spatial dimensions
           </p>
         </div>
 
         {compareProperties.length > 0 && (
           <div className="flex items-center gap-3">
-            <span className="text-xs font-mono text-stone-500">
+            <span className="text-sm font-mono text-stone-600 font-medium">
               {compareProperties.length} of 4 selected
             </span>
             <button
               onClick={clearCompare}
-              className="text-xs text-stone-600 hover:text-stone-950 px-3 py-1.5 border border-stone-200 hover:bg-stone-50 transition-colors flex items-center gap-1.5"
+              className="text-sm text-stone-600 hover:text-stone-950 px-3.5 py-2 border border-stone-200 hover:bg-stone-50 transition-colors flex items-center gap-1.5 font-medium"
             >
-              <Trash2 className="w-3.5 h-3.5 stroke-[1.5]" />
+              <Trash2 className="w-4 h-4 stroke-[1.5]" />
               <span>Clear Matrix</span>
             </button>
           </div>
@@ -59,32 +59,32 @@ export const ComparePage: React.FC = () => {
         /* Empty State */
         <div className="bg-white border border-stone-200 p-12 text-center max-w-xl mx-auto space-y-4 my-12">
           <Columns2 className="w-12 h-12 text-stone-400 mx-auto stroke-[1.5]" />
-          <h2 className="text-xl font-bold text-stone-950">
+          <h2 className="text-2xl font-bold text-stone-950 font-architectural">
             No Properties in Comparison Matrix
           </h2>
-          <p className="text-xs sm:text-sm text-stone-500 leading-relaxed">
+          <p className="text-sm sm:text-base text-stone-600 leading-relaxed">
             Select up to 4 commercial or residential properties across the marketplace to analyze square footage, valuation per square foot, and structural highlights.
           </p>
           <div className="pt-2">
             <Link
               to="/properties"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-stone-900 text-white text-xs font-medium hover:bg-stone-800 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-stone-900 text-white text-sm font-semibold hover:bg-stone-800 transition-colors shadow-sm"
             >
               <span>Explore Marketplace Catalog</span>
-              <ArrowRight className="w-3.5 h-3.5 stroke-[1.5]" />
+              <ArrowRight className="w-4 h-4 stroke-[1.5]" />
             </Link>
           </div>
 
           {/* Quick suggestions to add */}
           <div className="pt-8 text-left border-t border-stone-100">
-            <span className="text-xs font-semibold text-stone-700 block mb-3">
+            <span className="text-sm font-semibold text-stone-800 block mb-3">
               Recommended to Compare:
             </span>
             <div className="space-y-2">
               {PROPERTIES.slice(0, 3).map((p) => (
                 <div
                   key={p.id}
-                  className="flex items-center justify-between p-2.5 bg-stone-50 border border-stone-200 text-xs"
+                  className="flex items-center justify-between p-3 bg-stone-50 border border-stone-200 text-sm"
                 >
                   <div className="truncate mr-3">
                     <span className="font-semibold text-stone-900">{p.title}</span>
@@ -92,7 +92,7 @@ export const ComparePage: React.FC = () => {
                   </div>
                   <button
                     onClick={() => toggleCompare(p.id)}
-                    className="px-2.5 py-1 bg-white border border-stone-300 text-stone-800 hover:bg-stone-900 hover:text-white transition-colors whitespace-nowrap"
+                    className="px-3 py-1.5 bg-white border border-stone-300 text-stone-900 hover:bg-stone-900 hover:text-white transition-colors whitespace-nowrap text-xs font-semibold"
                   >
                     + Add
                   </button>
@@ -111,14 +111,14 @@ export const ComparePage: React.FC = () => {
               {/* Header: Images & Titles */}
               <thead>
                 <tr className="border-b border-stone-200">
-                  <th className="p-4 w-48 bg-stone-50 text-xs font-bold uppercase tracking-wider text-stone-400">
+                  <th className="p-5 w-48 bg-stone-50 text-xs sm:text-sm font-bold uppercase tracking-wider text-stone-500">
                     Property Asset
                   </th>
                   {compareProperties.map((p) => (
-                    <th key={p.id} className="p-4 min-w-[240px] align-top relative">
+                    <th key={p.id} className="p-5 min-w-[240px] align-top relative">
                       <button
                         onClick={() => removeFromCompare(p.id)}
-                        className="absolute top-2 right-2 p-1 text-stone-400 hover:text-stone-900 hover:bg-stone-100 transition-colors"
+                        className="absolute top-2 right-2 p-1.5 text-stone-400 hover:text-stone-900 hover:bg-stone-100 transition-colors"
                         title="Remove from comparison"
                       >
                         <X className="w-4 h-4 stroke-[1.5]" />
@@ -135,22 +135,22 @@ export const ComparePage: React.FC = () => {
                         </Link>
                       </div>
 
-                      <div className="text-[11px] font-mono text-stone-400 uppercase">
+                      <div className="text-xs font-mono text-stone-500 uppercase font-semibold">
                         {p.category} · {p.listingType === 'buy' ? 'Sale' : 'Lease'}
                       </div>
-                      <h3 className="text-sm font-bold text-stone-950 mt-0.5 line-clamp-1">
+                      <h3 className="text-base sm:text-lg font-bold text-stone-950 mt-1 line-clamp-1">
                         <Link to={`/properties/${p.slug}`} className="hover:underline">
                           {p.title}
                         </Link>
                       </h3>
-                      <div className="text-base font-bold font-mono text-stone-900 mt-1">
+                      <div className="text-lg sm:text-xl font-bold font-mono text-stone-900 mt-1">
                         {p.priceDisplay}
                       </div>
 
                       <div className="mt-3 flex items-center gap-2">
                         <Link
                           to={`/tour/${p.slug}`}
-                          className="w-full py-1.5 text-center text-[11px] font-medium bg-stone-900 text-white hover:bg-stone-800 transition-colors"
+                          className="w-full py-2 text-center text-xs sm:text-sm font-semibold bg-stone-900 text-white hover:bg-stone-800 transition-colors"
                         >
                           Book Tour
                         </Link>
@@ -160,10 +160,10 @@ export const ComparePage: React.FC = () => {
                   
                   {/* Slot for adding another property if under 4 */}
                   {compareProperties.length < 4 && (
-                    <th className="p-4 min-w-[200px] bg-stone-50/50 border-l border-dashed border-stone-200 text-center align-middle">
+                    <th className="p-5 min-w-[200px] bg-stone-50/50 border-l border-dashed border-stone-200 text-center align-middle">
                       <div className="space-y-3">
                         <Plus className="w-8 h-8 text-stone-400 mx-auto stroke-[1.5]" />
-                        <span className="text-xs text-stone-500 block">
+                        <span className="text-sm text-stone-600 block font-medium">
                           Add property ({4 - compareProperties.length} slots remaining)
                         </span>
                         {availableToAdd.length > 0 && (
@@ -172,7 +172,7 @@ export const ComparePage: React.FC = () => {
                               if (e.target.value) toggleCompare(e.target.value);
                             }}
                             defaultValue=""
-                            className="text-xs p-2 border border-stone-200 bg-white max-w-[180px] truncate"
+                            className="text-sm p-2.5 border border-stone-200 bg-white max-w-[200px] truncate"
                           >
                             <option value="" disabled>Select property...</option>
                             {availableToAdd.map((p) => (
@@ -187,7 +187,7 @@ export const ComparePage: React.FC = () => {
               </thead>
 
               {/* Body: Spec Comparison Rows */}
-              <tbody className="divide-y divide-stone-100 text-xs">
+              <tbody className="divide-y divide-stone-100 text-sm">
                 
                 {/* Location */}
                 <tr>

@@ -85,49 +85,49 @@ export const PropertyDetailPage: React.FC = () => {
       
       {/* Top Breadcrumb & Actions Bar */}
       <div className="bg-white border-b border-stone-200">
-        <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-3 flex items-center justify-between text-xs text-stone-500">
+        <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-3.5 flex items-center justify-between text-sm sm:text-base font-medium text-stone-600">
           <div className="flex items-center gap-2">
-            <Link to="/properties" className="hover:text-stone-900 flex items-center gap-1">
-              <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5]" />
+            <Link to="/properties" className="hover:text-stone-900 flex items-center gap-1.5 font-semibold">
+              <ArrowLeft className="w-4 h-4 stroke-[1.5]" />
               <span>Catalog</span>
             </Link>
-            <span aria-hidden="true">/</span>
-            <span>{property.category}</span>
-            <span aria-hidden="true">/</span>
-            <span className="text-stone-900 font-medium truncate max-w-xs">{property.title}</span>
+            <span aria-hidden="true" className="text-stone-300">/</span>
+            <span className="text-stone-700">{property.category}</span>
+            <span aria-hidden="true" className="text-stone-300">/</span>
+            <span className="text-stone-950 font-semibold truncate max-w-xs sm:max-w-md">{property.title}</span>
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={handleShare}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 border border-stone-200 text-stone-700 hover:text-stone-950 hover:bg-stone-50 transition-colors"
+              className="flex items-center gap-2 px-3.5 py-2 border border-stone-200 text-stone-700 hover:text-stone-950 hover:bg-stone-50 transition-colors text-sm font-medium"
               title="Share listing"
             >
-              <Share2 className="w-3.5 h-3.5 stroke-[1.5]" />
+              <Share2 className="w-4 h-4 stroke-[1.5]" />
               <span className="hidden sm:inline">Share</span>
             </button>
             <button
               onClick={() => toggleCompare(property.id)}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 border transition-colors ${
+              className={`flex items-center gap-2 px-3.5 py-2 border transition-colors text-sm font-medium ${
                 comparing 
                   ? 'bg-stone-900 text-white border-stone-900' 
                   : 'border-stone-200 text-stone-700 hover:text-stone-950 hover:bg-stone-50'
               }`}
               title="Toggle compare"
             >
-              <Columns2 className="w-3.5 h-3.5 stroke-[1.5]" />
+              <Columns2 className="w-4 h-4 stroke-[1.5]" />
               <span className="hidden sm:inline">{comparing ? 'In Comparison' : 'Compare'}</span>
             </button>
             <button
               onClick={() => toggleSave(property.id)}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 border transition-colors ${
+              className={`flex items-center gap-2 px-3.5 py-2 border transition-colors text-sm font-medium ${
                 saved 
                   ? 'bg-stone-900 text-white border-stone-900' 
                   : 'border-stone-200 text-stone-700 hover:text-stone-950 hover:bg-stone-50'
               }`}
               title="Save listing"
             >
-              <Bookmark className={`w-3.5 h-3.5 stroke-[1.5] ${saved ? 'fill-current' : ''}`} />
+              <Bookmark className={`w-4 h-4 stroke-[1.5] ${saved ? 'fill-current' : ''}`} />
               <span className="hidden sm:inline">{saved ? 'Saved' : 'Save'}</span>
             </button>
           </div>
@@ -139,32 +139,32 @@ export const PropertyDetailPage: React.FC = () => {
         {/* Title & Valuation Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-stone-200">
           <div className="space-y-2">
-            <div className="flex items-center gap-3 text-xs text-stone-500 font-mono">
-              <span className="bg-stone-900 text-white px-2 py-0.5 uppercase tracking-wider text-[10px]">
+            <div className="flex items-center gap-3 text-sm text-stone-500 font-mono">
+              <span className="bg-stone-900 text-white px-2.5 py-1 uppercase tracking-wider text-xs font-semibold">
                 {property.listingType === 'buy' ? 'For Sale' : 'For Lease'}
               </span>
               <span>Ref: {property.slug.slice(0, 12).toUpperCase()}</span>
               <span>·</span>
-              <span>{property.category}</span>
+              <span className="font-semibold text-stone-800">{property.category}</span>
             </div>
             <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-stone-950 font-architectural">
               {property.title}
             </h1>
-            <p className="text-sm sm:text-base text-stone-600 flex items-center gap-1.5">
-              <MapPin className="w-4 h-4 text-stone-400 stroke-[1.5] shrink-0" />
+            <p className="text-base sm:text-lg text-stone-600 flex items-center gap-2">
+              <MapPin className="w-4.5 h-4.5 text-stone-400 stroke-[1.5] shrink-0" />
               <span>{property.location.address}, {property.location.neighborhood}, {property.location.city}, {property.location.state} {property.location.zip}</span>
             </p>
           </div>
 
           <div className="lg:text-right space-y-2">
-            <span className="text-xs text-stone-500 block uppercase tracking-wider">
+            <span className="text-sm text-stone-500 block uppercase tracking-wider font-medium">
               {property.listingType === 'buy' ? 'Verified Offering Valuation' : 'Monthly Rental Rate'}
             </span>
-            <div className="text-3xl sm:text-4xl font-bold text-stone-950 font-mono tracking-tight">
+            <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-stone-950 font-mono tracking-tight">
               {property.priceDisplay}
-              {property.period && <span className="text-base font-normal text-stone-500">/mo</span>}
+              {property.period && <span className="text-lg font-normal text-stone-500">/mo</span>}
             </div>
-            <div className="flex items-center lg:justify-end gap-2 text-xs text-stone-500 font-mono">
+            <div className="flex items-center lg:justify-end gap-2 text-sm text-stone-500 font-mono">
               {property.specs.pricePerSqft > 0 && <span>${property.specs.pricePerSqft}/sqft</span>}
               {property.specs.hoaMonthly !== undefined && property.specs.hoaMonthly > 0 && (
                 <>
@@ -187,22 +187,22 @@ export const PropertyDetailPage: React.FC = () => {
             />
             <button
               onClick={() => setFullscreenOpen(true)}
-              className="absolute bottom-4 right-4 px-3 py-1.5 bg-stone-950/80 hover:bg-stone-950 text-white text-xs font-medium flex items-center gap-1.5 backdrop-blur-xs transition-colors"
+              className="absolute bottom-4 right-4 px-4 py-2 bg-stone-950/85 hover:bg-stone-950 text-white text-sm font-semibold flex items-center gap-2 backdrop-blur-xs transition-colors shadow-sm"
             >
-              <Maximize2 className="w-3.5 h-3.5 stroke-[1.5]" />
+              <Maximize2 className="w-4 h-4 stroke-[1.5]" />
               <span>View Fullscreen Gallery ({property.images.length} Photographs)</span>
             </button>
           </div>
 
           {/* Thumbnail list */}
-          <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
+          <div className="grid grid-cols-4 sm:grid-cols-6 gap-2.5">
             {property.images.map((img, idx) => (
               <button
                 key={idx}
                 onClick={() => setActiveImageIndex(idx)}
                 className={`relative aspect-4/3 overflow-hidden border transition-all ${
                   idx === activeImageIndex
-                    ? 'border-stone-950 ring-1 ring-stone-950'
+                    ? 'border-stone-950 ring-2 ring-stone-950'
                     : 'border-stone-200 opacity-60 hover:opacity-100'
                 }`}
               >
@@ -217,33 +217,33 @@ export const PropertyDetailPage: React.FC = () => {
         </div>
 
         {/* Key Architectural Specs Bar */}
-        <div className="bg-white border border-stone-200 p-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 text-center divide-y sm:divide-y-0 sm:divide-x divide-stone-100 font-mono">
+        <div className="bg-white border border-stone-200 p-6 sm:p-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 text-center divide-y sm:divide-y-0 sm:divide-x divide-stone-100 font-mono">
           <div className="pt-2 sm:pt-0">
-            <span className="text-[11px] uppercase tracking-wider text-stone-400 block font-sans">Bedrooms</span>
-            <span className="text-xl font-bold text-stone-900">{property.specs.beds || 'N/A'}</span>
+            <span className="text-xs uppercase tracking-wider text-stone-500 block font-sans font-semibold mb-1">Bedrooms</span>
+            <span className="text-2xl font-bold text-stone-900">{property.specs.beds || 'N/A'}</span>
           </div>
           <div className="pt-2 sm:pt-0">
-            <span className="text-[11px] uppercase tracking-wider text-stone-400 block font-sans">Bathrooms</span>
-            <span className="text-xl font-bold text-stone-900">{property.specs.baths}</span>
+            <span className="text-xs uppercase tracking-wider text-stone-500 block font-sans font-semibold mb-1">Bathrooms</span>
+            <span className="text-2xl font-bold text-stone-900">{property.specs.baths}</span>
           </div>
           <div className="pt-2 sm:pt-0">
-            <span className="text-[11px] uppercase tracking-wider text-stone-400 block font-sans">Gross Area</span>
-            <span className="text-xl font-bold text-stone-900">
+            <span className="text-xs uppercase tracking-wider text-stone-500 block font-sans font-semibold mb-1">Gross Area</span>
+            <span className="text-2xl font-bold text-stone-900">
               {property.specs.sqft > 0 ? `${property.specs.sqft.toLocaleString()} sf` : property.specs.lotSize}
             </span>
           </div>
           <div className="pt-2 sm:pt-0">
-            <span className="text-[11px] uppercase tracking-wider text-stone-400 block font-sans">Parking</span>
-            <span className="text-xl font-bold text-stone-900">{property.specs.parking} Bays</span>
+            <span className="text-xs uppercase tracking-wider text-stone-500 block font-sans font-semibold mb-1">Parking</span>
+            <span className="text-2xl font-bold text-stone-900">{property.specs.parking} Bays</span>
           </div>
           <div className="pt-2 sm:pt-0">
-            <span className="text-[11px] uppercase tracking-wider text-stone-400 block font-sans">Year Built</span>
-            <span className="text-xl font-bold text-stone-900">{property.specs.yearBuilt}</span>
+            <span className="text-xs uppercase tracking-wider text-stone-500 block font-sans font-semibold mb-1">Year Built</span>
+            <span className="text-2xl font-bold text-stone-900">{property.specs.yearBuilt}</span>
           </div>
           <div className="pt-2 sm:pt-0">
-            <span className="text-[11px] uppercase tracking-wider text-stone-400 block font-sans">Verification</span>
-            <span className="text-xs font-bold text-emerald-800 flex items-center justify-center gap-1 mt-1 font-sans">
-              <ShieldCheck className="w-4 h-4 stroke-[1.5]" />
+            <span className="text-xs uppercase tracking-wider text-stone-500 block font-sans font-semibold mb-1">Verification</span>
+            <span className="text-sm font-bold text-emerald-800 flex items-center justify-center gap-1.5 mt-1 font-sans">
+              <ShieldCheck className="w-4.5 h-4.5 stroke-[1.5]" />
               <span>Certified</span>
             </span>
           </div>
@@ -257,10 +257,10 @@ export const PropertyDetailPage: React.FC = () => {
             
             {/* Overview & Description */}
             <section className="space-y-4">
-              <h2 className="text-xl font-bold tracking-tight text-stone-950 font-architectural">
+              <h2 className="text-2xl font-bold tracking-tight text-stone-950 font-architectural">
                 Architectural Overview
               </h2>
-              <div className="space-y-4 text-stone-700 text-sm sm:text-base leading-relaxed">
+              <div className="space-y-4 text-stone-700 text-base sm:text-lg leading-relaxed">
                 {property.description.map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
                 ))}
@@ -269,31 +269,31 @@ export const PropertyDetailPage: React.FC = () => {
 
             {/* Architectural Highlights */}
             <section className="space-y-4 pt-8 border-t border-stone-200">
-              <h2 className="text-xl font-bold tracking-tight text-stone-950 font-architectural">
+              <h2 className="text-2xl font-bold tracking-tight text-stone-950 font-architectural">
                 Structural & Design Characteristics
               </h2>
-              <div className="bg-stone-50 border border-stone-200 p-6 grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs">
+              <div className="bg-stone-50 border border-stone-200 p-6 sm:p-7 grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
                 <div>
-                  <span className="text-stone-400 uppercase tracking-wider block font-mono">Architectural Practice</span>
-                  <span className="text-sm font-semibold text-stone-900 mt-1 block">
+                  <span className="text-stone-500 uppercase tracking-wider block font-mono text-xs font-semibold">Architectural Practice</span>
+                  <span className="text-base font-semibold text-stone-900 mt-1 block">
                     {property.architecturalHighlights.architect || 'Private Commission'}
                   </span>
                 </div>
                 <div>
-                  <span className="text-stone-400 uppercase tracking-wider block font-mono">Design Idiom</span>
-                  <span className="text-sm font-semibold text-stone-900 mt-1 block">
+                  <span className="text-stone-500 uppercase tracking-wider block font-mono text-xs font-semibold">Design Idiom</span>
+                  <span className="text-base font-semibold text-stone-900 mt-1 block">
                     {property.architecturalHighlights.style}
                   </span>
                 </div>
                 <div>
-                  <span className="text-stone-400 uppercase tracking-wider block font-mono">Primary Materiality</span>
-                  <span className="text-sm font-semibold text-stone-900 mt-1 block">
+                  <span className="text-stone-500 uppercase tracking-wider block font-mono text-xs font-semibold">Primary Materiality</span>
+                  <span className="text-base font-semibold text-stone-900 mt-1 block">
                     {property.architecturalHighlights.materials.join(' · ')}
                   </span>
                 </div>
                 <div>
-                  <span className="text-stone-400 uppercase tracking-wider block font-mono">Orientation & Light</span>
-                  <span className="text-sm font-semibold text-stone-900 mt-1 block">
+                  <span className="text-stone-500 uppercase tracking-wider block font-mono text-xs font-semibold">Orientation & Light</span>
+                  <span className="text-base font-semibold text-stone-900 mt-1 block">
                     {property.architecturalHighlights.facing}
                   </span>
                 </div>
@@ -302,24 +302,24 @@ export const PropertyDetailPage: React.FC = () => {
 
             {/* Features & Amenities */}
             <section className="space-y-6 pt-8 border-t border-stone-200">
-              <h2 className="text-xl font-bold tracking-tight text-stone-950 font-architectural">
+              <h2 className="text-2xl font-bold tracking-tight text-stone-950 font-architectural">
                 Features & Technical Specifications
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 {property.features.map((feat, idx) => (
-                  <div key={idx} className="flex items-center gap-2.5 text-xs text-stone-800 p-3 bg-white border border-stone-200">
-                    <Check className="w-4 h-4 text-stone-900 stroke-[2] shrink-0" />
+                  <div key={idx} className="flex items-center gap-3 text-sm sm:text-base font-medium text-stone-800 p-3.5 bg-white border border-stone-200">
+                    <Check className="w-4.5 h-4.5 text-stone-900 stroke-[2] shrink-0" />
                     <span>{feat}</span>
                   </div>
                 ))}
               </div>
 
-              <h3 className="text-sm font-bold uppercase tracking-wider text-stone-600 pt-2">
+              <h3 className="text-sm sm:text-base font-bold uppercase tracking-wider text-stone-700 pt-3">
                 Amenities & Building Infrastructure
               </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                 {property.amenities.map((amenity, idx) => (
-                  <div key={idx} className="text-xs text-stone-700 py-2 px-3 bg-stone-50 border border-stone-200">
+                  <div key={idx} className="text-sm font-medium text-stone-700 py-2.5 px-3.5 bg-stone-50 border border-stone-200">
                     {amenity}
                   </div>
                 ))}
@@ -327,22 +327,22 @@ export const PropertyDetailPage: React.FC = () => {
             </section>
 
             {/* Verification & Documents */}
-            <section className="space-y-4 pt-8 border-t border-stone-200">
+            <section className="space-y-5 pt-8 border-t border-stone-200">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-xl font-bold tracking-tight text-stone-950 font-architectural">
+                  <h2 className="text-2xl font-bold tracking-tight text-stone-950 font-architectural">
                     Verified Documentation & Title
                   </h2>
-                  <p className="text-xs text-stone-500 mt-0.5">
+                  <p className="text-sm text-stone-500 mt-1">
                     Surveys and engineering audits completed prior to listing
                   </p>
                 </div>
-                <span className="text-xs font-mono text-emerald-800 bg-emerald-50 px-2 py-1 border border-emerald-200">
+                <span className="text-sm font-mono font-medium text-emerald-800 bg-emerald-50 px-3 py-1.5 border border-emerald-200">
                   {property.verifiedBadgeText}
                 </span>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 {[
                   { title: 'Architectural Measured Floor Plans & Elevations', type: 'PDF', size: '14.2 MB' },
                   { title: 'Official County Title Deed & Ownership Verification', type: 'PDF', size: '2.8 MB' },
@@ -351,13 +351,13 @@ export const PropertyDetailPage: React.FC = () => {
                 ].map((doc, idx) => (
                   <div
                     key={idx}
-                    className="p-3 bg-white border border-stone-200 flex items-center justify-between text-xs hover:border-stone-400 transition-colors"
+                    className="p-4 bg-white border border-stone-200 flex items-center justify-between text-sm hover:border-stone-400 transition-colors"
                   >
-                    <div className="flex items-center gap-3">
-                      <FileCheck className="w-4 h-4 text-stone-700 stroke-[1.5]" />
+                    <div className="flex items-center gap-3.5">
+                      <FileCheck className="w-5 h-5 text-stone-700 stroke-[1.5]" />
                       <span className="font-medium text-stone-900">{doc.title}</span>
                     </div>
-                    <div className="flex items-center gap-4 text-stone-400 font-mono text-[11px]">
+                    <div className="flex items-center gap-4 text-stone-500 font-mono text-sm">
                       <span>{doc.size}</span>
                       <button
                         onClick={() => notify(`Downloaded verified document: ${doc.title}`)}
@@ -377,20 +377,20 @@ export const PropertyDetailPage: React.FC = () => {
           <aside className="lg:col-span-4 space-y-6">
             
             {/* Primary Action Card: Schedule Tour */}
-            <div className="bg-stone-900 text-white p-6 border border-stone-800 space-y-4">
-              <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-stone-400 font-mono">
-                <Calendar className="w-3.5 h-3.5 stroke-[1.5]" />
+            <div className="bg-stone-900 text-white p-7 border border-stone-800 space-y-4">
+              <div className="flex items-center gap-2 text-sm uppercase tracking-wider text-stone-400 font-mono">
+                <Calendar className="w-4 h-4 stroke-[1.5]" />
                 <span>Private Accompanied Tour</span>
               </div>
-              <h3 className="text-lg font-bold">
+              <h3 className="text-xl sm:text-2xl font-bold font-architectural">
                 Experience {property.title}
               </h3>
-              <p className="text-xs text-stone-300 leading-relaxed">
+              <p className="text-sm sm:text-base text-stone-300 leading-relaxed">
                 Schedule a confidential in-person walkthrough or an interactive 4K live video tour with a licensed advisor.
               </p>
               <Link
                 to={`/tour/${property.slug}`}
-                className="w-full py-3 bg-white hover:bg-stone-100 text-stone-950 text-xs font-semibold tracking-tight text-center block transition-colors"
+                className="w-full py-3.5 bg-white hover:bg-stone-100 text-stone-950 text-sm sm:text-base font-semibold tracking-tight text-center block transition-colors shadow-sm"
               >
                 Schedule Private Viewing
               </Link>
@@ -398,12 +398,12 @@ export const PropertyDetailPage: React.FC = () => {
 
             {/* Assigned Licensed Broker Card */}
             {agent && (
-              <div className="bg-white border border-stone-200 p-6 space-y-5">
+              <div className="bg-white border border-stone-200 p-6 sm:p-7 space-y-5">
                 <div className="flex items-center justify-between pb-3 border-b border-stone-100">
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-stone-500">
+                  <span className="text-xs font-mono uppercase tracking-wider text-stone-500 font-semibold">
                     Listing Broker
                   </span>
-                  <span className="text-[11px] text-emerald-800 font-medium">
+                  <span className="text-xs text-emerald-800 font-semibold bg-emerald-50 px-2 py-0.5 border border-emerald-200">
                     ESTRA Verified Partner
                   </span>
                 </div>
@@ -412,26 +412,26 @@ export const PropertyDetailPage: React.FC = () => {
                   <img
                     src={agent.avatar}
                     alt={agent.name}
-                    className="w-14 h-14 object-cover border border-stone-200 shrink-0"
+                    className="w-16 h-16 object-cover border border-stone-200 shrink-0"
                   />
                   <div>
-                    <h4 className="text-base font-bold text-stone-950">
+                    <h4 className="text-lg font-bold text-stone-950">
                       <Link to={`/agents/${agent.slug}`} className="hover:underline">
                         {agent.name}
                       </Link>
                     </h4>
-                    <p className="text-xs text-stone-500">{agent.role}</p>
-                    <p className="text-[11px] text-stone-400 font-mono">{agent.licenseNumber}</p>
+                    <p className="text-sm text-stone-600 font-medium">{agent.role}</p>
+                    <p className="text-xs text-stone-500 font-mono mt-0.5">{agent.licenseNumber}</p>
                   </div>
                 </div>
 
-                <div className="space-y-2 text-xs text-stone-600 font-mono pt-2">
-                  <div className="flex items-center gap-2">
-                    <Phone className="w-3.5 h-3.5 text-stone-400 stroke-[1.5]" />
+                <div className="space-y-2 text-sm text-stone-700 font-mono pt-2">
+                  <div className="flex items-center gap-2.5">
+                    <Phone className="w-4 h-4 text-stone-400 stroke-[1.5]" />
                     <span>{agent.phone}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Mail className="w-3.5 h-3.5 text-stone-400 stroke-[1.5]" />
+                  <div className="flex items-center gap-2.5">
+                    <Mail className="w-4 h-4 text-stone-400 stroke-[1.5]" />
                     <span>{agent.email}</span>
                   </div>
                 </div>
@@ -439,16 +439,16 @@ export const PropertyDetailPage: React.FC = () => {
                 {/* Direct Inquire Form */}
                 <div className="pt-3 border-t border-stone-100">
                   {inquireSubmitted ? (
-                    <div className="p-3 bg-stone-50 border border-stone-200 text-center space-y-1">
-                      <Check className="w-5 h-5 text-emerald-700 mx-auto" />
-                      <p className="text-xs font-bold text-stone-900">Inquiry Dispatched</p>
-                      <p className="text-[11px] text-stone-500">
+                    <div className="p-4 bg-stone-50 border border-stone-200 text-center space-y-1.5">
+                      <Check className="w-6 h-6 text-emerald-700 mx-auto" />
+                      <p className="text-sm font-bold text-stone-900">Inquiry Dispatched</p>
+                      <p className="text-xs text-stone-500">
                         {agent.name} will respond within 4 business hours.
                       </p>
                     </div>
                   ) : (
-                    <form onSubmit={handleInquireSubmit} className="space-y-3">
-                      <span className="text-xs font-semibold text-stone-900 block">
+                    <form onSubmit={handleInquireSubmit} className="space-y-3.5">
+                      <span className="text-sm font-bold text-stone-900 block">
                         Direct Broker Dossier Request
                       </span>
                       <input
@@ -457,7 +457,7 @@ export const PropertyDetailPage: React.FC = () => {
                         placeholder="Your Full Name"
                         value={inquireName}
                         onChange={(e) => setInquireName(e.target.value)}
-                        className="w-full text-xs p-2 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
+                        className="w-full text-sm p-3 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
                       />
                       <input
                         type="email"
@@ -465,24 +465,24 @@ export const PropertyDetailPage: React.FC = () => {
                         placeholder="Corporate / Personal Email"
                         value={inquireEmail}
                         onChange={(e) => setInquireEmail(e.target.value)}
-                        className="w-full text-xs p-2 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
+                        className="w-full text-sm p-3 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
                       />
                       <input
                         type="tel"
                         placeholder="Direct Phone Number"
                         value={inquirePhone}
                         onChange={(e) => setInquirePhone(e.target.value)}
-                        className="w-full text-xs p-2 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
+                        className="w-full text-sm p-3 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
                       />
                       <textarea
                         rows={3}
                         value={inquireMessage}
                         onChange={(e) => setInquireMessage(e.target.value)}
-                        className="w-full text-xs p-2 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
+                        className="w-full text-sm p-3 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
                       />
                       <button
                         type="submit"
-                        className="w-full py-2.5 bg-stone-900 text-white text-xs font-medium hover:bg-stone-800 transition-colors"
+                        className="w-full py-3 bg-stone-900 text-white text-sm font-semibold hover:bg-stone-800 transition-colors shadow-xs"
                       >
                         Request Complete Dossier
                       </button>
@@ -493,7 +493,7 @@ export const PropertyDetailPage: React.FC = () => {
                 <div className="pt-2 text-center">
                   <Link
                     to={`/agents/${agent.slug}`}
-                    className="text-xs text-stone-500 hover:text-stone-950 underline"
+                    className="text-sm text-stone-600 hover:text-stone-950 underline font-medium"
                   >
                     View {agent.name.split(' ')[0]}'s Complete Advisory Portfolio ({agent.activeListingsCount} listings)
                   </Link>
@@ -508,10 +508,10 @@ export const PropertyDetailPage: React.FC = () => {
         {similarProperties.length > 0 && (
           <section className="pt-16 border-t border-stone-200 space-y-6">
             <div>
-              <h2 className="text-2xl font-bold tracking-tight text-stone-950 font-architectural">
+              <h2 className="text-3xl font-bold tracking-tight text-stone-950 font-architectural">
                 Similar Architectural Opportunities
               </h2>
-              <p className="text-xs text-stone-500 mt-1">
+              <p className="text-sm sm:text-base text-stone-500 mt-1">
                 Other verified listings in {property.category} or nearby metropolitan hubs
               </p>
             </div>

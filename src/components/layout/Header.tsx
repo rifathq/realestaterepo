@@ -9,8 +9,24 @@ export const Header: React.FC = () => {
   const { savedIds, compareIds, user, setAuthModalOpen } = useMarketplace();
 
   const isActive = (path: string) => {
-    if (path === '/' && location.pathname === '/') return true;
-    if (path !== '/' && location.pathname.startsWith(path)) return true;
+    const [pathPart, queryPart] = path.split('?');
+    if (pathPart === '/' && location.pathname === '/') return true;
+
+    if (pathPart === '/properties') {
+      if (location.pathname !== '/properties') return false;
+      const currentParams = new URLSearchParams(location.search);
+      const currentType = currentParams.get('type');
+      if (queryPart) {
+        const linkParams = new URLSearchParams(queryPart);
+        const linkType = linkParams.get('type');
+        return currentType === linkType;
+      } else {
+        // 'Explore' link: active only when on /properties AND no type param (or type === 'all')
+        return !currentType || currentType === 'all';
+      }
+    }
+
+    if (pathPart !== '/' && location.pathname.startsWith(pathPart)) return true;
     return false;
   };
 
@@ -133,7 +149,11 @@ export const Header: React.FC = () => {
                 key={link.label}
                 to={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-1 hover:text-stone-950"
+                className={`block py-1 transition-colors ${
+                  isActive(link.href)
+                    ? 'text-stone-950 font-bold border-l-2 border-stone-900 pl-3'
+                    : 'text-stone-700 hover:text-stone-950'
+                }`}
               >
                 {link.label}
               </Link>

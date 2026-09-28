@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { ChevronDown, Search, ArrowRight, HelpCircle } from 'lucide-react';
 
 interface FaqItem {
@@ -10,9 +10,32 @@ interface FaqItem {
 }
 
 export const FaqPage: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const categoryParam = searchParams.get('category');
   const [search, setSearch] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>(categoryParam || 'all');
   const [openId, setOpenId] = useState<string | null>('faq-1');
+
+  useEffect(() => {
+    if (categoryParam) {
+      setSelectedCategory(categoryParam);
+    } else {
+      setSelectedCategory('all');
+    }
+  }, [categoryParam]);
+
+  const handleCategorySelect = (cat: string) => {
+    setSelectedCategory(cat);
+    if (cat === 'all') {
+      const next = new URLSearchParams(searchParams);
+      next.delete('category');
+      setSearchParams(next, { replace: true });
+    } else {
+      const next = new URLSearchParams(searchParams);
+      next.set('category', cat);
+      setSearchParams(next, { replace: true });
+    }
+  };
 
   const faqs: FaqItem[] = [
     {
@@ -118,7 +141,7 @@ export const FaqPage: React.FC = () => {
           {categories.map((cat) => (
             <button
               key={cat}
-              onClick={() => setSelectedCategory(cat)}
+              onClick={() => handleCategorySelect(cat)}
               className={`px-4 py-2 text-sm font-semibold capitalize transition-colors whitespace-nowrap ${
                 selectedCategory === cat
                   ? 'bg-stone-900 text-white'

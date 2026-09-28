@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { 
   Search, 
   Columns2, 
@@ -14,7 +14,15 @@ import {
 } from 'lucide-react';
 
 export const HowItWorksPage: React.FC = () => {
-  const [activeRole, setActiveRole] = useState<'buyers' | 'renters' | 'sellers' | 'agents'>('buyers');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const roleParam = searchParams.get('role');
+  const validRoles: Array<'buyers' | 'renters' | 'sellers' | 'agents'> = ['buyers', 'renters', 'sellers', 'agents'];
+  const activeRole: 'buyers' | 'renters' | 'sellers' | 'agents' = 
+    validRoles.includes(roleParam as any) ? (roleParam as any) : 'buyers';
+
+  const setActiveRole = (role: 'buyers' | 'renters' | 'sellers' | 'agents') => {
+    setSearchParams({ role }, { replace: true });
+  };
 
   const buyerSteps = [
     {
