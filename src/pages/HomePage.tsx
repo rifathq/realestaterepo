@@ -14,29 +14,12 @@ import {
 import { PROPERTIES, PROPERTY_CATEGORIES, CITIES } from '../data/properties';
 import { PropertyCard } from '../components/property/PropertyCard';
 import { ImageWithFallback } from '../components/common/ImageWithFallback';
+import { HeroSearchBar } from '../components/home/HeroSearchBar';
 import { PropertyCategory, ListingType } from '../types/property';
 
 export const HomePage: React.FC = () => {
-  const navigate = useNavigate();
-  
-  // Search bar state
-  const [searchType, setSearchType] = useState<ListingType>('buy');
-  const [searchLocation, setSearchLocation] = useState('');
-  const [searchCategory, setSearchCategory] = useState<PropertyCategory | 'all'>('all');
-  const [searchPriceRange, setSearchPriceRange] = useState('all');
-
   // Featured section filter
   const [featuredTab, setFeaturedTab] = useState<'all' | 'Offices' | 'Villas' | 'Penthouses'>('all');
-
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const params = new URLSearchParams();
-    if (searchType) params.set('type', searchType);
-    if (searchLocation) params.set('location', searchLocation);
-    if (searchCategory !== 'all') params.set('category', searchCategory);
-    if (searchPriceRange !== 'all') params.set('price', searchPriceRange);
-    navigate(`/properties?${params.toString()}`);
-  };
 
   const filteredFeatured = PROPERTIES.filter((p) => {
     if (featuredTab === 'all') return true;
@@ -80,37 +63,14 @@ export const HomePage: React.FC = () => {
               Rent, purchase, and manage verified commercial headquarters, modern residences, and urban development parcels with institutional precision.
             </p>
             
-            <div className="mt-10 flex flex-wrap items-center gap-3 sm:gap-4">
-              <Link
-                to="/properties"
-                className="px-7 py-3.5 bg-white text-stone-950 font-semibold text-sm sm:text-base tracking-tight hover:bg-stone-100 transition-colors inline-flex items-center gap-2 shadow-md"
-              >
-                <span>Explore</span>
-                <ArrowRight className="w-4 h-4 stroke-[1.5]" />
-              </Link>
-              <Link
-                to="/properties?type=buy"
-                className="px-6 py-3.5 bg-stone-900/80 text-white border border-stone-600 font-semibold text-sm sm:text-base tracking-tight hover:bg-stone-800 transition-colors backdrop-blur-xs"
-              >
-                Buy Properties
-              </Link>
-              <Link
-                to="/properties?type=rent"
-                className="px-6 py-3.5 bg-stone-900/80 text-white border border-stone-600 font-semibold text-sm sm:text-base tracking-tight hover:bg-stone-800 transition-colors backdrop-blur-xs"
-              >
-                Rent / Lease
-              </Link>
-              <Link
-                to="/sell"
-                className="px-6 py-3.5 bg-stone-900/80 text-white border border-stone-600 font-semibold text-sm sm:text-base tracking-tight hover:bg-stone-800 transition-colors backdrop-blur-xs"
-              >
-                Sell
-              </Link>
+            {/* Real Estate Hero Search Bar with Interactive Tabs & Red Circular Button */}
+            <div className="mt-8 sm:mt-10 w-full max-w-xl relative z-30">
+              <HeroSearchBar />
             </div>
           </div>
 
           {/* Hero Bottom Bar */}
-          <div className="relative z-10 pt-6 border-t border-stone-800/80 flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm text-stone-400">
+          <div className="relative z-0 pt-6 border-t border-stone-800/80 flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm text-stone-400">
             <span>Verified Title Registration & Structural Due Diligence</span>
             <div className="flex items-center gap-6 font-mono text-xs sm:text-sm">
               <span>4,000+ Active Listings</span>
@@ -118,108 +78,6 @@ export const HomePage: React.FC = () => {
               <span className="hidden sm:inline">24 Major Metropolitan Hubs</span>
             </div>
           </div>
-        </div>
-
-        {/* 2. SEARCH EXPERIENCE: Expanded width, increased padding, larger inputs */}
-        <div className="relative -mt-10 sm:-mt-14 w-full max-w-5xl mx-auto z-20 px-2 sm:px-4">
-          <form
-            onSubmit={handleSearchSubmit}
-            className="bg-white border border-stone-300 p-6 sm:p-8 shadow-lg"
-          >
-            {/* Search Tabs: Buy vs Rent */}
-            <div className="flex items-center gap-2 mb-6 border-b border-stone-200 pb-4">
-              <button
-                type="button"
-                onClick={() => setSearchType('buy')}
-                className={`px-5 py-2.5 text-sm sm:text-base font-semibold tracking-tight transition-colors ${
-                  searchType === 'buy'
-                    ? 'bg-stone-900 text-white'
-                    : 'text-stone-600 hover:text-stone-950 bg-stone-100'
-                }`}
-              >
-                Buy Properties
-              </button>
-              <button
-                type="button"
-                onClick={() => setSearchType('rent')}
-                className={`px-5 py-2.5 text-sm sm:text-base font-semibold tracking-tight transition-colors ${
-                  searchType === 'rent'
-                    ? 'bg-stone-900 text-white'
-                    : 'text-stone-600 hover:text-stone-950 bg-stone-100'
-                }`}
-              >
-                Rent / Lease
-              </button>
-            </div>
-
-            {/* Inputs Grid with larger typography & controls */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-              {/* Location Input */}
-              <div className="flex flex-col">
-                <label className="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-1.5">
-                  Metropolitan Area
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={searchLocation}
-                    onChange={(e) => setSearchLocation(e.target.value)}
-                    placeholder="San Francisco, New York..."
-                    className="w-full text-sm sm:text-base font-medium text-stone-900 py-3 px-3.5 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
-                  />
-                </div>
-              </div>
-
-              {/* Property Category */}
-              <div className="flex flex-col">
-                <label className="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-1.5">
-                  Property Asset Class
-                </label>
-                <select
-                  value={searchCategory}
-                  onChange={(e) => setSearchCategory(e.target.value as any)}
-                  className="w-full text-sm sm:text-base font-medium text-stone-900 py-3 px-3.5 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
-                >
-                  <option value="all">All Asset Classes</option>
-                  <option value="Offices">Offices & Headquarters</option>
-                  <option value="Villas">Villas & Estates</option>
-                  <option value="Apartments">Apartments & Flats</option>
-                  <option value="Penthouses">Crown Penthouses</option>
-                  <option value="Industrial">Industrial & Logistics</option>
-                  <option value="Land">Development Land</option>
-                  <option value="Retail">Commercial Retail</option>
-                </select>
-              </div>
-
-              {/* Price Band */}
-              <div className="flex flex-col">
-                <label className="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-1.5">
-                  Target Price Range
-                </label>
-                <select
-                  value={searchPriceRange}
-                  onChange={(e) => setSearchPriceRange(e.target.value)}
-                  className="w-full text-sm sm:text-base font-medium text-stone-900 py-3 px-3.5 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
-                >
-                  <option value="all">Any Valuation</option>
-                  <option value="under-5m">Under $5,000,000</option>
-                  <option value="5m-15m">$5,000,000 – $15,000,000</option>
-                  <option value="15m-plus">$15,000,000+</option>
-                </select>
-              </div>
-
-              {/* Submit Button */}
-              <div className="flex flex-col justify-end">
-                <button
-                  type="submit"
-                  className="w-full py-3 px-5 bg-stone-900 hover:bg-stone-800 text-white text-sm sm:text-base font-semibold tracking-tight flex items-center justify-center gap-2.5 transition-colors h-[46px] shadow-sm"
-                >
-                  <Search className="w-4 h-4 stroke-[1.5]" />
-                  <span>Search Properties</span>
-                </button>
-              </div>
-            </div>
-          </form>
         </div>
       </section>
 

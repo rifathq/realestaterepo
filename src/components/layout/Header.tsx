@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Bookmark, Columns2, Menu, X, User } from 'lucide-react';
+import { Bookmark, Menu, X, User } from 'lucide-react';
 import { useMarketplace } from '../../context/MarketplaceContext';
 
 export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const { savedIds, compareIds, user, setAuthModalOpen } = useMarketplace();
+  const { savedIds, user, setAuthModalOpen } = useMarketplace();
 
   const isActive = (href: string) => {
     const [path, query] = href.split('?');
@@ -54,18 +54,15 @@ export const Header: React.FC = () => {
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200 transition-colors">
         <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 h-20 sm:h-22 flex items-center justify-between">
           
-          {/* Zone 1: Single text element wordmark - scaled up */}
+          {/* Zone 1: Single text element wordmark */}
           <Link
             to="/"
-            className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-950 font-architectural flex items-center gap-3"
+            className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-950 font-architectural"
           >
             <span>ESTRA</span>
-            <span className="text-xs uppercase tracking-widest text-stone-400 font-normal border-l border-stone-200 pl-3 hidden md:inline">
-              Estates & Commercial
-            </span>
           </Link>
 
-          {/* Zone 2: Clean text navigation links - scaled up to text-base */}
+          {/* Zone 2: Clean text navigation links */}
           <nav className="hidden lg:flex items-center gap-8 xl:gap-10 text-base font-medium text-stone-600">
             {navLinks.map((link) => (
               <Link
@@ -85,23 +82,8 @@ export const Header: React.FC = () => {
             ))}
           </nav>
 
-          {/* Zone 3: 1-2 primary actions & utility affordances - larger icons and bigger CTA */}
-          <div className="flex items-center gap-3 sm:gap-5">
-            {/* Compare quick link */}
-            <Link
-              to="/compare"
-              className="relative p-2.5 text-stone-600 hover:text-stone-950 hover:bg-stone-100 transition-colors"
-              title="Compare Properties"
-              aria-label="Compare properties"
-            >
-              <Columns2 className="w-5 h-5 stroke-[1.5]" />
-              {compareIds.length > 0 && (
-                <span className="absolute top-1 right-1 w-4 h-4 text-[10px] font-bold bg-stone-900 text-white flex items-center justify-center">
-                  {compareIds.length}
-                </span>
-              )}
-            </Link>
-
+          {/* Zone 3: Actions & utility affordances */}
+          <div className="flex items-center gap-3 sm:gap-4">
             {/* Saved properties quick link */}
             <Link
               to="/saved"
@@ -125,14 +107,6 @@ export const Header: React.FC = () => {
               <User className="w-4 h-4 stroke-[1.5]" />
               <span>{user ? user.name.split(' ')[0] : 'Sign In'}</span>
             </button>
-
-            {/* Primary CTA - Bigger button */}
-            <Link
-              to="/sell"
-              className="hidden sm:inline-flex items-center px-6 py-3 text-sm font-semibold tracking-tight text-white bg-stone-900 hover:bg-stone-800 transition-colors whitespace-nowrap shadow-xs"
-            >
-              List a Property
-            </Link>
 
             {/* Mobile menu toggle */}
             <button
