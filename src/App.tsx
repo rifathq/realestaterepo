@@ -51,6 +51,7 @@ export default function App() {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/how-it-works" element={<HowItWorksPage />} />
               <Route path="/agents" element={<AgentsPage />} />
+              <Route path="/agents/arlington" element={<AgentsPage defaultCity="Arlington, VA" />} />
               <Route path="/agents/chicago" element={<AgentsPage defaultCity="Chicago" />} />
               <Route path="/agents/:slug" element={<AgentDetailPage />} />
               <Route path="/join-agent" element={<JoinAgentPage />} />

@@ -91,6 +91,13 @@ export interface Agent {
   specializations: string[];
   languages: string[];
   officeLocation: string;
+  salesVolume?: string;
+  totalDeals?: number;
+  rating?: number;
+  isLuxuryExpert?: boolean;
+  dealType?: 'Buy' | 'Sell' | 'Both';
+  city?: string;
+  state?: string;
 }
 
 export interface FilterState {

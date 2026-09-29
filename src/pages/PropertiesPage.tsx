@@ -16,6 +16,7 @@ import {
 import { PROPERTIES, CITIES } from '../data/properties';
 import { Property, PropertyCategory, ListingType } from '../types/property';
 import { PropertyCard } from '../components/property/PropertyCard';
+import { PropertyMapView } from '../components/property/PropertyMapView';
 import { ImageWithFallback } from '../components/common/ImageWithFallback';
 
 export const PropertiesPage: React.FC = () => {
@@ -26,6 +27,7 @@ export const PropertiesPage: React.FC = () => {
   // Mobile filter drawer state
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const [isFiltering, setIsFiltering] = useState(false);
+  const [hoveredPropertyId, setHoveredPropertyId] = useState<string | null>(null);
 
   // --- Derive Filter State Directly From URL Search Params (Single Source of Truth) ---
   const typeParam = (searchParams.get('type') as ListingType | null) || 'all';
@@ -226,7 +228,7 @@ export const PropertiesPage: React.FC = () => {
           </div>
 
           {/* View mode toggle */}
-          <div className="hidden sm:flex items-center bg-stone-100 p-0.5 border border-stone-200">
+          <div className="flex items-center bg-stone-100 p-0.5 border border-stone-200">
             <button
               type="button"
               onClick={() => updateFilters({ view: 'grid' })}
@@ -607,49 +609,40 @@ export const PropertiesPage: React.FC = () => {
               </button>
             </div>
           ) : viewMode === 'map' ? (
-            /* Map View representation */
+            /* Interactive Map View with Markers */
             <div className={`space-y-6 transition-opacity duration-200 ${isFiltering ? 'opacity-50' : 'opacity-100'}`}>
-              <div className="bg-stone-900 text-white p-6 border border-stone-800 relative rounded-lg overflow-hidden min-h-[360px] flex flex-col justify-between">
-                <div className="z-10">
-                  <div className="text-xs uppercase tracking-widest text-stone-400 font-mono">
-                    Interactive Regional Viewport
-                  </div>
-                  <h3 className="text-xl font-bold mt-1">Geographic Density Overview</h3>
-                  <p className="text-xs text-stone-400 mt-1 max-w-lg">
-                    Displaying coordinates for {filteredProperties.length} active listings across metropolitan districts.
+              <PropertyMapView
+                properties={filteredProperties}
+                hoveredPropertyId={hoveredPropertyId}
+                onHoverProperty={setHoveredPropertyId}
+              />
+
+              <div className="flex items-center justify-between pt-1">
+                <div>
+                  <h3 className="text-sm font-bold text-stone-900">
+                    Properties on Map ({filteredProperties.length})
+                  </h3>
+                  <p className="text-xs text-stone-500">
+                    Hover or click any card to highlight its marker pin on the map.
                   </p>
-                </div>
-
-                {/* Stylized Architectural Blueprint Map Matrix */}
-                <div className="z-10 grid grid-cols-2 sm:grid-cols-4 gap-3 my-6">
-                  {filteredProperties.map((p) => (
-                    <Link
-                      key={p.id}
-                      to={`/properties/${p.slug}`}
-                      className="p-3 bg-stone-950/80 border border-stone-700 hover:border-white transition-colors group"
-                    >
-                      <div className="text-[10px] text-stone-400 font-mono truncate">
-                        {p.location.city}
-                      </div>
-                      <div className="text-xs font-semibold text-white group-hover:text-stone-200 truncate">
-                        {p.title}
-                      </div>
-                      <div className="text-[11px] text-stone-300 font-mono mt-1">
-                        {p.priceDisplay}
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-
-                <div className="z-10 text-[11px] text-stone-500 font-mono">
-                  Coordinates verified via municipal planning registries
                 </div>
               </div>
 
-              {/* Underlying cards */}
+              {/* Synchronized Property Cards Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {filteredProperties.map((property) => (
-                  <PropertyCard key={property.id} property={property} />
+                  <div
+                    key={property.id}
+                    onMouseEnter={() => setHoveredPropertyId(property.id)}
+                    onMouseLeave={() => setHoveredPropertyId(null)}
+                    className={`transition-all duration-200 ${
+                      hoveredPropertyId === property.id
+                        ? 'ring-2 ring-stone-950 ring-offset-2'
+                        : ''
+                    }`}
+                  >
+                    <PropertyCard property={property} />
+                  </div>
                 ))}
               </div>
             </div>

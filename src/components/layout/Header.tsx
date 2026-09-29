@@ -2,15 +2,21 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Bookmark, Menu, X, User, ChevronDown } from 'lucide-react';
 import { useMarketplace } from '../../context/MarketplaceContext';
+import { useUserLocation } from '../../hooks/useUserLocation';
 
 export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [agentsDropdownOpen, setAgentsDropdownOpen] = useState(false);
+  const [isMobileAgentsOpen, setIsMobileAgentsOpen] = useState(false);
   const agentsRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const location = useLocation();
   const { savedIds, user, setAuthModalOpen } = useMarketplace();
+  const { city: userCity, formattedLocation: userLocation } = useUserLocation();
+
+  const dynamicCityLink = `/agents?city=${encodeURIComponent(userCity || userLocation || 'Arlington')}`;
+  const isDynamicCityActive = (location.pathname === '/agents' && location.search.includes(encodeURIComponent(userCity || 'Arlington'))) || location.pathname === '/agents/arlington';
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -30,6 +36,7 @@ export const Header: React.FC = () => {
   useEffect(() => {
     setAgentsDropdownOpen(false);
     setMobileMenuOpen(false);
+    setIsMobileAgentsOpen(false);
   }, [location.pathname]);
 
   const handleMouseEnter = () => {
@@ -161,20 +168,24 @@ export const Header: React.FC = () => {
                       }`}
                     >
                       <div className="font-semibold text-stone-900">Find an Agent</div>
-                      <div className="text-xs text-stone-500 font-normal mt-0.5">Explore nationwide architectural advisors</div>
+                      <div className="text-xs text-stone-500 font-normal mt-0.5">Search top-rated agents nationwide</div>
                     </Link>
 
                     <Link
-                      to="/agents/chicago"
+                      to={dynamicCityLink}
                       onClick={() => setAgentsDropdownOpen(false)}
                       className={`block px-3.5 py-2.5 rounded-lg text-sm transition-colors ${
-                        location.pathname === '/agents/chicago'
+                        isDynamicCityActive
                           ? 'bg-stone-100 text-stone-950 font-semibold'
                           : 'text-stone-700 hover:text-stone-950 hover:bg-stone-50 font-medium'
                       }`}
                     >
-                      <div className="font-semibold text-stone-900">Find agents in Chicago</div>
-                      <div className="text-xs text-stone-500 font-normal mt-0.5">Local Midwest & landmark specialists</div>
+                      <div className="font-semibold text-stone-900">
+                        Find agents in {userLocation || 'your area'}
+                      </div>
+                      <div className="text-xs text-stone-500 font-normal mt-0.5">
+                        Local market specialists & luxury experts
+                      </div>
                     </Link>
 
                     <div className="my-1 border-t border-stone-100" />
@@ -269,34 +280,48 @@ export const Header: React.FC = () => {
               </Link>
             ))}
 
-            {/* Agents Mobile Group */}
-            <div className="py-2 border-y border-stone-100 my-2">
-              <div className="text-xs uppercase tracking-wider font-mono text-stone-400 mb-2 font-semibold">
-                Advisory & Agents
-              </div>
-              <div className="space-y-2.5 pl-3 border-l-2 border-stone-200">
-                <Link
-                  to="/agents"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-sm font-medium text-stone-800 hover:text-stone-950"
-                >
-                  Find an Agent
-                </Link>
-                <Link
-                  to="/agents/chicago"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-sm font-medium text-stone-800 hover:text-stone-950"
-                >
-                  Find agents in Chicago
-                </Link>
-                <Link
-                  to="/join-agent"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-sm font-medium text-stone-800 hover:text-stone-950"
-                >
-                  Join as an Agent
-                </Link>
-              </div>
+            {/* Agents Mobile Accordion */}
+            <div className="py-1">
+              <button
+                type="button"
+                onClick={() => setIsMobileAgentsOpen((prev) => !prev)}
+                className="w-full flex items-center justify-between py-1 text-left text-base font-medium text-stone-800 hover:text-stone-950 cursor-pointer transition-colors"
+                aria-expanded={isMobileAgentsOpen}
+              >
+                <span>Agents</span>
+                <ChevronDown
+                  className={`w-4 h-4 text-stone-500 transition-transform duration-200 ${
+                    isMobileAgentsOpen ? 'rotate-180 text-stone-900' : ''
+                  }`}
+                />
+              </button>
+
+              {/* Collapsible Submenu Child Items */}
+              {isMobileAgentsOpen && (
+                <div className="mt-2 space-y-2.5 pl-4 border-l-2 border-stone-200 py-1 text-sm font-medium animate-in fade-in slide-in-from-top-1 duration-150">
+                  <Link
+                    to="/agents"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block text-stone-600 hover:text-stone-950 transition-colors"
+                  >
+                    Find an Agent
+                  </Link>
+                  <Link
+                    to={dynamicCityLink}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block text-stone-600 hover:text-stone-950 transition-colors"
+                  >
+                    Find agents in {userLocation || 'your area'}
+                  </Link>
+                  <Link
+                    to="/join-agent"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block text-stone-600 hover:text-stone-950 transition-colors"
+                  >
+                    Join as an Agent
+                  </Link>
+                </div>
+              )}
             </div>
 
             <Link
