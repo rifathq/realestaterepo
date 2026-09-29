@@ -80,18 +80,23 @@ export const HomePage: React.FC = () => {
   return (
     <div className="space-y-24 sm:space-y-32 pb-24 w-full">
       
-      {/* 1. HERO SECTION: Full-width edge-to-edge layout with scaled up typography */}
-      <section className="pt-4 sm:pt-6 px-4 sm:px-8 lg:px-12 xl:px-16 w-full">
-        <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-stone-900 border border-stone-800 text-white min-h-[580px] sm:min-h-[680px] lg:min-h-[740px] flex flex-col justify-between p-6 sm:p-12 lg:p-18 xl:p-20 w-full">
-          {/* Architectural facade backdrop */}
-          <div className="absolute inset-0 z-0">
-            <ImageWithFallback
-              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2400&q=85"
-              alt="ESTRA Architectural Headquarters"
-              className="w-full h-full object-cover opacity-50 mix-blend-luminosity filter contrast-125"
-            />
-            {/* Measured contrast scrim */}
-            <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/65 to-stone-950/20" />
+      {/* 1. HERO SECTION: Edge-to-edge full width and full screen height layout */}
+      <section className="w-full">
+        <div className="relative w-full min-h-screen flex flex-col justify-between px-6 sm:px-12 lg:px-18 xl:px-20 pt-24 sm:pt-28 lg:pt-32 pb-12 sm:pb-16 bg-stone-950 text-white rounded-none border-0 overflow-hidden">
+          
+          {/* Background Image Layer with Custom Image */}
+          <div 
+            className="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-stone-950 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url('/ChatGPT Image Sep 29, 2026, 06_40_53 AM.png')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+            }}
+          >
+            {/* Subtle dark overlay and vertical gradient to keep headline text, navigation, and search bar crisp & readable */}
+            <div className="absolute inset-0 bg-black/60" />
+            <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/65 to-stone-950/25" />
           </div>
 
           {/* Top Hero Kicker */}
@@ -106,22 +111,22 @@ export const HomePage: React.FC = () => {
           </div>
 
           {/* Center / Bottom Hero Typography: Scaled up hero heading and subtitle */}
-          <div className="relative z-10 max-w-4xl my-auto py-10 sm:py-16">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight text-white font-architectural leading-[1.05] text-balance">
+          <div className="relative z-20 max-w-4xl my-auto py-8 sm:py-12">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight text-white font-architectural leading-[1.05] text-balance">
               Real Estate for Business & Living
             </h1>
-            <p className="mt-6 text-lg sm:text-xl lg:text-2xl text-stone-200 max-w-3xl font-normal leading-relaxed">
+            <p className="mt-5 sm:mt-6 text-base sm:text-xl lg:text-2xl text-stone-200 max-w-3xl font-normal leading-relaxed">
               Rent, purchase, and manage verified commercial headquarters, modern residences, and urban development parcels with institutional precision.
             </p>
             
             {/* Real Estate Hero Search Bar with Interactive Tabs & Red Circular Button */}
-            <div className="mt-8 sm:mt-10 w-full max-w-xl relative z-30">
+            <div className="mt-8 sm:mt-10 w-full max-w-xl relative z-40">
               <HeroSearchBar />
             </div>
           </div>
 
           {/* Hero Bottom Bar */}
-          <div className="relative z-0 pt-6 border-t border-stone-800/80 flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm text-stone-400">
+          <div className="relative z-10 mt-8 pt-6 border-t border-stone-800/80 flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm text-stone-400">
             <span>Verified Title Registration & Structural Due Diligence</span>
             <div className="flex items-center gap-6 font-mono text-xs sm:text-sm">
               <span>4,000+ Active Listings</span>
@@ -133,7 +138,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 2. FEATURED PROPERTIES: Interactive 3-Card Carousel (Redfin Style) */}
-      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 py-8 sm:py-10">
+      <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 pt-8 sm:pt-12 pb-8 sm:py-10">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
           <div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-stone-950 font-architectural">

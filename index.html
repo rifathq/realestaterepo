@@ -4,11 +4,47 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ESTRA Real Estate Marketplace</title>
-    <meta name="description" content="Discover, compare, tour, buy, rent, and sell verified architectural properties through a unified, premium digital marketplace." />
+    <meta name="description" content="Discover, evaluate, tour, buy, rent, and sell verified architectural properties through a unified, premium digital marketplace." />
     <meta property="og:title" content="ESTRA Real Estate Marketplace" />
-    <meta property="og:description" content="Discover, compare, tour, buy, rent, and sell verified architectural properties through a unified, premium digital marketplace." />
+    <meta property="og:description" content="Discover, evaluate, tour, buy, rent, and sell verified architectural properties through a unified, premium digital marketplace." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Defensive polyfill: Ensure window.fetch has both getter and setter in iframe environments -->
+    <script>
+      (function() {
+        try {
+          var _fetch = window.fetch;
+          Object.defineProperty(window, 'fetch', {
+            get: function() {
+              return _fetch;
+            },
+            set: function(val) {
+              _fetch = val;
+            },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (e) {
+          try {
+            if (typeof Window !== 'undefined' && Window.prototype) {
+              var _pFetch = Window.prototype.fetch || window.fetch;
+              Object.defineProperty(Window.prototype, 'fetch', {
+                get: function() {
+                  return _pFetch;
+                },
+                set: function(val) {
+                  _pFetch = val;
+                },
+                configurable: true,
+                enumerable: true
+              });
+            }
+          } catch (_) {}
+        }
+      })();
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />

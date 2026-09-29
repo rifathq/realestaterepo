@@ -100,7 +100,7 @@ export const HeroSearchBar: React.FC<HeroSearchBarProps> = ({
   }, []);
 
   return (
-    <div ref={containerRef} className={`w-full max-w-xl relative z-30 ${className}`}>
+    <div ref={containerRef} className={`w-full max-w-xl relative z-50 ${className}`}>
       
       {/* 1. TABS ROW (Top Row) - Compact heights & refined typography */}
       <div className="flex items-end overflow-x-auto no-scrollbar scroll-smooth gap-1 px-0.5 select-none">
@@ -170,13 +170,16 @@ export const HeroSearchBar: React.FC<HeroSearchBarProps> = ({
 
       {/* 3. AUTOCOMPLETE / RECENT SUGGESTIONS DROPDOWN */}
       {isFocused && (
-        <div className="absolute left-0 right-0 top-full mt-2 z-[999] bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden text-left animate-in fade-in slide-in-from-top-2 duration-150">
-          <div className="p-2.5 bg-gray-50 border-b border-gray-100 flex items-center justify-between text-[11px] text-stone-600 font-medium">
-            <span>Popular Metropolitan Regions & Asset Classes</span>
-            <span className="font-mono text-[10px] text-stone-400">ESTRA Directory</span>
+        <div 
+          className="absolute left-0 right-0 top-full mt-2 z-50 bg-white rounded-xl shadow-2xl border border-stone-200 overflow-hidden text-left"
+          style={{ backgroundColor: '#ffffff', opacity: 1 }}
+        >
+          <div className="p-3 bg-stone-50 border-b border-stone-200 flex items-center justify-between text-[11px] text-stone-600 font-medium">
+            <span className="font-semibold text-stone-900">Popular Metropolitan Regions & Asset Classes</span>
+            <span className="font-mono text-[10px] text-stone-500 uppercase tracking-wider">ESTRA Verified</span>
           </div>
 
-          <div className="divide-y divide-gray-100 max-h-64 overflow-y-auto bg-white">
+          <div className="divide-y divide-stone-100 max-h-72 overflow-y-auto bg-white" style={{ backgroundColor: '#ffffff' }}>
             {suggestions.map((item, index) => (
               <button
                 key={index}
@@ -186,40 +189,40 @@ export const HeroSearchBar: React.FC<HeroSearchBarProps> = ({
                   setIsFocused(false);
                   executeSearch(item.label);
                 }}
-                className="w-full px-4 py-2.5 text-left bg-white hover:bg-stone-50 flex items-center justify-between transition-colors group cursor-pointer"
+                className="w-full px-4 py-3 text-left bg-white hover:bg-stone-50 flex items-center justify-between transition-colors group cursor-pointer"
               >
-                <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-full bg-stone-100 text-stone-600 flex items-center justify-center group-hover:bg-red-50 group-hover:text-red-600 transition-colors">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-stone-100 text-stone-700 flex items-center justify-center group-hover:bg-red-50 group-hover:text-red-600 transition-colors shrink-0">
                     {item.type === 'City' ? (
-                      <MapPin className="w-3.5 h-3.5" />
+                      <MapPin className="w-4 h-4 stroke-[1.8]" />
                     ) : (
-                      <Building2 className="w-3.5 h-3.5" />
+                      <Building2 className="w-4 h-4 stroke-[1.8]" />
                     )}
                   </div>
                   <div>
                     <span className="text-xs sm:text-sm font-semibold text-stone-900 group-hover:text-red-600 transition-colors block">
                       {item.label}
                     </span>
-                    <span className="text-[11px] text-stone-400 block">{item.sub}</span>
+                    <span className="text-[11px] text-stone-500 block">{item.sub}</span>
                   </div>
                 </div>
 
-                <span className="text-[10px] font-mono text-stone-500 bg-gray-100 px-2 py-0.5 rounded group-hover:bg-red-50 group-hover:text-red-700">
+                <span className="text-[10px] font-mono text-stone-600 bg-stone-100 px-2 py-0.5 rounded font-medium group-hover:bg-red-50 group-hover:text-red-700">
                   {item.type}
                 </span>
               </button>
             ))}
           </div>
 
-          <div className="p-2.5 bg-gray-50 border-t border-gray-100 flex items-center justify-between text-xs text-stone-500">
-            <span className="text-[11px]">Press <kbd className="px-1 py-0.5 bg-white border border-gray-200 rounded font-mono text-[10px] text-stone-700">Enter</kbd> to search</span>
+          <div className="p-3 bg-stone-50 border-t border-stone-200 flex items-center justify-between text-xs text-stone-600">
+            <span className="text-[11px]">Press <kbd className="px-1.5 py-0.5 bg-white border border-stone-300 rounded font-mono text-[10px] text-stone-800 shadow-2xs">Enter</kbd> to search</span>
             <button
               type="button"
               onMouseDown={() => {
                 setIsFocused(false);
                 executeSearch();
               }}
-              className="text-red-600 hover:text-red-700 text-xs font-semibold"
+              className="text-red-600 hover:text-red-700 text-xs font-semibold cursor-pointer"
             >
               Search all listings &rarr;
             </button>
