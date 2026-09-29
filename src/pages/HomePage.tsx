@@ -85,8 +85,8 @@ export const HomePage: React.FC = () => {
 
       {/* 2. FEATURED PROPERTIES: Interactive 3-Card Carousel (Redfin Style) */}
       <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 pt-8 sm:pt-12 pb-8 sm:py-10">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
-          <div>
+        <div className="flex items-end justify-between gap-4 mb-6">
+          <div className="min-w-0 pr-2">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-stone-950 font-architectural">
               Properties Worth Seeing
             </h2>
@@ -95,8 +95,8 @@ export const HomePage: React.FC = () => {
             </p>
           </div>
 
-          {/* Carousel Previous / Next Navigation Arrows (Redfin Style) */}
-          <div className="flex items-center gap-2 self-start sm:self-auto">
+          {/* Carousel Previous / Next Navigation Arrows on the Far Right */}
+          <div className="flex items-center gap-2 shrink-0">
             <button
               type="button"
               onClick={handlePrev}

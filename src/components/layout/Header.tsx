@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Bookmark, Menu, X, User, ChevronDown } from 'lucide-react';
 import { useMarketplace } from '../../context/MarketplaceContext';
 import { useUserLocation } from '../../hooks/useUserLocation';
+import { CinematicBrandText } from '../common/CinematicBrandText';
 
 export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -101,9 +102,15 @@ export const Header: React.FC = () => {
           {/* Zone 1: Single text element wordmark */}
           <Link
             to="/"
-            className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-950 font-architectural"
+            className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-950 font-architectural inline-flex items-center"
           >
-            <span>Digentic Realty</span>
+            <CinematicBrandText
+              text="Digentic Realty"
+              theme="light"
+              letterSpacingStart="0.04em"
+              letterSpacingEnd="-0.025em"
+              className="text-stone-950"
+            />
           </Link>
 
           {/* Zone 2: Clean text navigation links with interactive dropdown */}

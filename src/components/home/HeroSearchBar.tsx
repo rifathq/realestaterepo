@@ -1,22 +1,29 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, MapPin, Calculator, Building2, X } from 'lucide-react';
+import { motion } from 'motion/react';
 
 export type HeroSearchTab = 'Buy' | 'Mortgage' | 'Sell' | 'Rent';
 
 interface HeroSearchBarProps {
   className?: string;
   defaultTab?: HeroSearchTab;
+  activeTab?: HeroSearchTab;
+  onTabChange?: (tab: HeroSearchTab) => void;
   onSearch?: (tab: HeroSearchTab, query: string) => void;
 }
 
 export const HeroSearchBar: React.FC<HeroSearchBarProps> = ({
   className = '',
   defaultTab = 'Buy',
+  activeTab: propActiveTab,
+  onTabChange,
   onSearch,
 }) => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<HeroSearchTab>(defaultTab);
+  const [localActiveTab, setLocalActiveTab] = useState<HeroSearchTab>(defaultTab);
+  const currentTab = propActiveTab !== undefined ? propActiveTab : localActiveTab;
+
   const [searchQuery, setSearchQuery] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [showMortgageModal, setShowMortgageModal] = useState(false);
@@ -41,44 +48,47 @@ export const HeroSearchBar: React.FC<HeroSearchBarProps> = ({
       case 'Buy':
         return 'City, Address, School, Agent, ZIP';
       case 'Mortgage':
-        return 'City, ZIP, or Purchase Price (e.g. $1,500,000)';
+        return 'Property value, loan amount, ZIP';
       case 'Sell':
-        return 'Enter your home address to start listing';
+        return 'Property address, ZIP, or neighborhood';
       case 'Rent':
-        return 'City, Address, School, Building, ZIP';
+        return 'City, Neighborhood, Address, ZIP';
       default:
         return 'City, Address, School, Agent, ZIP';
     }
   };
 
   const handleTabClick = (tab: HeroSearchTab) => {
-    setActiveTab(tab);
+    if (onTabChange) {
+      onTabChange(tab);
+    }
+    setLocalActiveTab(tab);
   };
 
   const executeSearch = (queryToUse?: string) => {
     const query = (queryToUse !== undefined ? queryToUse : searchQuery).trim();
 
     if (onSearch) {
-      onSearch(activeTab, query);
+      onSearch(currentTab, query);
     }
 
-    if (activeTab === 'Buy') {
+    if (currentTab === 'Buy') {
       const params = new URLSearchParams();
       params.set('type', 'buy');
       if (query) params.set('location', query);
       navigate(`/properties?${params.toString()}`);
-    } else if (activeTab === 'Rent') {
+    } else if (currentTab === 'Rent') {
       const params = new URLSearchParams();
       params.set('type', 'rent');
       if (query) params.set('location', query);
       navigate(`/properties?${params.toString()}`);
-    } else if (activeTab === 'Sell') {
+    } else if (currentTab === 'Sell') {
       if (query) {
         navigate(`/sell?address=${encodeURIComponent(query)}`);
       } else {
         navigate('/sell');
       }
-    } else if (activeTab === 'Mortgage') {
+    } else if (currentTab === 'Mortgage') {
       setShowMortgageModal(true);
     }
   };
@@ -103,24 +113,38 @@ export const HeroSearchBar: React.FC<HeroSearchBarProps> = ({
     <div ref={containerRef} className={`w-full max-w-xl relative z-50 ${className}`}>
       
       {/* 1. TABS ROW (Top Row) - Compact heights & refined typography */}
-      <div className="flex items-end overflow-x-auto no-scrollbar scroll-smooth gap-1 px-0.5 select-none">
+      <div 
+        className="flex items-end overflow-x-auto no-scrollbar scroll-smooth gap-1 px-0.5 select-none"
+        role="tablist"
+        aria-label="Real estate category tabs"
+      >
         {tabs.map((tab) => {
-          const isActive = activeTab === tab;
+          const isActive = currentTab === tab;
           return (
             <button
               key={tab}
               type="button"
+              role="tab"
+              aria-selected={isActive}
+              tabIndex={0}
               onClick={() => handleTabClick(tab)}
-              className={`relative font-sans text-xs sm:text-sm transition-all duration-150 rounded-t-lg whitespace-nowrap cursor-pointer ${
+              className={`relative font-sans text-xs sm:text-sm rounded-t-lg whitespace-nowrap cursor-pointer transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 ${
                 isActive
-                  ? 'bg-white text-stone-950 font-bold px-4 sm:px-5 py-2 sm:py-2.5 shadow-2xs z-20 translate-y-[1px]'
+                  ? 'text-stone-950 font-bold px-4 sm:px-5 py-2 sm:py-2.5 shadow-2xs z-20 translate-y-[1px]'
                   : 'bg-[#ded7ce]/90 text-stone-800 font-medium px-3.5 sm:px-4 py-1.5 sm:py-2 hover:bg-[#eae3da] hover:text-stone-950 opacity-95'
               }`}
               style={{
                 letterSpacing: '-0.01em',
               }}
             >
-              {tab}
+              {isActive && (
+                <motion.div
+                  layoutId="heroTabActiveIndicator"
+                  className="absolute inset-0 bg-white rounded-t-lg -z-10 shadow-2xs"
+                  transition={{ type: 'spring', stiffness: 500, damping: 38 }}
+                />
+              )}
+              <span className="relative z-10">{tab}</span>
             </button>
           );
         })}
@@ -138,7 +162,7 @@ export const HeroSearchBar: React.FC<HeroSearchBarProps> = ({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={() => setIsFocused(true)}
-            placeholder={getPlaceholder(activeTab)}
+            placeholder={getPlaceholder(currentTab)}
             className="w-full text-xs sm:text-sm text-stone-900 placeholder:text-stone-400 bg-transparent focus:outline-none font-normal tracking-tight py-1.5 sm:py-2 selection:bg-red-600 selection:text-white"
             autoComplete="off"
             spellCheck="false"
@@ -161,8 +185,8 @@ export const HeroSearchBar: React.FC<HeroSearchBarProps> = ({
         <button
           type="submit"
           className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-600 hover:bg-red-700 active:scale-95 text-white flex items-center justify-center shrink-0 shadow-sm transition-all duration-150 cursor-pointer group"
-          title={`Search ${activeTab}`}
-          aria-label={`Search ${activeTab}`}
+          title={`Search ${currentTab}`}
+          aria-label={`Search ${currentTab}`}
         >
           <Search className="w-4 h-4 stroke-[2.2] transition-transform group-hover:scale-105" />
         </button>

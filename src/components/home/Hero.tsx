@@ -1,7 +1,18 @@
-import React from 'react';
-import { HeroSearchBar } from './HeroSearchBar';
+import React, { useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import { HeroSearchBar, HeroSearchTab } from './HeroSearchBar';
+import { CinematicBrandText } from '../common/CinematicBrandText';
+
+const TAB_MESSAGES: Record<HeroSearchTab, string> = {
+  Buy: 'Find a home, property, or investment that fits your needs.',
+  Mortgage: 'Explore financing options and estimate what you can afford.',
+  Sell: 'List your property and connect with qualified buyers.',
+  Rent: 'Discover verified homes and commercial spaces available for rent.',
+};
 
 export const Hero: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<HeroSearchTab>('Buy');
+
   return (
     <section className="relative isolate w-full min-h-screen overflow-hidden bg-stone-950 text-white flex flex-col justify-between">
       {/* Background Video */}
@@ -24,7 +35,13 @@ export const Hero: React.FC = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3 text-sm uppercase tracking-widest text-stone-300 font-mono">
             <span className="w-2.5 h-2.5 rounded-full bg-white" />
-            <span>DIGENTIC DIGITAL REAL ESTATE</span>
+            <CinematicBrandText
+              text="DIGENTIC REALTY"
+              theme="dark"
+              letterSpacingStart="0.22em"
+              letterSpacingEnd="0.12em"
+              className="text-stone-200"
+            />
           </div>
           <div className="hidden sm:block text-sm text-stone-400 font-mono">
             Q3/2026 Index
@@ -36,13 +53,26 @@ export const Hero: React.FC = () => {
           <h1 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight text-white font-architectural leading-[1.05] text-balance">
             Real Estate for Business & Living
           </h1>
-          <p className="mt-5 sm:mt-6 text-base sm:text-xl lg:text-2xl text-stone-200 max-w-3xl font-normal leading-relaxed">
-            Rent, purchase, and manage verified commercial headquarters, modern residences, and urban development parcels with institutional precision.
-          </p>
+          
+          {/* Dynamic Message for selected tab with smooth 250ms fade + slight upward motion */}
+          <div className="mt-5 sm:mt-6 min-h-[3rem] sm:min-h-[3.5rem] flex items-center">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.p
+                key={activeTab}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                className="text-base sm:text-xl lg:text-2xl text-stone-200 max-w-3xl font-normal leading-relaxed text-balance"
+              >
+                {TAB_MESSAGES[activeTab]}
+              </motion.p>
+            </AnimatePresence>
+          </div>
 
           {/* Real Estate Hero Search Bar with Interactive Tabs & Red Circular Button */}
           <div className="mt-8 sm:mt-10 w-full max-w-xl relative z-40">
-            <HeroSearchBar />
+            <HeroSearchBar activeTab={activeTab} onTabChange={setActiveTab} />
           </div>
         </div>
 
