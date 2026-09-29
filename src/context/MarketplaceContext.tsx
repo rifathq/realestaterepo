@@ -20,8 +20,8 @@ interface MarketplaceContextType {
 
 const MarketplaceContext = createContext<MarketplaceContextType | undefined>(undefined);
 
-const SAVED_STORAGE_KEY = 'estra_saved_properties_v1';
-const USER_STORAGE_KEY = 'estra_user_session_v1';
+const SAVED_STORAGE_KEY = 'digentic_saved_properties_v1';
+const USER_STORAGE_KEY = 'digentic_user_session_v1';
 
 export const MarketplaceProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Saved IDs

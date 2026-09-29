@@ -25,7 +25,7 @@ export const ContactPage: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
-    notify('Inquiry dispatched to ESTRA Advisory Team');
+    notify('Inquiry dispatched to Digentic Advisory Team');
   };
 
   return (
@@ -36,7 +36,7 @@ export const ContactPage: React.FC = () => {
         <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 text-center space-y-4">
           <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-stone-400 font-mono">
             <span className="w-2 h-2 rounded-full bg-white" />
-            <span>ESTRA Advisory Services</span>
+            <span>Digentic Advisory Services</span>
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white font-architectural">
             Connect with our Private Advisory Desk
@@ -59,7 +59,7 @@ export const ContactPage: React.FC = () => {
                 </div>
                 <h3 className="text-2xl font-bold text-stone-950 font-architectural">Inquiry Received</h3>
                 <p className="text-sm sm:text-base text-stone-600 max-w-md mx-auto leading-relaxed">
-                  Thank you, <span className="font-semibold text-stone-900">{name}</span>. An ESTRA advisory director will review your mandate and respond within 4 business hours.
+                  Thank you, <span className="font-semibold text-stone-900">{name}</span>. A Digentic advisory director will review your mandate and respond within 4 business hours.
                 </p>
                 <div className="pt-4">
                   <button
@@ -193,7 +193,7 @@ export const ContactPage: React.FC = () => {
                 Primary Advisory Hub
               </span>
               <h3 className="text-xl font-bold font-architectural">
-                ESTRA Headquarters
+                Digentic Realty Headquarters
               </h3>
               <div className="space-y-3 text-xs text-stone-300 font-mono">
                 <div className="flex items-start gap-2.5">
@@ -206,7 +206,7 @@ export const ContactPage: React.FC = () => {
                 </div>
                 <div className="flex items-center gap-2.5">
                   <Mail className="w-4 h-4 text-stone-400 shrink-0" />
-                  <span>advisory@estra-estates.com</span>
+                  <span>advisory@digentic-realty.com</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <Clock className="w-4 h-4 text-stone-400 shrink-0" />

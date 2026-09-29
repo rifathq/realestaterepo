@@ -33,7 +33,7 @@ export const JoinAgentPage: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
-    notify('Advisory application received. An ESTRA Managing Principal will contact you within 24 hours.');
+    notify('Advisory application received. A Digentic Realty Managing Principal will contact you within 24 hours.');
   };
 
   return (
@@ -43,10 +43,10 @@ export const JoinAgentPage: React.FC = () => {
         <div className="max-w-4xl space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-stone-900 border border-stone-800 text-stone-300 text-xs font-mono uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5 text-stone-400" />
-            <span>ESTRA Advisory Partnership</span>
+            <span>Digentic Advisory Partnership</span>
           </div>
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight font-architectural">
-            Join as an ESTRA Real Estate Agent
+            Join as a Digentic Real Estate Agent
           </h1>
           <p className="text-base sm:text-xl text-stone-300 max-w-2xl leading-relaxed">
             Represent premier architectural landmarks, modern residences, and commercial headquarters. Accelerate your career with proprietary deal flow, marketing syndication, and favorable split tiers.
@@ -74,7 +74,7 @@ export const JoinAgentPage: React.FC = () => {
         <div className="max-w-7xl mx-auto space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-950 font-architectural">
-              Why Premier Agents Choose ESTRA
+              Why Premier Agents Choose Digentic Realty
             </h2>
             <p className="text-sm sm:text-base text-stone-600">
               Designed by architects and top-producing brokers to eliminate administrative bottlenecks and elevate client advisory.
@@ -126,7 +126,7 @@ export const JoinAgentPage: React.FC = () => {
                 </div>
                 <h3 className="text-2xl font-bold text-stone-900 font-architectural">Application Submitted</h3>
                 <p className="text-stone-600 text-sm max-w-md mx-auto">
-                  Thank you for applying to the ESTRA Advisory Network. Our broker director will review your license and credentials and schedule a confidential discussion.
+                  Thank you for applying to the Digentic Advisory Network. Our broker director will review your license and credentials and schedule a confidential discussion.
                 </p>
                 <div className="pt-4">
                   <Link

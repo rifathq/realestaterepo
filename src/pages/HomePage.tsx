@@ -12,7 +12,7 @@ import {
 import { PROPERTIES } from '../data/properties';
 import { RedfinPropertyCard } from '../components/property/RedfinPropertyCard';
 import { ImageWithFallback } from '../components/common/ImageWithFallback';
-import { HeroSearchBar } from '../components/home/HeroSearchBar';
+import { Hero } from '../components/home/Hero';
 
 export const HomePage: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -80,62 +80,8 @@ export const HomePage: React.FC = () => {
   return (
     <div className="space-y-24 sm:space-y-32 pb-24 w-full">
       
-      {/* 1. HERO SECTION: Edge-to-edge full width and full screen height layout */}
-      <section className="w-full">
-        <div className="relative w-full min-h-screen flex flex-col justify-between px-6 sm:px-12 lg:px-18 xl:px-20 pt-24 sm:pt-28 lg:pt-32 pb-12 sm:pb-16 bg-stone-950 text-white rounded-none border-0 overflow-hidden">
-          
-          {/* Background Image Layer with Custom Image */}
-          <div 
-            className="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-stone-950 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `url('/ChatGPT Image Sep 29, 2026, 06_40_53 AM.png')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
-            }}
-          >
-            {/* Subtle dark overlay and vertical gradient to keep headline text, navigation, and search bar crisp & readable */}
-            <div className="absolute inset-0 bg-black/60" />
-            <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/65 to-stone-950/25" />
-          </div>
-
-          {/* Top Hero Kicker */}
-          <div className="relative z-10 flex items-center justify-between">
-            <div className="flex items-center gap-3 text-sm uppercase tracking-widest text-stone-300 font-mono">
-              <span className="w-2.5 h-2.5 rounded-full bg-white" />
-              <span>ESTRA Digital Real Estate Marketplace</span>
-            </div>
-            <div className="hidden sm:block text-sm text-stone-400 font-mono">
-              Q3/2026 Index
-            </div>
-          </div>
-
-          {/* Center / Bottom Hero Typography: Scaled up hero heading and subtitle */}
-          <div className="relative z-20 max-w-4xl my-auto py-8 sm:py-12">
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight text-white font-architectural leading-[1.05] text-balance">
-              Real Estate for Business & Living
-            </h1>
-            <p className="mt-5 sm:mt-6 text-base sm:text-xl lg:text-2xl text-stone-200 max-w-3xl font-normal leading-relaxed">
-              Rent, purchase, and manage verified commercial headquarters, modern residences, and urban development parcels with institutional precision.
-            </p>
-            
-            {/* Real Estate Hero Search Bar with Interactive Tabs & Red Circular Button */}
-            <div className="mt-8 sm:mt-10 w-full max-w-xl relative z-40">
-              <HeroSearchBar />
-            </div>
-          </div>
-
-          {/* Hero Bottom Bar */}
-          <div className="relative z-10 mt-8 pt-6 border-t border-stone-800/80 flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm text-stone-400">
-            <span>Verified Title Registration & Structural Due Diligence</span>
-            <div className="flex items-center gap-6 font-mono text-xs sm:text-sm">
-              <span>4,000+ Active Listings</span>
-              <span className="hidden sm:inline">·</span>
-              <span className="hidden sm:inline">24 Major Metropolitan Hubs</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* 1. HERO SECTION */}
+      <Hero />
 
       {/* 2. FEATURED PROPERTIES: Interactive 3-Card Carousel (Redfin Style) */}
       <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 pt-8 sm:pt-12 pb-8 sm:py-10">
@@ -241,7 +187,7 @@ export const HomePage: React.FC = () => {
           <div className="lg:col-span-5 relative aspect-4/5 lg:aspect-3/4 rounded-2xl sm:rounded-3xl overflow-hidden bg-stone-100 border border-stone-200">
             <ImageWithFallback
               src="https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=1200&q=80"
-              alt="ESTRA Advisory Building"
+              alt="Digentic Realty Advisory Building"
               className="w-full h-full object-cover"
             />
             {/* Consultation badge circular element */}

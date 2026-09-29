@@ -108,7 +108,7 @@ export const AgentDetailPage: React.FC = () => {
             <div>
               <div className="flex items-center gap-2 text-sm font-mono text-emerald-800 mb-1.5 font-medium">
                 <ShieldCheck className="w-4.5 h-4.5 stroke-[1.5]" />
-                <span>ESTRA Certified Principal Advisor · {agent.agency}</span>
+                <span>Digentic Certified Principal Advisor · {agent.agency}</span>
               </div>
               <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-stone-950 font-architectural">
                 {agent.name}

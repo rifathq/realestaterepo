@@ -176,7 +176,7 @@ export const HeroSearchBar: React.FC<HeroSearchBarProps> = ({
         >
           <div className="p-3 bg-stone-50 border-b border-stone-200 flex items-center justify-between text-[11px] text-stone-600 font-medium">
             <span className="font-semibold text-stone-900">Popular Metropolitan Regions & Asset Classes</span>
-            <span className="font-mono text-[10px] text-stone-500 uppercase tracking-wider">ESTRA Verified</span>
+            <span className="font-mono text-[10px] text-stone-500 uppercase tracking-wider">Digentic Verified</span>
           </div>
 
           <div className="divide-y divide-stone-100 max-h-72 overflow-y-auto bg-white" style={{ backgroundColor: '#ffffff' }}>
@@ -247,7 +247,7 @@ export const HeroSearchBar: React.FC<HeroSearchBarProps> = ({
               </div>
               <div>
                 <h3 className="text-xl font-bold text-stone-950 font-architectural">
-                  ESTRA Mortgage Rate Advisory
+                  Digentic Mortgage Rate Advisory
                 </h3>
                 <p className="text-xs text-stone-500">
                   Institutional commercial & residential financing rates (Q3 2026)

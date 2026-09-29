@@ -57,7 +57,7 @@ export const PROPERTIES: Property[] = [
       facing: 'North-East with panoramic bay vistas'
     },
     verified: true,
-    verifiedBadgeText: 'ESTRA Certified & Title Inspected',
+    verifiedBadgeText: 'Digentic Certified & Title Inspected',
     agentId: 'agent-2',
     images: [
       'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80',
@@ -124,7 +124,7 @@ export const PROPERTIES: Property[] = [
       facing: 'South-West Pacific oceanfront'
     },
     verified: true,
-    verifiedBadgeText: 'ESTRA Verified Ownership & Engineering Surveyed',
+    verifiedBadgeText: 'Digentic Verified Ownership & Engineering Surveyed',
     agentId: 'agent-1',
     images: [
       'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80',
@@ -191,7 +191,7 @@ export const PROPERTIES: Property[] = [
       facing: 'Direct North onto Central Park'
     },
     verified: true,
-    verifiedBadgeText: 'ESTRA Verified Lease & Direct Sponsor Offering',
+    verifiedBadgeText: 'Digentic Verified Lease & Direct Sponsor Offering',
     agentId: 'agent-2',
     images: [
       'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1600&q=80',
@@ -254,7 +254,7 @@ export const PROPERTIES: Property[] = [
       facing: 'East / West dual orientation'
     },
     verified: true,
-    verifiedBadgeText: 'ESTRA Certified Clear Environmental Phase 1',
+    verifiedBadgeText: 'Digentic Certified Clear Environmental Phase 1',
     agentId: 'agent-3',
     images: [
       'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=80',
@@ -317,7 +317,7 @@ export const PROPERTIES: Property[] = [
       facing: 'South-East morning light'
     },
     verified: true,
-    verifiedBadgeText: 'ESTRA Verified Lease Terms',
+    verifiedBadgeText: 'Digentic Verified Lease Terms',
     agentId: 'agent-3',
     images: [
       'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1600&q=80',
@@ -378,7 +378,7 @@ export const PROPERTIES: Property[] = [
       facing: 'Unrestricted West sunset ridge'
     },
     verified: true,
-    verifiedBadgeText: 'ESTRA Certified Title & Civil Entitlements',
+    verifiedBadgeText: 'Digentic Certified Title & Civil Entitlements',
     agentId: 'agent-4',
     images: [
       'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=80',
@@ -440,7 +440,7 @@ export const PROPERTIES: Property[] = [
       facing: 'Corner North-West prime foot-traffic angle'
     },
     verified: true,
-    verifiedBadgeText: 'ESTRA Certified Commercial Lease',
+    verifiedBadgeText: 'Digentic Certified Commercial Lease',
     agentId: 'agent-1',
     images: [
       'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1600&q=80',
@@ -502,7 +502,7 @@ export const PROPERTIES: Property[] = [
       facing: 'Kendall Square direct plaza connection'
     },
     verified: true,
-    verifiedBadgeText: 'ESTRA Certified Lab Specifications & Zoning',
+    verifiedBadgeText: 'Digentic Certified Lab Specifications & Zoning',
     agentId: 'agent-2',
     images: [
       'https://images.unsplash.com/photo-1519999482648-25049ddd37b1?auto=format&fit=crop&w=1600&q=80',

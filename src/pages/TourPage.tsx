@@ -114,7 +114,7 @@ export const TourPage: React.FC = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-stone-500">Access Pass:</span>
-                  <span className="font-semibold text-stone-900">ESTRA-PASS-{(Math.random() * 100000).toFixed(0)}</span>
+                  <span className="font-semibold text-stone-900">DIGENTIC-PASS-{(Math.random() * 100000).toFixed(0)}</span>
                 </div>
               </div>
 

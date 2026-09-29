@@ -182,7 +182,7 @@ export const PropertiesPage: React.FC = () => {
       <div className="border-b border-stone-200 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div className="text-xs text-stone-500 uppercase tracking-widest font-mono mb-1 flex items-center gap-2">
-            <span>ESTRA Verified Catalog</span>
+            <span>Digentic Verified Catalog</span>
             {isFiltering && (
               <span className="inline-flex items-center gap-1 text-emerald-800 text-[10px] font-semibold animate-pulse">
                 <Sparkles className="w-3 h-3" />
@@ -461,7 +461,7 @@ export const PropertiesPage: React.FC = () => {
                 onChange={(e) => updateFilters({ verified: e.target.checked })}
                 className="w-3.5 h-3.5 accent-stone-900"
               />
-              <span>ESTRA Certified & Title Inspected Only</span>
+              <span>Digentic Certified & Title Inspected Only</span>
             </label>
           </div>
 

@@ -96,24 +96,24 @@ export const Header: React.FC = () => {
             to="/"
             className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-950 font-architectural"
           >
-            <span>ESTRA</span>
+            <span>Digentic Realty</span>
           </Link>
 
           {/* Zone 2: Clean text navigation links with interactive dropdown */}
-          <nav className="hidden lg:flex items-center gap-8 xl:gap-10 text-base font-medium text-stone-600">
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium text-neutral-600">
             {navLinksBefore.map((link) => (
               <Link
                 key={link.label}
                 to={link.href}
-                className={`transition-colors py-1 relative ${
+                className={`transition-colors py-1 relative text-sm font-medium ${
                   isActive(link.href)
-                    ? 'text-stone-950 font-semibold'
-                    : 'hover:text-stone-950'
+                    ? 'text-neutral-900 font-semibold'
+                    : 'text-neutral-600 hover:text-neutral-900'
                 }`}
               >
                 {link.label}
                 {isActive(link.href) && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-stone-900" />
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-neutral-900" />
                 )}
               </Link>
             ))}
@@ -128,10 +128,10 @@ export const Header: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setAgentsDropdownOpen((prev) => !prev)}
-                className={`inline-flex items-center gap-1.5 py-1 transition-colors relative cursor-pointer select-none ${
+                className={`inline-flex items-center gap-1.5 py-1 transition-colors relative cursor-pointer select-none text-sm font-medium ${
                   isAgentsActive
-                    ? 'text-stone-950 font-semibold'
-                    : 'hover:text-stone-950 text-stone-600'
+                    ? 'text-neutral-900 font-semibold'
+                    : 'text-neutral-600 hover:text-neutral-900'
                 }`}
                 aria-expanded={agentsDropdownOpen}
                 aria-haspopup="true"
@@ -139,11 +139,11 @@ export const Header: React.FC = () => {
                 <span>Agents</span>
                 <ChevronDown
                   className={`w-3.5 h-3.5 stroke-[2] transition-transform duration-200 ${
-                    agentsDropdownOpen ? 'rotate-180 text-stone-950' : 'text-stone-400'
+                    agentsDropdownOpen ? 'rotate-180 text-neutral-900' : 'text-neutral-400'
                   }`}
                 />
                 {isAgentsActive && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-stone-900" />
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-neutral-900" />
                 )}
               </button>
 
@@ -189,7 +189,7 @@ export const Header: React.FC = () => {
                       }`}
                     >
                       <div className="font-semibold text-stone-900">Join as an Agent</div>
-                      <div className="text-xs text-stone-500 font-normal mt-0.5">Partner with ESTRA Advisory Network</div>
+                      <div className="text-xs text-stone-500 font-normal mt-0.5">Partner with Digentic Advisory Network</div>
                     </Link>
                   </div>
                 </div>
@@ -199,15 +199,15 @@ export const Header: React.FC = () => {
             {/* How It Works Link */}
             <Link
               to="/how-it-works"
-              className={`transition-colors py-1 relative ${
+              className={`transition-colors py-1 relative text-sm font-medium ${
                 isActive('/how-it-works')
-                  ? 'text-stone-950 font-semibold'
-                  : 'hover:text-stone-950'
+                  ? 'text-neutral-900 font-semibold'
+                  : 'text-neutral-600 hover:text-neutral-900'
               }`}
             >
               How It Works
               {isActive('/how-it-works') && (
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-stone-900" />
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-neutral-900" />
               )}
             </Link>
           </nav>
@@ -311,7 +311,7 @@ export const Header: React.FC = () => {
               onClick={() => setMobileMenuOpen(false)}
               className="block py-1 hover:text-stone-950"
             >
-              About ESTRA
+              About Digentic Realty
             </Link>
             <Link
               to="/faq"

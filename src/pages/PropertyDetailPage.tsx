@@ -71,7 +71,7 @@ export const PropertyDetailPage: React.FC = () => {
   const handleInquireSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setInquireSubmitted(true);
-    notify(`Inquiry submitted to ${agent?.name || 'ESTRA Advisory'}`);
+    notify(`Inquiry submitted to ${agent?.name || 'Digentic Advisory'}`);
   };
 
   const similarProperties = PROPERTIES.filter(
@@ -390,7 +390,7 @@ export const PropertyDetailPage: React.FC = () => {
                     Listing Broker
                   </span>
                   <span className="text-[11px] text-emerald-800 font-medium">
-                    ESTRA Verified Partner
+                    Digentic Verified Partner
                   </span>
                 </div>
 

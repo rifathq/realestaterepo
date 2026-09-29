@@ -41,20 +41,20 @@ export const FaqPage: React.FC = () => {
     {
       id: 'faq-1',
       category: 'Verification',
-      question: 'What does "ESTRA Certified & Title Inspected" mean?',
+      question: 'What does "Digentic Certified & Title Inspected" mean?',
       answer: 'Every property bearing this status has completed our four-tier legal and physical review: verification of county deed ownership records, structural plan measurement, environmental compliance review, and validation that no undisclosed liens or municipal code infractions exist.'
     },
     {
       id: 'faq-2',
       category: 'Buying',
-      question: 'How do I submit an offer on an ESTRA listed property?',
-      answer: 'Offers can be generated directly through your client dashboard or submitted by your assigned ESTRA broker. Standardized digital contracts are executed with proof of liquid funds or lender pre-approval attached.'
+      question: 'How do I submit an offer on a Digentic listed property?',
+      answer: 'Offers can be generated directly through your client dashboard or submitted by your assigned Digentic broker. Standardized digital contracts are executed with proof of liquid funds or lender pre-approval attached.'
     },
     {
       id: 'faq-3',
       category: 'Buying',
-      question: 'Are unlisted or off-market properties accessible through ESTRA?',
-      answer: 'Yes. ESTRA Private Office maintains a confidential catalog of institutional commercial towers and high-net-worth residences that do not permit public marketing. Inquire through our Advisory Desk to sign a non-disclosure agreement and access private placements.'
+      question: 'Are unlisted or off-market properties accessible through Digentic Realty?',
+      answer: 'Yes. Digentic Private Office maintains a confidential catalog of institutional commercial towers and high-net-worth residences that do not permit public marketing. Inquire through our Advisory Desk to sign a non-disclosure agreement and access private placements.'
     },
     {
       id: 'faq-4',
@@ -65,8 +65,8 @@ export const FaqPage: React.FC = () => {
     {
       id: 'faq-5',
       category: 'Selling',
-      question: 'What are ESTRA brokerage and listing commission rates?',
-      answer: 'ESTRA maintains transparent tiered fees. For residential sales, brokerage fees range from 2.0% to 2.5% per side. For commercial leases and asset transactions, standard customary regional schedule fees apply without hidden platform markup.'
+      question: 'What are Digentic brokerage and listing commission rates?',
+      answer: 'Digentic Realty maintains transparent tiered fees. For residential sales, brokerage fees range from 2.0% to 2.5% per side. For commercial leases and asset transactions, standard customary regional schedule fees apply without hidden platform markup.'
     },
     {
       id: 'faq-6',
@@ -78,13 +78,13 @@ export const FaqPage: React.FC = () => {
       id: 'faq-7',
       category: 'Verification',
       question: 'Can I schedule an independent structural engineer before contract signing?',
-      answer: 'Absolutely. ESTRA encourages independent structural, MEP, and geotechnical inspections. We provide complete technical access to building systems during the formal due diligence inspection window.'
+      answer: 'Absolutely. Digentic Realty encourages independent structural, MEP, and geotechnical inspections. We provide complete technical access to building systems during the formal due diligence inspection window.'
     },
     {
       id: 'faq-8',
       category: 'Escrow',
       question: 'How are earnest money deposits and closing funds safeguarded?',
-      answer: 'All deposits and transaction balances are held in federally insured, independent third-party title escrow accounts (such as First American Title or Chicago Title). Funds are never held on ESTRA operating ledgers.'
+      answer: 'All deposits and transaction balances are held in federally insured, independent third-party title escrow accounts (such as First American Title or Chicago Title). Funds are never held on Digentic operating ledgers.'
     }
   ];
 

@@ -99,7 +99,7 @@ export const SellPage: React.FC = () => {
         <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 text-center space-y-4">
           <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-stone-400 font-mono">
             <span className="w-2 h-2 rounded-full bg-white" />
-            <span>ESTRA Advisory & Listing Services</span>
+            <span>Digentic Advisory & Listing Services</span>
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white font-architectural">
             Put your property in front of the right people.
@@ -527,7 +527,7 @@ export const SellPage: React.FC = () => {
                       Step 5: Architectural Photography & Documents
                     </h3>
                     <p className="text-xs text-stone-500 mt-0.5">
-                      Submit professional photography URLs or schedule an ESTRA architectural photography session.
+                      Submit professional photography URLs or schedule a Digentic architectural photography session.
                     </p>
                   </div>
 
@@ -543,7 +543,7 @@ export const SellPage: React.FC = () => {
                       className="w-full text-xs p-3 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
                     />
                     <span className="text-[11px] text-stone-400 mt-1 block">
-                      Leave blank to have an ESTRA verified architectural photographer visit the property.
+                      Leave blank to have a Digentic verified architectural photographer visit the property.
                     </span>
                   </div>
 
@@ -642,7 +642,7 @@ export const SellPage: React.FC = () => {
                   <div className="p-4 bg-stone-50 border border-stone-200 flex items-start gap-3">
                     <ShieldCheck className="w-5 h-5 text-emerald-800 shrink-0 mt-0.5" />
                     <p className="text-xs text-stone-600 leading-relaxed">
-                      By submitting this listing proposal, you certify that you hold legal authority or exclusive representation rights for the specified property asset. ESTRA will initiate public record title verification prior to syndication.
+                      By submitting this listing proposal, you certify that you hold legal authority or exclusive representation rights for the specified property asset. Digentic Realty will initiate public record title verification prior to syndication.
                     </p>
                   </div>
                 </div>
@@ -675,7 +675,7 @@ export const SellPage: React.FC = () => {
                     type="submit"
                     className="px-8 py-3 bg-stone-900 text-white text-xs font-bold uppercase tracking-wider hover:bg-stone-800 transition-colors"
                   >
-                    Submit for ESTRA Certification & Listing
+                    Submit for Digentic Certification & Listing
                   </button>
                 )}
               </div>

@@ -32,7 +32,7 @@ export const AuthModal: React.FC = () => {
         <div className="flex items-center justify-between pb-4 border-b border-stone-100">
           <div>
             <h2 id="auth-modal-title" className="text-xl font-semibold tracking-tight text-stone-900">
-              {user ? 'Account Settings' : isRegister ? 'Create ESTRA Account' : 'Sign In to ESTRA'}
+              {user ? 'Account Settings' : isRegister ? 'Create Digentic Account' : 'Sign In to Digentic Realty'}
             </h2>
             <p className="text-xs text-stone-500 mt-0.5">
               {user 
@@ -145,7 +145,7 @@ export const AuthModal: React.FC = () => {
                 className="text-xs text-stone-500 hover:text-stone-900 transition-colors"
               >
                 {isRegister
-                  ? 'Already verified with ESTRA? Sign in'
+                  ? 'Already verified with Digentic? Sign in'
                   : 'New investor or tenant? Create an account'}
               </button>
             </div>

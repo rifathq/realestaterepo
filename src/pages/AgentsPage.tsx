@@ -52,7 +52,7 @@ export const AgentsPage: React.FC<AgentsPageProps> = ({ defaultCity }) => {
       <div className="border-b border-stone-200 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div className="text-sm text-stone-500 uppercase tracking-widest font-mono mb-1.5">
-            ESTRA Advisory Network
+            Digentic Advisory Network
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-stone-950 font-architectural">
             Licensed Real Estate Advisors

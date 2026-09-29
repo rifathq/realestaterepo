@@ -76,7 +76,7 @@ export const SavedPage: React.FC = () => {
               No Saved Properties Yet
             </h2>
             <p className="text-sm sm:text-base text-stone-600 leading-relaxed">
-              When exploring the ESTRA marketplace, click the bookmark icon on any residence, commercial campus, or development parcel to save it here for convenient review.
+              When exploring the Digentic marketplace, click the bookmark icon on any residence, commercial campus, or development parcel to save it here for convenient review.
             </p>
             <div className="pt-2">
               <Link
@@ -114,7 +114,7 @@ export const SavedPage: React.FC = () => {
         /* Saved Searches List */
         <div className="max-w-3xl space-y-4">
           <p className="text-sm text-stone-600">
-            Market alerts notify you when new verified properties matching these criteria are added to the ESTRA database.
+            Market alerts notify you when new verified properties matching these criteria are added to the Digentic database.
           </p>
 
           <div className="space-y-3">

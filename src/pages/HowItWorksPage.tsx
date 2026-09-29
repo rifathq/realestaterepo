@@ -40,7 +40,7 @@ export const HowItWorksPage: React.FC = () => {
     {
       step: '03',
       title: 'Accompanied In-Person or 4K Virtual Walkthrough',
-      desc: 'Schedule a private viewing with an assigned ESTRA broker. Experience mechanical, electrical, and structural systems with an engineering dossier in hand.',
+      desc: 'Schedule a private viewing with an assigned Digentic broker. Experience mechanical, electrical, and structural systems with an engineering dossier in hand.',
       icon: Calendar
     },
     {
@@ -52,7 +52,7 @@ export const HowItWorksPage: React.FC = () => {
     {
       step: '05',
       title: 'Seamless Digital Offer & Escrow Closing',
-      desc: 'Submit offers through standardized ESTRA digital contracts with secure third-party escrow settlement and title insurance dispatch.',
+      desc: 'Submit offers through standardized Digentic digital contracts with secure third-party escrow settlement and title insurance dispatch.',
       icon: KeyRound
     }
   ];
@@ -93,14 +93,14 @@ export const HowItWorksPage: React.FC = () => {
     },
     {
       step: '02',
-      title: 'ESTRA Title Audit & Architectural Photography',
+      title: 'Digentic Title Audit & Architectural Photography',
       desc: 'Our technical team verifies ownership records with county registries and dispatches professional architectural photographers to document the space.',
       icon: FileCheck
     },
     {
       step: '03',
       title: 'Institutional Syndication & Targeted Presentation',
-      desc: 'Your property is presented to verified private clients, family offices, and corporate occupiers across the ESTRA marketplace network.',
+      desc: 'Your property is presented to verified private clients, family offices, and corporate occupiers across the Digentic marketplace network.',
       icon: ShieldCheck
     },
     {
@@ -115,7 +115,7 @@ export const HowItWorksPage: React.FC = () => {
     {
       step: '01',
       title: 'Advisory Accreditation & Licensing Verification',
-      desc: 'Join the ESTRA Advisory Network by verifying state brokerage licensing, historic transaction volume, and architectural domain expertise.',
+      desc: 'Join the Digentic Advisory Network by verifying state brokerage licensing, historic transaction volume, and architectural domain expertise.',
       icon: UserCheck
     },
     {
@@ -127,7 +127,7 @@ export const HowItWorksPage: React.FC = () => {
     {
       step: '03',
       title: 'Closing Protocol & Commission Settlement',
-      desc: 'Execute transactions through ESTRA digital title escrow with instant commission settlement upon municipal recording.',
+      desc: 'Execute transactions through Digentic digital title escrow with instant commission settlement upon municipal recording.',
       icon: KeyRound
     }
   ];

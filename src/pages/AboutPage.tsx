@@ -12,7 +12,7 @@ export const AboutPage: React.FC = () => {
         <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 text-center space-y-4">
           <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-stone-400 font-mono">
             <span className="w-2 h-2 rounded-full bg-white" />
-            <span>ESTRA Institutional Platform Charter</span>
+            <span>Digentic Realty Institutional Platform Charter</span>
           </div>
           <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white font-architectural leading-tight">
             Elevating how architectural real estate is discovered and acquired.
@@ -30,7 +30,7 @@ export const AboutPage: React.FC = () => {
           <div className="lg:col-span-6 relative aspect-4/3 rounded-xl overflow-hidden bg-stone-100 border border-stone-200">
             <ImageWithFallback
               src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80"
-              alt="ESTRA Advisory Headquarters"
+              alt="Digentic Realty Advisory Headquarters"
               className="w-full h-full object-cover"
             />
           </div>
@@ -40,17 +40,17 @@ export const AboutPage: React.FC = () => {
               Architectural Transparency as a Standard
             </h2>
             <p className="text-sm sm:text-base text-stone-600 leading-relaxed">
-              Real estate transactions are traditionally burdened by opaque pricing, outdated floor plans, and unverified broker claims. ESTRA was created to replace outdated brokerage conventions with a verified digital ledger.
+              Real estate transactions are traditionally burdened by opaque pricing, outdated floor plans, and unverified broker claims. Digentic Realty was created to replace outdated brokerage conventions with a verified digital ledger.
             </p>
             <p className="text-sm sm:text-base text-stone-600 leading-relaxed">
-              Every asset listed on ESTRA undergoes a four-stage audit: municipal title deed cross-referencing, architectural square footage measurement, Phase 1 environmental review, and mechanical/electrical compliance verification.
+              Every asset listed on Digentic Realty undergoes a four-stage audit: municipal title deed cross-referencing, architectural square footage measurement, Phase 1 environmental review, and mechanical/electrical compliance verification.
             </p>
             <div className="pt-2">
               <Link
                 to="/how-it-works"
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-950 border-b border-stone-900 pb-0.5 hover:text-stone-700"
               >
-                <span>Explore the ESTRA Verification Protocol</span>
+                <span>Explore the Digentic Verification Protocol</span>
                 <ArrowRight className="w-3.5 h-3.5 stroke-[1.5]" />
               </Link>
             </div>
@@ -87,7 +87,7 @@ export const AboutPage: React.FC = () => {
       <section className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 space-y-10">
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="text-3xl font-bold tracking-tight text-stone-950 font-architectural">
-            The ESTRA Principles
+            The Digentic Principles
           </h2>
           <p className="text-xs sm:text-sm text-stone-500 mt-1">
             Governing standards applied to every listing, transaction, and client advisory engagement
@@ -135,7 +135,7 @@ export const AboutPage: React.FC = () => {
               Metropolitan Advisory Hubs
             </h2>
             <p className="text-xs sm:text-sm text-stone-400 mt-1">
-              ESTRA maintains dedicated private client advisory rooms across four key corporate regions.
+              Digentic Realty maintains dedicated private client advisory rooms across four key corporate regions.
             </p>
           </div>
 

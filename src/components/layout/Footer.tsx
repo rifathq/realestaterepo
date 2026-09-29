@@ -11,7 +11,7 @@ export const Footer: React.FC = () => {
           {/* Brand & Statement */}
           <div className="md:col-span-4 space-y-4">
             <Link to="/" className="text-2xl font-bold tracking-tight text-white font-architectural">
-              ESTRA
+              Digentic Realty
             </Link>
             <p className="text-sm text-stone-400 max-w-sm leading-relaxed">
               A unified marketplace to discover, evaluate, and acquire verified architectural residences and commercial properties with total data transparency.
@@ -66,7 +66,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <Link to="/how-it-works" className="hover:text-white transition-colors">
-                  How ESTRA Works
+                  How Digentic Works
                 </Link>
               </li>
               <li>
@@ -97,7 +97,7 @@ export const Footer: React.FC = () => {
             </p>
             <div className="space-y-1.5 text-xs text-stone-300 font-mono">
               <p>+1 (800) 419-3782</p>
-              <p>advisory@estra-estates.com</p>
+              <p>advisory@digentic-realty.com</p>
             </div>
             <Link
               to="/contact"
@@ -112,7 +112,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom bar */}
         <div className="mt-16 pt-8 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
-          <p>© 2026 ESTRA Estates & Commercial Inc. All rights reserved.</p>
+          <p>© 2026 Digentic Realty Inc. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <Link to="/faq" className="hover:text-stone-300 transition-colors">
               Equal Housing Opportunity
