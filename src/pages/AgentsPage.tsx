@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Search, Phone, Mail, Award, ArrowRight, ShieldCheck, MapPin, Building2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Search, Phone, Mail, Award, ArrowRight, ShieldCheck, MapPin, Building2, X } from 'lucide-react';
 import { AGENTS } from '../data/agents';
 import { ImageWithFallback } from '../components/common/ImageWithFallback';
 
-export const AgentsPage: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+interface AgentsPageProps {
+  defaultCity?: string;
+}
+
+export const AgentsPage: React.FC<AgentsPageProps> = ({ defaultCity }) => {
+  const location = useLocation();
+  const isChicagoPath = defaultCity === 'Chicago' || location.pathname === '/agents/chicago';
+  const [searchQuery, setSearchQuery] = useState(isChicagoPath ? 'Chicago' : '');
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>('all');
+
+  useEffect(() => {
+    if (isChicagoPath) {
+      setSearchQuery('Chicago');
+    }
+  }, [location.pathname, defaultCity, isChicagoPath]);
 
   const specialties = [
     'All Specializations',
@@ -64,8 +76,17 @@ export const AgentsPage: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by advisor name, metropolitan city, or agency..."
-            className="w-full text-sm sm:text-base pl-10 pr-4 py-2.5 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
+            className="w-full text-sm sm:text-base pl-10 pr-10 py-2.5 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
           />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute right-3 top-3 text-stone-400 hover:text-stone-700"
+              title="Clear search"
+            >
+              <X className="w-4 h-4 stroke-[1.5]" />
+            </button>
+          )}
         </div>
 
         <div className="w-full sm:w-72">

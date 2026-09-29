@@ -17,6 +17,7 @@ import { AboutPage } from './pages/AboutPage';
 import { HowItWorksPage } from './pages/HowItWorksPage';
 import { AgentsPage } from './pages/AgentsPage';
 import { AgentDetailPage } from './pages/AgentDetailPage';
+import { JoinAgentPage } from './pages/JoinAgentPage';
 import { FaqPage } from './pages/FaqPage';
 import { ContactPage } from './pages/ContactPage';
 
@@ -50,7 +51,9 @@ export default function App() {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/how-it-works" element={<HowItWorksPage />} />
               <Route path="/agents" element={<AgentsPage />} />
+              <Route path="/agents/chicago" element={<AgentsPage defaultCity="Chicago" />} />
               <Route path="/agents/:slug" element={<AgentDetailPage />} />
+              <Route path="/join-agent" element={<JoinAgentPage />} />
               <Route path="/faq" element={<FaqPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
