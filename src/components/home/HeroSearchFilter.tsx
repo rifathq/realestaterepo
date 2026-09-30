@@ -349,9 +349,9 @@ export const HeroSearchFilter: React.FC<HeroSearchFilterProps> = ({
             <div className="lg:col-span-2 p-1">
               <button
                 type="submit"
-                className="w-full bg-stone-900 hover:bg-stone-800 text-white rounded-xl px-5 sm:px-6 py-3.5 font-semibold transition-all duration-200 shadow-md hover:shadow-xl active:scale-95 flex items-center justify-center gap-2.5 text-xs sm:text-sm whitespace-nowrap cursor-pointer group"
+                className="w-full bg-black hover:bg-neutral-900 text-white font-medium rounded-xl px-5 sm:px-6 py-3.5 border border-black transition-all duration-200 shadow-md hover:shadow-lg active:scale-95 flex items-center justify-center gap-2.5 text-xs sm:text-sm whitespace-nowrap cursor-pointer group"
               >
-                <Search className="w-4 h-4 shrink-0 stroke-[2] transition-transform duration-200 group-hover:scale-110" />
+                <Search className="w-4 h-4 shrink-0 stroke-[2] text-white transition-transform duration-200 group-hover:scale-110" />
                 <span>Search Properties</span>
               </button>
             </div>

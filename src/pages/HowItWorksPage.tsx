@@ -235,7 +235,7 @@ export const HowItWorksPage: React.FC = () => {
           <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
             <Link
               to="/properties"
-              className="px-8 py-3 bg-stone-900 text-white text-sm font-semibold hover:bg-stone-800 transition-colors"
+              className="px-8 py-3 bg-black hover:bg-neutral-900 text-white font-medium text-sm border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200"
             >
               Explore Catalog
             </Link>

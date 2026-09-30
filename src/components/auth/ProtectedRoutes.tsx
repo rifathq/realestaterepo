@@ -46,7 +46,7 @@ export const AdminProtectedRoute: React.FC = () => {
           ) : (
             <Link
               to="/"
-              className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium text-xs rounded-xl transition-all"
+              className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 bg-black hover:bg-neutral-900 text-white font-medium text-xs rounded-xl border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200"
             >
               <span>Return to Public Portal</span>
             </Link>

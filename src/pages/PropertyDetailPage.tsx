@@ -23,7 +23,6 @@ import { api } from '../services/api';
 import { ImageWithFallback } from '../components/common/ImageWithFallback';
 import { PropertyGalleryModal } from '../components/property/PropertyGalleryModal';
 import { PropertyCard } from '../components/property/PropertyCard';
-import { TourAndDossierSection } from '../components/property/TourAndDossierSection';
 
 export const PropertyDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -50,6 +49,13 @@ export const PropertyDetailPage: React.FC = () => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [fullscreenOpen, setFullscreenOpen] = useState(false);
 
+  // Inquire form state
+  const [inquireName, setInquireName] = useState('');
+  const [inquireEmail, setInquireEmail] = useState('');
+  const [inquirePhone, setInquirePhone] = useState('');
+  const [inquireMessage, setInquireMessage] = useState('I would like to request confidential offering documentation and arrange a technical walkthrough.');
+  const [inquireSubmitted, setInquireSubmitted] = useState(false);
+
   if (!property) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-24 text-center space-y-4">
@@ -57,9 +63,9 @@ export const PropertyDetailPage: React.FC = () => {
         <p className="text-sm text-stone-500">The requested property listing does not exist or may have been unlisted.</p>
         <Link
           to="/properties"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-stone-900 text-white text-xs font-medium"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-black hover:bg-neutral-900 text-white font-medium text-xs border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200"
         >
-          <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5]" />
+          <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5] text-white" />
           <span>Return to Marketplace Directory</span>
         </Link>
       </div>
@@ -75,6 +81,12 @@ export const PropertyDetailPage: React.FC = () => {
     } else {
       notify('Link copied to clipboard');
     }
+  };
+
+  const handleInquireSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setInquireSubmitted(true);
+    notify(`Inquiry submitted to ${agent?.name || 'Digentic Advisory'}`);
   };
 
   const similarProperties = PROPERTIES.filter(
@@ -363,15 +375,134 @@ export const PropertyDetailPage: React.FC = () => {
           </div>
 
           {/* Right Column: Tour Scheduling & Agent Contact Box */}
-          <div className="lg:col-span-4">
+          <aside className="lg:col-span-4 space-y-6">
+            
+            {/* Primary Action Card: Schedule Tour */}
+            <div className="bg-stone-900 text-white p-6 border border-stone-800 space-y-4">
+              <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-stone-400 font-mono">
+                <Calendar className="w-3.5 h-3.5 stroke-[1.5]" />
+                <span>Private Accompanied Tour</span>
+              </div>
+              <h3 className="text-lg font-bold">
+                Experience {property.title}
+              </h3>
+              <p className="text-xs text-stone-300 leading-relaxed">
+                Schedule a confidential in-person walkthrough or an interactive 4K live video tour with a licensed advisor.
+              </p>
+              <Link
+                to={`/tour/${property.slug}`}
+                className="w-full py-3 bg-white hover:bg-stone-100 text-stone-950 text-xs font-semibold tracking-tight text-center block transition-colors"
+              >
+                Schedule Private Viewing
+              </Link>
+            </div>
+
+            {/* Assigned Licensed Broker Card */}
             {agent && (
-              <TourAndDossierSection
-                property={property}
-                agent={agent}
-                notify={notify}
-              />
+              <div className="bg-white border border-stone-200 p-6 space-y-5">
+                <div className="flex items-center justify-between pb-3 border-b border-stone-100">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-stone-500">
+                    Listing Broker
+                  </span>
+                  <span className="text-[11px] text-emerald-800 font-medium">
+                    Digentic Verified Partner
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <img
+                    src={agent.avatar}
+                    alt={agent.name}
+                    className="w-14 h-14 object-cover border border-stone-200 shrink-0"
+                  />
+                  <div>
+                    <h4 className="text-base font-bold text-stone-950">
+                      <Link to={`/agents/${agent.slug}`} className="hover:underline">
+                        {agent.name}
+                      </Link>
+                    </h4>
+                    <p className="text-xs text-stone-500">{agent.role}</p>
+                    <p className="text-[11px] text-stone-400 font-mono">{agent.licenseNumber}</p>
+                  </div>
+                </div>
+
+                <div className="space-y-2 text-xs text-stone-600 font-mono pt-2">
+                  <div className="flex items-center gap-2">
+                    <Phone className="w-3.5 h-3.5 text-stone-400 stroke-[1.5]" />
+                    <span>{agent.phone}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Mail className="w-3.5 h-3.5 text-stone-400 stroke-[1.5]" />
+                    <span>{agent.email}</span>
+                  </div>
+                </div>
+
+                {/* Direct Inquire Form */}
+                <div className="pt-3 border-t border-stone-100">
+                  {inquireSubmitted ? (
+                    <div className="p-3 bg-stone-50 border border-stone-200 text-center space-y-1">
+                      <Check className="w-5 h-5 text-emerald-700 mx-auto" />
+                      <p className="text-xs font-bold text-stone-900">Inquiry Dispatched</p>
+                      <p className="text-[11px] text-stone-500">
+                        {agent.name} will respond within 4 business hours.
+                      </p>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleInquireSubmit} className="space-y-3">
+                      <span className="text-xs font-semibold text-stone-900 block">
+                        Direct Broker Dossier Request
+                      </span>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Your Full Name"
+                        value={inquireName}
+                        onChange={(e) => setInquireName(e.target.value)}
+                        className="w-full text-xs p-2 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
+                      />
+                      <input
+                        type="email"
+                        required
+                        placeholder="Corporate / Personal Email"
+                        value={inquireEmail}
+                        onChange={(e) => setInquireEmail(e.target.value)}
+                        className="w-full text-xs p-2 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
+                      />
+                      <input
+                        type="tel"
+                        placeholder="Direct Phone Number"
+                        value={inquirePhone}
+                        onChange={(e) => setInquirePhone(e.target.value)}
+                        className="w-full text-xs p-2 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
+                      />
+                      <textarea
+                        rows={3}
+                        value={inquireMessage}
+                        onChange={(e) => setInquireMessage(e.target.value)}
+                        className="w-full text-xs p-2 border border-stone-200 bg-stone-50 focus:outline-none focus:border-stone-900"
+                      />
+                      <button
+                        type="submit"
+                        className="w-full py-2.5 bg-black hover:bg-neutral-900 text-white font-medium text-xs border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200 cursor-pointer"
+                      >
+                        Request Complete Dossier
+                      </button>
+                    </form>
+                  )}
+                </div>
+
+                <div className="pt-2 text-center">
+                  <Link
+                    to={`/agents/${agent.slug}`}
+                    className="text-xs text-stone-500 hover:text-stone-950 underline"
+                  >
+                    View {agent.name.split(' ')[0]}'s Complete Advisory Portfolio ({agent.activeListingsCount} listings)
+                  </Link>
+                </div>
+              </div>
             )}
-          </div>
+
+          </aside>
         </div>
 
         {/* Similar Properties Section */}

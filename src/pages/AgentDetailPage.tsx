@@ -35,9 +35,9 @@ export const AgentDetailPage: React.FC = () => {
         <p className="text-sm text-stone-500">The requested advisor profile does not exist or may have transferred offices.</p>
         <Link
           to="/agents"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-stone-950 text-white text-xs font-semibold tracking-wide hover:bg-stone-800 transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-black hover:bg-neutral-900 text-white font-medium text-xs tracking-wide border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200"
         >
-          <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5]" />
+          <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5] text-white" />
           <span>Return to Advisory Directory</span>
         </Link>
       </div>
@@ -317,9 +317,9 @@ export const AgentDetailPage: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="w-full py-2.5 px-4 bg-[#151515] hover:bg-[#000000] text-[#F7F6F1] text-xs font-medium tracking-wide transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
+                  className="w-full py-2.5 px-4 bg-black hover:bg-neutral-900 text-white font-medium text-xs tracking-wide border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <Send className="w-3.5 h-3.5" />
+                  <Send className="w-3.5 h-3.5 text-white" />
                   <span>Send Advisory Request</span>
                 </button>
               </form>

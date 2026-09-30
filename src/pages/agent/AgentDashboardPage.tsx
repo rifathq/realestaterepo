@@ -118,9 +118,9 @@ export const AgentDashboardPage: React.FC = () => {
           </Link>
           <Link
             to="/agent/appointments"
-            className="inline-flex items-center gap-2 py-2 px-3.5 bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-700 font-medium text-xs rounded-xl transition-all"
+            className="inline-flex items-center gap-2 py-2 px-3.5 bg-black hover:bg-neutral-900 text-white border border-black font-medium text-xs rounded-xl shadow-md hover:shadow-lg active:scale-95 transition-all duration-200"
           >
-            <CalendarCheck className="w-4 h-4 text-neutral-400" />
+            <CalendarCheck className="w-4 h-4 text-white" />
             <span>Tour Calendar</span>
           </Link>
         </div>

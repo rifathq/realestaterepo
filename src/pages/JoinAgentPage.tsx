@@ -61,7 +61,7 @@ export const JoinAgentPage: React.FC = () => {
             </a>
             <Link
               to="/agents"
-              className="px-6 py-3.5 border border-stone-700 text-white font-medium text-sm hover:bg-stone-900 transition-colors"
+              className="px-6 py-3.5 border border-stone-700 text-white font-medium text-sm hover:bg-black active:scale-95 transition-all duration-200"
             >
               Explore Current Advisors
             </Link>
@@ -292,9 +292,9 @@ export const JoinAgentPage: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="w-full py-3.5 px-6 bg-stone-950 text-white font-medium text-sm hover:bg-stone-800 transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-3.5 px-6 bg-black hover:bg-neutral-900 text-white font-medium text-sm border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <FileCheck className="w-4 h-4" />
+                  <FileCheck className="w-4 h-4 text-white" />
                   <span>Submit Confidential Application</span>
                 </button>
               </form>

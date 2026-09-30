@@ -109,7 +109,7 @@ export const HomePage: React.FC = () => {
               className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full border flex items-center justify-center transition-all ${
                 validIndex <= 0
                   ? 'border-stone-200 text-stone-300 cursor-not-allowed bg-stone-50/50'
-                  : 'border-stone-300 bg-white text-stone-800 hover:bg-stone-900 hover:text-white hover:border-stone-900 shadow-2xs active:scale-95 cursor-pointer'
+                  : 'border-stone-300 bg-white text-stone-800 hover:bg-black hover:text-white hover:border-black shadow-2xs active:scale-95 transition-all duration-200 cursor-pointer'
               }`}
             >
               <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
@@ -123,7 +123,7 @@ export const HomePage: React.FC = () => {
               className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full border flex items-center justify-center transition-all ${
                 validIndex >= maxIndex
                   ? 'border-stone-200 text-stone-300 cursor-not-allowed bg-stone-50/50'
-                  : 'border-stone-300 bg-white text-stone-800 hover:bg-stone-900 hover:text-white hover:border-stone-900 shadow-2xs active:scale-95 cursor-pointer'
+                  : 'border-stone-300 bg-white text-stone-800 hover:bg-black hover:text-white hover:border-black shadow-2xs active:scale-95 transition-all duration-200 cursor-pointer'
               }`}
             >
               <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
@@ -187,10 +187,10 @@ export const HomePage: React.FC = () => {
             {/* Primary Action Button (Option A: Direct link to /explore catalog) */}
             <Link
               to="/explore"
-              className="group inline-flex items-center gap-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-full px-8 py-3.5 text-sm font-medium transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+              className="group inline-flex items-center gap-2.5 bg-black hover:bg-neutral-900 text-white font-medium rounded-full px-8 py-3.5 text-sm border border-black shadow-md hover:shadow-lg hover:-translate-y-0.5 active:scale-95 transition-all duration-200 cursor-pointer"
             >
               <span>Explore All Listings</span>
-              <ArrowRight className="w-4 h-4 stroke-[2] transition-transform duration-200 group-hover:translate-x-1.5" />
+              <ArrowRight className="w-4 h-4 stroke-[2] text-white transition-transform duration-200 group-hover:translate-x-1.5" />
             </Link>
 
             {/* In-page Toggle Button (Option B: Expands full grid in place) */}

@@ -144,10 +144,10 @@ export const AgentLayout: React.FC = () => {
           <Link
             to="/"
             target="_blank"
-            className="flex items-center justify-center gap-2 w-full py-2 px-3 text-xs font-medium text-neutral-300 hover:text-white bg-neutral-800/50 hover:bg-neutral-800 border border-neutral-700/60 rounded-lg transition-colors"
+            className="flex items-center justify-center gap-2 w-full py-2 px-3 text-xs font-medium text-white bg-black hover:bg-neutral-900 border border-black rounded-lg shadow-md hover:shadow-lg active:scale-95 transition-all duration-200"
           >
             <span>View Public Website</span>
-            <ExternalLink className="w-3.5 h-3.5 text-neutral-400" />
+            <ExternalLink className="w-3.5 h-3.5 text-white" />
           </Link>
           <button
             type="button"

@@ -194,7 +194,7 @@ export const AgentsPage: React.FC<AgentsPageProps> = ({ defaultCity }) => {
                 setSearchQuery('');
                 setSelectedSpecialization('All');
               }}
-              className="mt-3 inline-flex items-center px-5 py-2.5 text-xs font-medium bg-[#151515] text-[#F7F6F1] hover:bg-[#000000] transition-colors cursor-pointer rounded-xs"
+              className="mt-3 inline-flex items-center px-5 py-2.5 text-xs font-medium bg-black hover:bg-neutral-900 text-white border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200 cursor-pointer rounded-xs"
             >
               Reset Filters
             </button>
@@ -298,10 +298,10 @@ export const AgentsPage: React.FC<AgentsPageProps> = ({ defaultCity }) => {
                   {/* Refined CTA Button with moving arrow on card hover */}
                   <Link
                     to={`/agents/${agent.slug || agent.id}`}
-                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#151515] hover:bg-[#000000] text-[#F7F6F1] text-xs font-medium tracking-wide transition-all rounded-xs self-stretch sm:self-auto cursor-pointer shadow-2xs whitespace-nowrap"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-black hover:bg-neutral-900 text-white font-medium text-xs tracking-wide border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200 rounded-xs self-stretch sm:self-auto cursor-pointer whitespace-nowrap"
                   >
                     <span>View Profile & Listings</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+                    <ArrowRight className="w-3.5 h-3.5 text-white transition-transform duration-200 group-hover:translate-x-1" />
                   </Link>
                 </div>
               </article>

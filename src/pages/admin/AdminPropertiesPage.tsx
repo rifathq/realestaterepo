@@ -549,7 +549,7 @@ export const AdminPropertiesPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl"
+                  className="px-4 py-2.5 bg-black hover:bg-neutral-900 text-white font-medium rounded-xl border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200"
                 >
                   Cancel
                 </button>
@@ -581,7 +581,7 @@ export const AdminPropertiesPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setDeleteId(null)}
-                className="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs"
+                className="px-4 py-2 bg-black hover:bg-neutral-900 text-white font-medium rounded-xl text-xs border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200"
               >
                 Cancel
               </button>

@@ -81,10 +81,10 @@ export const SavedPage: React.FC = () => {
             <div className="pt-2">
               <Link
                 to="/properties"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-stone-900 text-white text-sm font-semibold hover:bg-stone-800 transition-colors shadow-sm"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-black hover:bg-neutral-900 text-white font-medium text-sm border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200"
               >
                 <span>Discover Marketplace</span>
-                <ArrowRight className="w-4 h-4 stroke-[1.5]" />
+                <ArrowRight className="w-4 h-4 stroke-[1.5] text-white" />
               </Link>
             </div>
           </div>
@@ -139,7 +139,7 @@ export const SavedPage: React.FC = () => {
                 <div className="flex items-center gap-3">
                   <Link
                     to={search.link}
-                    className="px-5 py-2.5 bg-stone-900 text-white text-sm font-semibold hover:bg-stone-800 transition-colors whitespace-nowrap shadow-xs"
+                    className="px-5 py-2.5 bg-black hover:bg-neutral-900 text-white font-medium text-sm border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200 whitespace-nowrap"
                   >
                     View Current Results
                   </Link>

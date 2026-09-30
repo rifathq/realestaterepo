@@ -175,9 +175,9 @@ export const ContactPage: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="w-full py-4 bg-stone-900 text-white text-sm font-semibold tracking-tight hover:bg-stone-800 transition-colors flex items-center justify-center gap-2 shadow-xs"
+                  className="w-full py-4 bg-black hover:bg-neutral-900 text-white font-medium text-sm tracking-tight border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <Send className="w-4 h-4 stroke-[1.5]" />
+                  <Send className="w-4 h-4 stroke-[1.5] text-white" />
                   <span>Transmit Confidential Inquiry</span>
                 </button>
               </form>

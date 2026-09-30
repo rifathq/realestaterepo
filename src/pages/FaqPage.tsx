@@ -201,7 +201,7 @@ export const FaqPage: React.FC = () => {
           </div>
           <Link
             to="/contact"
-            className="px-6 py-3 bg-stone-900 text-white text-sm font-semibold hover:bg-stone-800 transition-colors whitespace-nowrap"
+            className="px-6 py-3 bg-black hover:bg-neutral-900 text-white font-medium text-sm border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200 whitespace-nowrap"
           >
             Contact Advisory
           </Link>

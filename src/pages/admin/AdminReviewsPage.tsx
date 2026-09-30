@@ -97,7 +97,7 @@ export const AdminReviewsPage: React.FC = () => {
 
               <button
                 onClick={() => togglePublish(rev.id, rev.status || 'published')}
-                className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs flex items-center gap-1 cursor-pointer"
+                className="p-2 bg-black hover:bg-neutral-900 text-white rounded-lg text-xs flex items-center gap-1 cursor-pointer border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200"
                 title="Toggle Visibility"
               >
                 {rev.status === 'published' ? (
