@@ -135,13 +135,13 @@ export const Header: React.FC = () => {
             {/* Interactive Agents Dropdown */}
             <div
               ref={agentsRef}
-              className="relative"
+              className="relative inline-flex items-center"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <button
-                type="button"
-                onClick={() => setAgentsDropdownOpen((prev) => !prev)}
+              <Link
+                to="/agents"
+                onClick={() => setAgentsDropdownOpen(false)}
                 className={`inline-flex items-center gap-1.5 py-1 transition-colors relative cursor-pointer select-none text-sm font-medium ${
                   isAgentsActive
                     ? 'text-neutral-900 font-semibold'
@@ -159,7 +159,7 @@ export const Header: React.FC = () => {
                 {isAgentsActive && (
                   <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-neutral-900" />
                 )}
-              </button>
+              </Link>
 
               {/* Floating Dropdown Card */}
               {agentsDropdownOpen && (
@@ -289,19 +289,29 @@ export const Header: React.FC = () => {
 
             {/* Agents Mobile Accordion */}
             <div className="py-1">
-              <button
-                type="button"
-                onClick={() => setIsMobileAgentsOpen((prev) => !prev)}
-                className="w-full flex items-center justify-between py-1 text-left text-base font-medium text-stone-800 hover:text-stone-950 cursor-pointer transition-colors"
-                aria-expanded={isMobileAgentsOpen}
-              >
-                <span>Agents</span>
-                <ChevronDown
-                  className={`w-4 h-4 text-stone-500 transition-transform duration-200 ${
-                    isMobileAgentsOpen ? 'rotate-180 text-stone-900' : ''
+              <div className="w-full flex items-center justify-between py-1">
+                <Link
+                  to="/agents"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`text-base font-medium transition-colors ${
+                    isAgentsActive ? 'text-stone-950 font-semibold' : 'text-stone-800 hover:text-stone-950'
                   }`}
-                />
-              </button>
+                >
+                  Agents
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setIsMobileAgentsOpen((prev) => !prev)}
+                  className="p-1 text-stone-500 hover:text-stone-900 cursor-pointer"
+                  aria-label="Toggle agent submenu"
+                >
+                  <ChevronDown
+                    className={`w-4 h-4 text-stone-500 transition-transform duration-200 ${
+                      isMobileAgentsOpen ? 'rotate-180 text-stone-900' : ''
+                    }`}
+                  />
+                </button>
+              </div>
 
               {/* Collapsible Submenu Child Items */}
               {isMobileAgentsOpen && (

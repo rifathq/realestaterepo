@@ -1,567 +1,276 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
-import { 
-  Search, 
-  ChevronDown, 
-  Star, 
-  X, 
-  CheckCircle2, 
-  Mail, 
-  Phone, 
-  ShieldCheck, 
-  Award,
-  Sparkles
-} from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import { Search, ChevronDown, MapPin, ShieldCheck, X } from 'lucide-react';
 import { AGENTS } from '../data/agents';
 import { Agent } from '../types/property';
-import { useMarketplace } from '../context/MarketplaceContext';
+import { ImageWithFallback } from '../components/common/ImageWithFallback';
 
 interface AgentsPageProps {
   defaultCity?: string;
 }
 
-type DealTypeFilter = 'All' | 'Buy' | 'Sell';
-type SortOption = 'recommended' | 'volume' | 'deals' | 'rating';
-
 export const AgentsPage: React.FC<AgentsPageProps> = ({ defaultCity }) => {
-  const location = useLocation();
-  const [searchParams] = useSearchParams();
-  const { notify } = useMarketplace();
+  const [searchQuery, setSearchQuery] = useState(defaultCity || '');
+  const [selectedSpecialization, setSelectedSpecialization] = useState('All');
 
-  // Read city from query parameters (?city=...)
-  const cityQuery = searchParams.get('city') || '';
-  const isArlingtonPath = defaultCity === 'Arlington, VA' || location.pathname === '/agents/arlington';
-  const initialSearch = cityQuery || (isArlingtonPath ? 'Arlington' : (defaultCity || ''));
-  
-  const [searchInput, setSearchInput] = useState(initialSearch);
-  const [activeSearch, setActiveSearch] = useState(initialSearch);
-  const [dealType, setDealType] = useState<DealTypeFilter>('All');
-  const [selectedLanguage, setSelectedLanguage] = useState<string>('All');
-  const [sortBy, setSortBy] = useState<SortOption>('recommended');
-  const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
+  // Filter agents based on search query and specialization
+  const filteredAgents = useMemo(() => {
+    return AGENTS.filter((agent: Agent) => {
+      // 1. Text Search Filter
+      if (searchQuery.trim()) {
+        const query = searchQuery.toLowerCase().trim();
+        const matchName = agent.name.toLowerCase().includes(query);
+        const matchCity = agent.city?.toLowerCase().includes(query) ?? false;
+        const matchState = agent.state?.toLowerCase().includes(query) ?? false;
+        const matchOffice = agent.officeLocation.toLowerCase().includes(query);
+        const matchAgency = agent.agency.toLowerCase().includes(query);
+        const matchTitle = agent.role.toLowerCase().includes(query);
+        const matchLicense = agent.licenseNumber.toLowerCase().includes(query);
+        const matchBio = agent.bio.toLowerCase().includes(query);
+        const matchSpecs = agent.specializations.some((s) => s.toLowerCase().includes(query));
 
-  // Sync active search if query param changes externally
-  useEffect(() => {
-    if (cityQuery) {
-      setSearchInput(cityQuery);
-      setActiveSearch(cityQuery);
-    }
-  }, [cityQuery]);
-
-  // Contact Modal State
-  const [contactAgent, setContactAgent] = useState<Agent | null>(null);
-  const [contactName, setContactName] = useState('');
-  const [contactEmail, setContactEmail] = useState('');
-  const [contactPhone, setContactPhone] = useState('');
-  const [contactMessage, setContactMessage] = useState('');
-  const [contactSubmitted, setContactSubmitted] = useState(false);
-
-  // Available languages across agents
-  const availableLanguages = ['All languages', 'English', 'Spanish', 'Mandarin', 'French', 'German', 'Italian', 'Korean'];
-
-  // Handle Search Submission
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setActiveSearch(searchInput.trim());
-  };
-
-  // Reset or clear search
-  const handleClearSearch = () => {
-    setSearchInput('');
-    setActiveSearch('');
-  };
-
-  // Filter and Sort Agents
-  const filteredAndSortedAgents = useMemo(() => {
-    let result = AGENTS.filter((agent) => {
-      // 1. Text Search (City, Address, Agent Name, State, Specialization)
-      if (activeSearch.trim()) {
-        const fullQuery = activeSearch.toLowerCase().trim();
-        const cityPart = fullQuery.includes(',') ? fullQuery.split(',')[0].trim() : fullQuery;
-
-        const matchName = agent.name.toLowerCase().includes(fullQuery);
-        const matchLocation = agent.officeLocation.toLowerCase().includes(fullQuery) ||
-                              agent.officeLocation.toLowerCase().includes(cityPart);
-        const matchCity = (agent.city && (
-          agent.city.toLowerCase().includes(fullQuery) || 
-          agent.city.toLowerCase().includes(cityPart) ||
-          cityPart.includes(agent.city.toLowerCase())
-        )) ?? false;
-        const matchState = agent.state?.toLowerCase().includes(fullQuery) ?? false;
-        const matchSpecialization = agent.specializations.some((s) => s.toLowerCase().includes(fullQuery));
-        const matchAgency = agent.agency.toLowerCase().includes(fullQuery);
-
-        if (!matchName && !matchLocation && !matchCity && !matchState && !matchSpecialization && !matchAgency) {
+        if (!matchName && !matchCity && !matchState && !matchOffice && !matchAgency && !matchTitle && !matchLicense && !matchBio && !matchSpecs) {
           return false;
         }
       }
 
-      // 2. Buy / Sell / All Filter
-      if (dealType !== 'All') {
-        if (agent.dealType && agent.dealType !== 'Both' && agent.dealType !== dealType) {
-          return false;
-        }
-      }
+      // 2. Specialization Filter
+      if (selectedSpecialization !== 'All') {
+        const specLower = selectedSpecialization.toLowerCase();
 
-      // 3. Language Filter
-      if (selectedLanguage !== 'All' && selectedLanguage !== 'All languages') {
-        if (!agent.languages.includes(selectedLanguage)) {
-          return false;
+        if (specLower === 'residential') {
+          const hasResidential = agent.specializations.some((s) =>
+            s.toLowerCase().includes('residential') || s.toLowerCase().includes('modernist') || s.toLowerCase().includes('condos') || s.toLowerCase().includes('estates')
+          );
+          if (!hasResidential) return false;
+        } else if (specLower === 'commercial') {
+          const hasCommercial = agent.specializations.some((s) =>
+            s.toLowerCase().includes('commercial') || s.toLowerCase().includes('offices') || s.toLowerCase().includes('headquarters') || s.toLowerCase().includes('retail')
+          );
+          if (!hasCommercial) return false;
+        } else if (specLower === 'luxury') {
+          const hasLuxury = agent.specializations.some((s) =>
+            s.toLowerCase().includes('luxury') || s.toLowerCase().includes('penthouses') || s.toLowerCase().includes('waterfront')
+          ) || agent.isLuxuryExpert;
+          if (!hasLuxury) return false;
+        } else if (specLower === 'investment') {
+          const hasInvestment = agent.specializations.some((s) =>
+            s.toLowerCase().includes('investment') || s.toLowerCase().includes('capital') || s.toLowerCase().includes('multi-family') || s.toLowerCase().includes('syndication')
+          );
+          if (!hasInvestment) return false;
+        } else if (specLower === 'land & development') {
+          const hasLand = agent.specializations.some((s) =>
+            s.toLowerCase().includes('land') || s.toLowerCase().includes('development') || s.toLowerCase().includes('infill') || s.toLowerCase().includes('zoning')
+          );
+          if (!hasLand) return false;
+        } else if (specLower === 'property management') {
+          const hasManagement = agent.specializations.some((s) =>
+            s.toLowerCase().includes('management') || s.toLowerCase().includes('portfolios') || s.toLowerCase().includes('infrastructure')
+          );
+          if (!hasManagement) return false;
+        } else if (specLower === 'architecture') {
+          const hasArch = agent.specializations.some((s) =>
+            s.toLowerCase().includes('architecture') || s.toLowerCase().includes('modernist') || s.toLowerCase().includes('historic') || s.toLowerCase().includes('reuse')
+          ) || agent.role.toLowerCase().includes('architectural');
+          if (!hasArch) return false;
+        } else if (specLower === 'corporate real estate') {
+          const hasCorporate = agent.specializations.some((s) =>
+            s.toLowerCase().includes('corporate') || s.toLowerCase().includes('headquarters') || s.toLowerCase().includes('logistics') || s.toLowerCase().includes('relocation')
+          ) || agent.role.toLowerCase().includes('corporate');
+          if (!hasCorporate) return false;
+        } else {
+          const matches = agent.specializations.some((s) => s.toLowerCase().includes(specLower));
+          if (!matches) return false;
         }
       }
 
       return true;
     });
-
-    // Sort Logic
-    return result.sort((a, b) => {
-      if (sortBy === 'volume') {
-        const parseVol = (vol?: string) => {
-          if (!vol) return 0;
-          return parseFloat(vol.replace(/[^0-9.]/g, '')) || 0;
-        };
-        return parseVol(b.salesVolume) - parseVol(a.salesVolume);
-      }
-      if (sortBy === 'deals') {
-        return (b.totalDeals || b.dealsClosed) - (a.totalDeals || a.dealsClosed);
-      }
-      if (sortBy === 'rating') {
-        return (b.rating || (b.satisfactionRating / 20)) - (a.rating || (a.satisfactionRating / 20));
-      }
-      // 'recommended' default: luxury experts first, then highest volume
-      if (a.isLuxuryExpert && !b.isLuxuryExpert) return -1;
-      if (!a.isLuxuryExpert && b.isLuxuryExpert) return 1;
-      return (b.totalDeals || b.dealsClosed) - (a.totalDeals || a.dealsClosed);
-    });
-  }, [activeSearch, dealType, selectedLanguage, sortBy]);
-
-  // Dynamic City Name for Heading
-  const dynamicCity = useMemo(() => {
-    if (activeSearch.toLowerCase().includes('arlington')) return 'Arlington, VA';
-    if (activeSearch.toLowerCase().includes('chicago')) return 'Chicago, IL';
-    if (activeSearch.toLowerCase().includes('san francisco')) return 'San Francisco, CA';
-    if (activeSearch.toLowerCase().includes('new york')) return 'New York, NY';
-    if (activeSearch.toLowerCase().includes('austin')) return 'Austin, TX';
-    if (activeSearch.trim()) return activeSearch.trim();
-    if (cityQuery) return cityQuery;
-    if (isArlingtonPath) return 'Arlington, VA';
-    return defaultCity || 'Arlington, VA';
-  }, [activeSearch, cityQuery, isArlingtonPath, defaultCity]);
-
-  // Contact Modal Handlers
-  const handleOpenContact = (agent: Agent) => {
-    setContactAgent(agent);
-    setContactSubmitted(false);
-    setContactMessage(`Hi ${agent.name}, I am interested in advisory services and listings in ${agent.city || 'Arlington, VA'}.`);
-  };
-
-  const handleSendContact = (e: React.FormEvent) => {
-    e.preventDefault();
-    setContactSubmitted(true);
-    notify(`Inquiry successfully sent to ${contactAgent?.name}!`);
-    setTimeout(() => {
-      setContactAgent(null);
-      setContactSubmitted(false);
-    }, 2200);
-  };
-
-  const sortLabels: Record<SortOption, string> = {
-    recommended: 'Recommended',
-    volume: 'Sales Volume',
-    deals: 'Total Deals',
-    rating: 'Highest Rating'
-  };
+  }, [searchQuery, selectedSpecialization]);
 
   return (
-    <div className="w-full bg-[#fbfbfb] min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
-        
-        {/* 1. Header & Intro Section */}
-        <div className="space-y-3">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 leading-[1.15]">
-            Find the most experienced real estate agents in {dynamicCity}
-          </h1>
-          <p className="text-sm sm:text-base text-neutral-600 max-w-3xl leading-relaxed">
-            Digentic Realty agents close twice as many deals. We're local experts who know how to help you win in today's market.
-          </p>
+    <div className="w-full min-h-screen bg-stone-50">
+      <div className="max-w-[1760px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-8 sm:py-12">
+        {/* 1. Page Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-stone-200">
+          <div className="space-y-1.5">
+            <div className="text-[11px] font-mono tracking-widest text-stone-500 uppercase font-semibold">
+              ESTRA ADVISORY NETWORK
+            </div>
+            <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-stone-950 font-sans">
+              Licensed Real Estate Advisors
+            </h1>
+            <p className="text-sm sm:text-base text-stone-600 max-w-3xl font-normal">
+              Partner with dedicated brokers specializing in commercial headquarters, residential architecture, and land entitlements.
+            </p>
+          </div>
+          <div className="text-xs sm:text-sm font-mono text-stone-600 whitespace-nowrap md:pb-1">
+            {filteredAgents.length} Licensed Advisor{filteredAgents.length === 1 ? '' : 's'} Available
+          </div>
         </div>
 
-        {/* 2. Search & Filter Bar */}
-        <div className="space-y-4 pt-1">
-          <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-3">
-            
-            {/* Search Input Box with Red Button */}
-            <form onSubmit={handleSearchSubmit} className="flex-1 relative flex items-center">
-              <div className="relative w-full flex items-center bg-white border border-neutral-300 rounded-md shadow-2xs focus-within:border-neutral-900 focus-within:ring-1 focus-within:ring-neutral-900 transition-all overflow-hidden pl-3.5 pr-2 py-1.5">
-                <Search className="w-4 h-4 text-neutral-400 shrink-0 mr-2.5" />
-                <input
-                  type="text"
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                  placeholder="City, Address, School, Agent, ZIP"
-                  className="w-full text-xs sm:text-sm text-neutral-800 placeholder:text-neutral-400 focus:outline-none bg-transparent py-1"
-                />
-                {searchInput && (
-                  <button
-                    type="button"
-                    onClick={handleClearSearch}
-                    className="p-1 mr-2 text-neutral-400 hover:text-neutral-700"
-                    title="Clear"
-                  >
-                    <X className="w-3.5 h-3.5" />
-                  </button>
-                )}
-                <button
-                  type="submit"
-                  className="bg-[#d9383a] hover:bg-[#c22d2f] text-white text-xs sm:text-sm font-semibold px-4 sm:px-5 py-1.5 rounded-full transition-colors shadow-xs shrink-0 cursor-pointer"
-                >
-                  Search
-                </button>
-              </div>
-            </form>
-
-            {/* Filter Controls Row */}
-            <div className="flex flex-wrap sm:flex-nowrap items-center gap-3">
-              {/* Buy / Sell / All Segmented Buttons */}
-              <div className="inline-flex rounded-md border border-neutral-300 overflow-hidden bg-white shadow-2xs text-xs sm:text-sm font-medium">
-                <button
-                  type="button"
-                  onClick={() => setDealType('Buy')}
-                  className={`px-4 sm:px-5 py-2 transition-colors border-r border-neutral-200 cursor-pointer ${
-                    dealType === 'Buy'
-                      ? 'bg-[#0c6b73] text-white font-semibold'
-                      : 'text-neutral-700 hover:bg-neutral-50'
-                  }`}
-                >
-                  Buy
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setDealType('Sell')}
-                  className={`px-4 sm:px-5 py-2 transition-colors border-r border-neutral-200 cursor-pointer ${
-                    dealType === 'Sell'
-                      ? 'bg-[#0c6b73] text-white font-semibold'
-                      : 'text-neutral-700 hover:bg-neutral-50'
-                  }`}
-                >
-                  Sell
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setDealType('All')}
-                  className={`px-4 sm:px-5 py-2 transition-colors cursor-pointer ${
-                    dealType === 'All'
-                      ? 'bg-[#0c6b73] text-white font-semibold'
-                      : 'text-neutral-700 hover:bg-neutral-50'
-                  }`}
-                >
-                  All
-                </button>
-              </div>
-
-              {/* Languages Dropdown */}
-              <div className="relative">
-                <select
-                  value={selectedLanguage}
-                  onChange={(e) => setSelectedLanguage(e.target.value)}
-                  className="appearance-none bg-white border border-neutral-300 rounded-md px-3.5 pr-8 py-2 text-xs sm:text-sm font-medium text-neutral-700 hover:border-neutral-400 focus:outline-none focus:border-neutral-900 cursor-pointer shadow-2xs"
-                >
-                  {availableLanguages.map((lang) => (
-                    <option key={lang} value={lang}>
-                      {lang}
-                    </option>
-                  ))}
-                </select>
-                <ChevronDown className="w-3.5 h-3.5 text-neutral-500 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-              </div>
-            </div>
-
-          </div>
-
-          {/* Results Summary Header & Sorting */}
-          <div className="flex flex-wrap items-center justify-between text-xs sm:text-sm text-neutral-600 pt-2 border-b border-neutral-200 pb-3 gap-2">
-            <div>
-              <span className="font-semibold text-neutral-900">
-                1–{filteredAndSortedAgents.length} of {filteredAndSortedAgents.length} agents in {dynamicCity}
-              </span>
-            </div>
-
-            {/* Interactive Sort Dropdown */}
-            <div className="relative">
+        {/* 2. Search + Filter Bar */}
+        <div className="bg-white border border-stone-200 p-3 sm:p-4 my-6 sm:my-8 flex flex-col md:flex-row gap-3 sm:gap-4 items-stretch md:items-center shadow-xs">
+          {/* Search Input */}
+          <div className="relative flex-1">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 stroke-[1.5]" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by advisor name, metropolitan city, or agency..."
+              className="w-full pl-10 pr-10 py-2.5 text-sm bg-white border border-stone-200 rounded-none focus:outline-none focus:border-stone-900 placeholder:text-stone-400 text-stone-900 transition-colors"
+            />
+            {searchQuery && (
               <button
                 type="button"
-                onClick={() => setSortDropdownOpen((prev) => !prev)}
-                className="inline-flex items-center gap-1.5 text-neutral-700 hover:text-neutral-950 font-medium cursor-pointer"
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-700 p-1 cursor-pointer"
+                aria-label="Clear search"
               >
-                <span>Sort:</span>
-                <span className="text-[#0c6b73] font-semibold underline underline-offset-2">
-                  {sortLabels[sortBy]}
-                </span>
-                <ChevronDown className="w-3.5 h-3.5 text-neutral-500" />
+                <X className="w-3.5 h-3.5" />
               </button>
+            )}
+          </div>
 
-              {sortDropdownOpen && (
-                <div className="absolute right-0 top-full mt-1.5 w-44 bg-white border border-neutral-200 rounded-md shadow-lg py-1 z-30 text-xs">
-                  {(['recommended', 'volume', 'deals', 'rating'] as SortOption[]).map((option) => (
-                    <button
-                      key={option}
-                      type="button"
-                      onClick={() => {
-                        setSortBy(option);
-                        setSortDropdownOpen(false);
-                      }}
-                      className={`w-full text-left px-3 py-2 transition-colors ${
-                        sortBy === option
-                          ? 'bg-neutral-100 font-semibold text-neutral-900'
-                          : 'text-neutral-700 hover:bg-neutral-50'
-                      }`}
-                    >
-                      {sortLabels[option]}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+          {/* Specialization Filter Dropdown */}
+          <div className="relative shrink-0">
+            <select
+              value={selectedSpecialization}
+              onChange={(e) => setSelectedSpecialization(e.target.value)}
+              className="w-full md:w-auto min-w-[240px] px-3.5 py-2.5 text-sm bg-white border border-stone-200 rounded-none focus:outline-none focus:border-stone-900 text-stone-800 cursor-pointer appearance-none pr-9 font-medium"
+            >
+              <option value="All">All Specializations</option>
+              <option value="Residential">Residential</option>
+              <option value="Commercial">Commercial</option>
+              <option value="Luxury">Luxury</option>
+              <option value="Investment">Investment</option>
+              <option value="Land & Development">Land & Development</option>
+              <option value="Property Management">Property Management</option>
+              <option value="Architecture">Architecture</option>
+              <option value="Corporate Real Estate">Corporate Real Estate</option>
+            </select>
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-500 pointer-events-none stroke-[1.5]" />
           </div>
         </div>
 
-        {/* 3. Agent Card Grid Layout (1 col mobile, 2 col tablet, 4 col desktop) */}
-        {filteredAndSortedAgents.length === 0 ? (
-          <div className="bg-white border border-neutral-200 rounded-xl p-12 text-center max-w-lg mx-auto space-y-4 my-8 shadow-xs">
-            <Search className="w-10 h-10 text-neutral-400 mx-auto" />
-            <h3 className="text-xl font-bold text-neutral-900">
-              No local agents currently listed in {dynamicCity}
+        {/* 3. Agent Grid */}
+        {filteredAgents.length === 0 ? (
+          <div className="bg-white border border-stone-200 p-12 text-center space-y-3">
+            <div className="text-stone-400 font-mono text-xs uppercase tracking-wider font-semibold">
+              No Advisors Found
+            </div>
+            <h3 className="text-lg font-bold text-stone-900">
+              No licensed advisors match your current filter criteria
             </h3>
-            <p className="text-sm text-neutral-600">
-              Digentic Realty advises private clients and luxury estates nationwide. Browse our principal agents across all metropolitan markets.
+            <p className="text-xs sm:text-sm text-stone-500 max-w-md mx-auto">
+              Try searching for a different advisor name, city (e.g. &ldquo;San Francisco&rdquo;, &ldquo;New York&rdquo;, &ldquo;Austin&rdquo;), or reset the specialization filter.
             </p>
             <button
+              type="button"
               onClick={() => {
-                setSearchInput('');
-                setActiveSearch('');
-                setDealType('All');
-                setSelectedLanguage('All');
+                setSearchQuery('');
+                setSelectedSpecialization('All');
               }}
-              className="px-5 py-2.5 bg-neutral-900 text-white text-xs font-semibold rounded-md hover:bg-neutral-800 transition-colors cursor-pointer"
+              className="mt-2 inline-flex items-center px-4 py-2 text-xs font-semibold bg-stone-950 text-white hover:bg-stone-800 transition-colors cursor-pointer"
             >
-              View All Nationwide Agents ({AGENTS.length})
+              Reset Filters
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {filteredAndSortedAgents.map((agent) => (
-              <div
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {filteredAgents.map((agent) => (
+              <article
                 key={agent.id}
-                className="bg-white border border-neutral-200 rounded-xl overflow-hidden shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col group"
+                className="bg-white border border-stone-200 p-6 sm:p-7 flex flex-col justify-between hover:border-stone-400 transition-colors duration-200 shadow-xs"
               >
-                {/* Agent Photo Container */}
-                <div className="relative aspect-4/3 sm:aspect-square w-full bg-neutral-100 overflow-hidden">
-                  {/* LUXURY EXPERT Tag */}
-                  <div className="absolute top-2.5 left-2.5 z-10">
-                    <span className="inline-block bg-neutral-900/80 backdrop-blur-xs text-white text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-xs uppercase tracking-wider shadow-2xs">
-                      LUXURY EXPERT
+                <div>
+                  {/* Top Section */}
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-start gap-4">
+                      {/* Agent Profile Image */}
+                      <div className="w-20 h-20 sm:w-24 sm:h-24 shrink-0 overflow-hidden bg-stone-100 border border-stone-200">
+                        <ImageWithFallback
+                          src={agent.avatar}
+                          alt={agent.name}
+                          fallbackTitle={agent.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+
+                      {/* Credentials & Details */}
+                      <div className="space-y-0.5">
+                        <div className="text-[11px] font-mono text-stone-500 uppercase tracking-wider font-semibold">
+                          {agent.licenseNumber}
+                        </div>
+                        <h2 className="text-xl sm:text-2xl font-bold text-stone-950 tracking-tight leading-tight">
+                          <Link
+                            to={`/agents/${agent.slug || agent.id}`}
+                            className="hover:text-stone-700 transition-colors"
+                          >
+                            {agent.name}
+                          </Link>
+                        </h2>
+                        <div className="text-xs sm:text-sm text-stone-600 font-medium">
+                          {agent.role}
+                        </div>
+                        <div className="flex items-center gap-1.5 text-xs text-stone-500 pt-0.5">
+                          <MapPin className="w-3.5 h-3.5 text-stone-400 shrink-0 stroke-[1.5]" />
+                          <span>{agent.officeLocation}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Satisfaction Badge */}
+                    <div className="shrink-0">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-emerald-800 bg-emerald-50/70 border border-emerald-300 rounded">
+                        <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 stroke-[2]" />
+                        <span>{agent.satisfactionRating}% Satisfaction</span>
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Agent Description */}
+                  <p className="mt-4 text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
+                    {agent.bio}
+                  </p>
+
+                  {/* Specializations */}
+                  <div className="mt-4 pt-3.5 border-t border-stone-100 text-xs text-stone-600">
+                    <strong className="font-semibold text-stone-900">Specializations:</strong>{' '}
+                    <span className="text-stone-700">{agent.specializations.join(' · ')}</span>
+                  </div>
+                </div>
+
+                {/* Bottom Section: Stats & View Profile Button */}
+                <div className="mt-6 pt-4 border-t border-stone-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-3 sm:gap-4 text-xs font-mono text-stone-700">
+                    <span>
+                      <strong className="font-bold text-stone-950">{agent.yearsExperience}</strong> yrs exp.
+                    </span>
+                    <span>
+                      <strong className="font-bold text-stone-950">
+                        {agent.dealsClosed || agent.totalDeals}
+                      </strong>{' '}
+                      deals
+                    </span>
+                    <span>
+                      <strong className="font-bold text-stone-950">{agent.activeListingsCount}</strong> active listings
                     </span>
                   </div>
 
-                  <img
-                    src={agent.avatar}
-                    alt={agent.name}
-                    className="w-full h-full object-cover object-top group-hover:scale-103 transition-transform duration-300"
-                    loading="lazy"
-                  />
-                </div>
-
-                {/* Agent Details Container */}
-                <div className="p-4 sm:p-5 flex flex-col flex-1">
-                  
-                  {/* Full Name */}
-                  <h3 className="font-bold text-base sm:text-lg text-neutral-900 tracking-tight leading-snug">
-                    {agent.name}
-                  </h3>
-
-                  {/* Title & Location */}
-                  <p className="text-xs text-neutral-600 mt-0.5 font-normal">
-                    {agent.role} • {agent.city ? `${agent.city}, ${agent.state}` : agent.officeLocation.split('•')[0].trim()}
-                  </p>
-
-                  {/* Contact Email / Handle Link */}
-                  <a
-                    href={`mailto:${agent.email}`}
-                    className="text-xs text-blue-600 hover:text-blue-800 hover:underline mt-0.5 truncate block font-normal transition-colors"
+                  <Link
+                    to={`/agents/${agent.slug || agent.id}`}
+                    className="inline-flex items-center justify-center px-4 py-2 bg-stone-950 hover:bg-stone-800 text-white text-xs font-semibold tracking-wide transition-colors whitespace-nowrap shadow-xs"
                   >
-                    {agent.email}
-                  </a>
-
-                  {/* Performance Metrics: 3-Column Stat Bar */}
-                  <div className="grid grid-cols-3 divide-x divide-neutral-200 text-left my-4 pt-3.5 border-t border-neutral-100">
-                    {/* Sales Volume */}
-                    <div className="pr-1.5">
-                      <span className="font-bold text-xs sm:text-sm text-neutral-900 block truncate">
-                        {agent.salesVolume || '$180.0M'}
-                      </span>
-                      <span className="text-[10px] text-neutral-500 uppercase tracking-tight block truncate mt-0.5">
-                        Sales volume
-                      </span>
-                    </div>
-
-                    {/* Total Deals */}
-                    <div className="px-2">
-                      <span className="font-bold text-xs sm:text-sm text-neutral-900 block">
-                        {agent.totalDeals || agent.dealsClosed}
-                      </span>
-                      <span className="text-[10px] text-neutral-500 uppercase tracking-tight block truncate mt-0.5">
-                        Total deals
-                      </span>
-                    </div>
-
-                    {/* Avg Rating */}
-                    <div className="pl-2">
-                      <span className="font-bold text-xs sm:text-sm text-neutral-900 flex items-center gap-0.5">
-                        <span>{agent.rating ? agent.rating.toFixed(1) : '4.8'}</span>
-                        <span className="text-neutral-900 text-xs">★</span>
-                      </span>
-                      <span className="text-[10px] text-neutral-500 uppercase tracking-tight block truncate mt-0.5">
-                        Avg rating
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Action Button */}
-                  <div className="mt-auto pt-1">
-                    <button
-                      type="button"
-                      onClick={() => handleOpenContact(agent)}
-                      className="w-full py-2 px-4 rounded-full border border-neutral-300 hover:border-neutral-900 hover:bg-neutral-900 hover:text-white text-xs font-semibold text-neutral-800 transition-colors text-center cursor-pointer shadow-2xs"
-                    >
-                      Contact
-                    </button>
-                  </div>
-
+                    View Profile & Listings
+                  </Link>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         )}
-
       </div>
-
-      {/* Interactive Contact Agent Modal */}
-      {contactAgent && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200"
-          role="dialog"
-          aria-modal="true"
-        >
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-neutral-200 relative">
-            <button
-              onClick={() => setContactAgent(null)}
-              className="absolute top-4 right-4 p-1.5 text-neutral-400 hover:text-neutral-900 rounded-full hover:bg-neutral-100 transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {contactSubmitted ? (
-              <div className="py-8 text-center space-y-3">
-                <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
-                  <CheckCircle2 className="w-6 h-6 stroke-[2]" />
-                </div>
-                <h3 className="text-xl font-bold text-neutral-900">Message Dispatched</h3>
-                <p className="text-xs sm:text-sm text-neutral-600 max-w-xs mx-auto">
-                  Your inquiry has been sent directly to {contactAgent.name}. They will reach out shortly.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSendContact} className="space-y-4">
-                <div className="flex items-center gap-3.5 pb-4 border-b border-neutral-100">
-                  <img
-                    src={contactAgent.avatar}
-                    alt={contactAgent.name}
-                    className="w-14 h-14 rounded-full object-cover border border-neutral-200"
-                  />
-                  <div>
-                    <h3 className="font-bold text-lg text-neutral-900 leading-tight">
-                      Contact {contactAgent.name}
-                    </h3>
-                    <p className="text-xs text-neutral-600">
-                      {contactAgent.role} • {contactAgent.city || 'Arlington, VA'}
-                    </p>
-                    <p className="text-[11px] font-mono text-neutral-400 mt-0.5">
-                      {contactAgent.licenseNumber}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-xs font-semibold text-neutral-700 mb-1">
-                      Your Full Name
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={contactName}
-                      onChange={(e) => setContactName(e.target.value)}
-                      placeholder="Jane Doe"
-                      className="w-full text-xs p-2.5 border border-neutral-300 rounded-md focus:outline-none focus:border-neutral-900"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-neutral-700 mb-1">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      value={contactPhone}
-                      onChange={(e) => setContactPhone(e.target.value)}
-                      placeholder="+1 (703) 555-0192"
-                      className="w-full text-xs p-2.5 border border-neutral-300 rounded-md focus:outline-none focus:border-neutral-900"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-neutral-700 mb-1">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={contactEmail}
-                    onChange={(e) => setContactEmail(e.target.value)}
-                    placeholder="jane@example.com"
-                    className="w-full text-xs p-2.5 border border-neutral-300 rounded-md focus:outline-none focus:border-neutral-900"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-neutral-700 mb-1">
-                    Message
-                  </label>
-                  <textarea
-                    rows={3}
-                    required
-                    value={contactMessage}
-                    onChange={(e) => setContactMessage(e.target.value)}
-                    className="w-full text-xs p-2.5 border border-neutral-300 rounded-md focus:outline-none focus:border-neutral-900"
-                  />
-                </div>
-
-                <div className="pt-2">
-                  <button
-                    type="submit"
-                    className="w-full py-2.5 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold rounded-full transition-colors cursor-pointer"
-                  >
-                    Send Confidential Inquiry
-                  </button>
-                </div>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
-
     </div>
   );
 };
-
-export default AgentsPage;
