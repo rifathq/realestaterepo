@@ -7,7 +7,31 @@ export type PropertyCategory =
   | 'Penthouses' 
   | 'Retail' 
   | 'Industrial' 
-  | 'Land';
+  | 'Land'
+  | 'Houses';
+
+// Attribution carried by listings that come from an agent's own site.
+export interface ListedBy {
+  agentId: string;
+  agentName: string;
+  agentTitle: string;
+  licence: string;
+  email: string;
+  phone: string | null;
+  photo: string;
+  siteUrl: string;
+  brokerage: string;
+  brokerageLicence: string;
+  brokerageOffice: string;
+  brokeragePhone: string;
+}
+
+export const LISTING_STATUS_LABEL: Record<string, string> = {
+  coming_soon: 'Coming Soon',
+  active: 'Active',
+  under_contract: 'Under Contract',
+  sold: 'Sold',
+};
 
 export interface PropertyLocation {
   address: string;
@@ -71,6 +95,10 @@ export interface Property {
   floorPlanUrl?: string;
   virtualTourAvailable: boolean;
   listedDate: string;
+  status?: string;
+  source?: 'agent-feed';
+  listingUrl?: string;
+  listedBy?: ListedBy;
 }
 
 export interface Agent {

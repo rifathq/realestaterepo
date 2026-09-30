@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Bookmark } from 'lucide-react';
-import { Property } from '../../types/property';
+import { Property, LISTING_STATUS_LABEL } from '../../types/property';
 import { useMarketplace } from '../../context/MarketplaceContext';
 import { ImageWithFallback } from '../common/ImageWithFallback';
 
@@ -38,7 +38,9 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
         <div className="absolute top-2.5 inset-x-2.5 flex items-center justify-between pointer-events-none">
           {/* Subtle status tag */}
           <span className="pointer-events-auto bg-stone-900/90 backdrop-blur-xs text-white text-[10px] sm:text-xs font-semibold px-2 py-0.5 tracking-tight uppercase">
-            {property.listingType === 'buy' ? 'For Sale' : 'For Lease'}
+            {property.listedBy && property.status
+              ? LISTING_STATUS_LABEL[property.status] || 'For Sale'
+              : property.listingType === 'buy' ? 'For Sale' : 'For Lease'}
           </span>
 
           <div className="flex items-center gap-1 pointer-events-auto">
@@ -127,7 +129,9 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
 
           <div className="text-right shrink-0">
             <span className="text-[11px] text-stone-500 block font-normal">
-              {property.listingType === 'buy' ? 'Guide Price' : 'Monthly Rent'}
+              {property.listedBy
+                ? property.status === 'sold' ? 'Sold' : 'List Price'
+                : property.listingType === 'buy' ? 'Guide Price' : 'Monthly Rent'}
             </span>
             <span className="text-lg sm:text-xl font-bold text-stone-950 font-mono tabular-nums tracking-tight">
               {property.priceDisplay}
@@ -137,6 +141,13 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
             </span>
           </div>
         </div>
+
+        {/* Listings from an agent's own site keep their licensed-brokerage attribution */}
+        {property.listedBy && (
+          <p className="mt-3 text-[11px] text-stone-500">
+            Listed by {property.listedBy.agentName} · {property.listedBy.brokerage}
+          </p>
+        )}
       </div>
     </article>
   );

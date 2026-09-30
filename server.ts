@@ -3,6 +3,7 @@ import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import fs from 'fs';
 import crypto from 'crypto';
+import { startAgentFeeds } from './agentFeeds';
 
 const PORT = Number(process.env.PORT) || 3000;
 const DATA_DIR = path.resolve(process.cwd(), 'data');
@@ -1389,6 +1390,8 @@ async function startServer() {
       clientRating: agentProfile?.rating || 5.0,
     });
   });
+
+  startAgentFeeds(app, getDb, saveDb, requireSuperAdmin);
 
   // -------------------------------------------------------------
   // VITE / STATIC CLIENT MIDDLEWARE

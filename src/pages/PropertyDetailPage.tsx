@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { PROPERTIES } from '../data/properties';
 import { AGENTS } from '../data/agents';
+import { ListedByCard } from '../components/property/ListedByCard';
 import { Property } from '../types/property';
 import { useMarketplace } from '../context/MarketplaceContext';
 import { api } from '../services/api';
@@ -43,7 +44,8 @@ export const PropertyDetailPage: React.FC = () => {
   }, [contextProperty, slug]);
 
   const property = contextProperty || fetchedProperty;
-  const agent = property ? AGENTS.find((a) => a.id === property.agentId) || AGENTS[0] : null;
+  // Listings from an agent's own site carry their attribution; never fall back to another agent.
+  const agent = property && !property.listedBy ? AGENTS.find((a) => a.id === property.agentId) || AGENTS[0] : null;
 
   // Gallery state
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -398,6 +400,7 @@ export const PropertyDetailPage: React.FC = () => {
             </div>
 
             {/* Assigned Licensed Broker Card */}
+            {property.listedBy && <ListedByCard property={property} />}
             {agent && (
               <div className="bg-white border border-stone-200 p-6 space-y-5">
                 <div className="flex items-center justify-between pb-3 border-b border-stone-100">

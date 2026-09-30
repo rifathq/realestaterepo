@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Heart, Share2, Check } from 'lucide-react';
-import { Property } from '../../types/property';
+import { Property, LISTING_STATUS_LABEL } from '../../types/property';
 import { useMarketplace } from '../../context/MarketplaceContext';
 import { ImageWithFallback } from '../common/ImageWithFallback';
 
@@ -83,11 +83,16 @@ export const RedfinPropertyCard: React.FC<RedfinPropertyCardProps> = ({
         {/* Floating Badges on Top Left */}
         <div className="absolute top-2.5 left-2.5 flex flex-wrap items-center gap-1.5 pointer-events-none">
           <span className="bg-stone-900/90 text-white text-[10px] sm:text-[11px] font-bold px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md tracking-wider uppercase backdrop-blur-xs shadow-xs">
-            {property.listingType === 'buy' ? 'FOR SALE' : 'FOR LEASE'}
+            {property.listedBy && property.status
+              ? LISTING_STATUS_LABEL[property.status] || 'For Sale'
+              : property.listingType === 'buy' ? 'FOR SALE' : 'FOR LEASE'}
           </span>
-          <span className="bg-white/95 text-stone-900 text-[9px] sm:text-[10px] font-semibold px-2 py-0.5 sm:py-1 rounded-md uppercase tracking-wider backdrop-blur-xs shadow-xs">
-            3D WALKTHROUGH
-          </span>
+          {/* Agent-site listings only claim a 3D tour when they have one */}
+          {(!property.listedBy || property.virtualTourAvailable) && (
+            <span className="bg-white/95 text-stone-900 text-[9px] sm:text-[10px] font-semibold px-2 py-0.5 sm:py-1 rounded-md uppercase tracking-wider backdrop-blur-xs shadow-xs">
+              3D WALKTHROUGH
+            </span>
+          )}
         </div>
       </div>
 
@@ -160,6 +165,13 @@ export const RedfinPropertyCard: React.FC<RedfinPropertyCardProps> = ({
               {fullAddress}
             </Link>
           </div>
+
+          {/* Listings from an agent's own site keep their licensed-brokerage attribution */}
+          {property.listedBy && (
+            <p className="mt-2 text-[11px] text-stone-500">
+              Listed by {property.listedBy.agentName} · {property.listedBy.brokerage}
+            </p>
+          )}
         </div>
       </div>
     </article>
