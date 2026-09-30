@@ -731,12 +731,20 @@ function logActivity(user: SessionUser, action: string, entity: string, entityId
 }
 
 // Authorization Middlewares
-function authMiddleware(req: Request & { user?: SessionUser }, res: Response, next: NextFunction) {
+// The session token travels in X-Auth-Token, so the Authorization header stays free for a
+// proxy's basic auth (UAT sits behind one). Bearer is still accepted.
+function readToken(req: Request): string | null {
+  const header = req.headers['x-auth-token'];
+  if (typeof header === 'string' && header) return header;
   const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+  return authHeader && authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
+}
+
+function authMiddleware(req: Request & { user?: SessionUser }, res: Response, next: NextFunction) {
+  const token = readToken(req);
+  if (!token) {
     return res.status(401).json({ error: 'Unauthorized: Missing or invalid authorization token.' });
   }
-  const token = authHeader.split(' ')[1];
   const session = activeSessions.get(token);
   if (!session || session.expiresAt < Date.now()) {
     activeSessions.delete(token);
@@ -815,9 +823,8 @@ async function startServer() {
   });
 
   app.post('/api/auth/logout', (req, res) => {
-    const authHeader = req.headers.authorization;
-    if (authHeader && authHeader.startsWith('Bearer ')) {
-      const token = authHeader.split(' ')[1];
+    const token = readToken(req);
+    if (token) {
       const session = activeSessions.get(token);
       if (session) {
         logActivity(session.user, 'User Signed Out', 'Auth Session', session.user.id);

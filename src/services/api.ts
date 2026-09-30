@@ -41,7 +41,8 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
   }
 
   if (token) {
-    headers.set('Authorization', `Bearer ${token}`);
+    // Not Authorization: that header is left for a proxy's basic auth (UAT).
+    headers.set('X-Auth-Token', token);
   }
 
   const response = await fetch(withBase(endpoint), {
