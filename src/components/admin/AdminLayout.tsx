@@ -23,6 +23,7 @@ import {
   Bell,
   Search,
   ChevronRight,
+  Scale,
 } from 'lucide-react';
 
 interface NavItem {
@@ -38,6 +39,7 @@ const navSections: { title: string; items: NavItem[] }[] = [
     items: [
       { label: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
       { label: 'Activity Logs', href: '/admin/activity', icon: Activity },
+      { label: 'Compliance', href: '/admin/compliance', icon: Scale },
     ],
   },
   {

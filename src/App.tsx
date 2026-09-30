@@ -42,6 +42,18 @@ import { AdminMediaPage } from './pages/admin/AdminMediaPage';
 import { AdminSettingsPage } from './pages/admin/AdminSettingsPage';
 import { AdminAdminUsersPage } from './pages/admin/AdminAdminUsersPage';
 import { AdminActivityPage } from './pages/admin/AdminActivityPage';
+import { AdminCompliancePage } from './pages/admin/AdminCompliancePage';
+
+// Agent site (public)
+import { SiteLayout } from './agent-site/SiteLayout';
+import { HomePage as SiteHomePage } from './agent-site/pages/HomePage';
+import { ListingsPage as SiteListingsPage } from './agent-site/pages/ListingsPage';
+import { ListingDetailPage as SiteListingDetailPage } from './agent-site/pages/ListingDetailPage';
+import { SearchPage as SiteSearchPage } from './agent-site/pages/SearchPage';
+import { SellingPage as SiteSellingPage } from './agent-site/pages/SellingPage';
+import { AboutPage as SiteAboutPage } from './agent-site/pages/AboutPage';
+import { ContactPage as SiteContactPage } from './agent-site/pages/ContactPage';
+import { LegalPage } from './agent-site/pages/LegalPage';
 
 // Agent Portal Pages
 import { AgentLoginPage } from './pages/agent/AgentLoginPage';
@@ -84,26 +96,18 @@ export default function App() {
         <BrowserRouter>
           <ScrollToTop />
           <Routes>
-            {/* 1. PUBLIC WEBSITE ROUTES */}
-            <Route element={<PublicLayout />}>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/properties" element={<PropertiesPage />} />
-              <Route path="/explore" element={<PropertiesPage />} />
-              <Route path="/properties/:slug" element={<PropertyDetailPage />} />
-              <Route path="/saved" element={<SavedPage />} />
-              <Route path="/sell" element={<SellPage />} />
-              <Route path="/tour/:property" element={<TourPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/how-it-works" element={<HowItWorksPage />} />
-              <Route path="/agents" element={<AgentsPage />} />
-              <Route path="/find-an-agent" element={<AgentsPage />} />
-              <Route path="/find-agent" element={<AgentsPage />} />
-              <Route path="/agents/advisors" element={<AgentsPage />} />
-              <Route path="/licensed-advisors" element={<AgentsPage />} />
-              <Route path="/agents/:slug" element={<AgentDetailPage />} />
-              <Route path="/join-agent" element={<JoinAgentPage />} />
-              <Route path="/faq" element={<FaqPage />} />
-              <Route path="/contact" element={<ContactPage />} />
+            {/* 1. PUBLIC WEBSITE ROUTES: Masud Haque, eXp Realty agent site */}
+            <Route element={<SiteLayout />}>
+              <Route path="/" element={<SiteHomePage />} />
+              <Route path="/listings" element={<SiteListingsPage />} />
+              <Route path="/listings/:slug" element={<SiteListingDetailPage />} />
+              <Route path="/search" element={<SiteSearchPage />} />
+              <Route path="/selling" element={<SiteSellingPage />} />
+              <Route path="/about" element={<SiteAboutPage />} />
+              <Route path="/contact" element={<SiteContactPage />} />
+              <Route path="/privacy" element={<LegalPage kind="privacy" />} />
+              <Route path="/terms" element={<LegalPage kind="terms" />} />
+              <Route path="/fair-housing" element={<LegalPage kind="fair-housing" />} />
             </Route>
 
             {/* 2. ADMIN PORTAL (Separated & Protected) */}
@@ -125,6 +129,7 @@ export default function App() {
                 <Route path="settings" element={<AdminSettingsPage />} />
                 <Route path="admin-users" element={<AdminAdminUsersPage />} />
                 <Route path="activity" element={<AdminActivityPage />} />
+                <Route path="compliance" element={<AdminCompliancePage />} />
               </Route>
             </Route>
 

@@ -3,6 +3,8 @@ import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import fs from 'fs';
 import crypto from 'crypto';
+import { registerComplianceRoutes } from './compliance';
+import { leadGuard } from './lib/leadGuard';
 
 const PORT = Number(process.env.PORT) || 3000;
 const DATA_DIR = path.resolve(process.cwd(), 'data');
@@ -1227,7 +1229,7 @@ async function startServer() {
     return res.json(lead);
   });
 
-  app.post('/api/leads', (req, res) => {
+  app.post('/api/leads', leadGuard, (req, res) => {
     const db = getDb();
     const newLead = {
       ...req.body,
@@ -1389,6 +1391,8 @@ async function startServer() {
       clientRating: agentProfile?.rating || 5.0,
     });
   });
+
+  registerComplianceRoutes(app, getDb, requireSuperAdmin);
 
   // -------------------------------------------------------------
   // VITE / STATIC CLIENT MIDDLEWARE

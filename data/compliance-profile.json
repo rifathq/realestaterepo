@@ -1,0 +1,120 @@
+{
+  "checkedOn": "2026-09-30",
+  "facts": [
+    {
+      "key": "agentLicense",
+      "group": "You",
+      "label": "Your Virginia licence",
+      "value": "Masud Haque · Salesperson · #0225276696 · Active until 31 Oct 2027",
+      "status": "verified",
+      "source": "DPOR licence lookup",
+      "sourceUrl": "https://dporweb.dpor.virginia.gov/LicenseLookup/"
+    },
+    {
+      "key": "agentEmail",
+      "group": "You",
+      "label": "Email to show",
+      "value": "masud.haque@exprealty.com",
+      "status": "confirm",
+      "source": "Your Nov 2025 email to Bright",
+      "note": "Confirm this is the address you want on the site."
+    },
+    {
+      "key": "agentPhone",
+      "group": "You",
+      "label": "Phone to show",
+      "value": null,
+      "status": "needed",
+      "source": "Needed from you"
+    },
+    {
+      "key": "firm",
+      "group": "eXp Realty",
+      "label": "Licensed firm",
+      "value": "eXp Realty LLC · Firm #0226023254 · Active until 30 Jun 2027",
+      "status": "verified",
+      "source": "DPOR licence lookup",
+      "sourceUrl": "https://dporweb.dpor.virginia.gov/LicenseLookup/"
+    },
+    {
+      "key": "firmAddress",
+      "group": "eXp Realty",
+      "label": "Virginia office",
+      "value": "800 Corporate Dr, Ste 301, Stafford, VA 22554",
+      "status": "verified",
+      "source": "DPOR licence lookup",
+      "sourceUrl": "https://dporweb.dpor.virginia.gov/LicenseLookup/"
+    },
+    {
+      "key": "principalBroker",
+      "group": "eXp Realty",
+      "label": "Principal broker",
+      "value": "Deborah Lynn Baxter",
+      "status": "verified",
+      "source": "DPOR licence lookup",
+      "sourceUrl": "https://dporweb.dpor.virginia.gov/LicenseLookup/"
+    },
+    {
+      "key": "firmPhone",
+      "group": "eXp Realty",
+      "label": "Office phone",
+      "value": "866-825-7169",
+      "status": "confirm",
+      "source": "eXp Virginia website listing",
+      "sourceUrl": "https://va.exprealty.com/contact.php",
+      "note": "eXp's written policy decides which number goes on your ads."
+    },
+    {
+      "key": "supervisingBroker",
+      "group": "eXp Realty",
+      "label": "Your supervising broker",
+      "value": null,
+      "status": "needed",
+      "source": "Needed from you",
+      "note": "Name and email of the broker who will approve the site."
+    },
+    {
+      "key": "advertisingPolicy",
+      "group": "eXp Realty",
+      "label": "eXp advertising policy",
+      "value": null,
+      "status": "needed",
+      "source": "Needed from you",
+      "note": "Sets the exact disclosure wording Virginia requires."
+    },
+    {
+      "key": "operatingName",
+      "group": "Decisions",
+      "label": "Name the site runs under",
+      "value": "Option A: Masud Haque · eXp Realty, your own agent site",
+      "status": "decided",
+      "source": "Your decision, 30 Sep 2026",
+      "note": "Digentic Realty as a licensed team under eXp stays possible later. DPOR shows no licence for it today."
+    },
+    {
+      "key": "domain",
+      "group": "Decisions",
+      "label": "Website domain",
+      "value": null,
+      "status": "needed",
+      "source": "Your decision"
+    },
+    {
+      "key": "idxCrm",
+      "group": "Decisions",
+      "label": "eXp search tool (BoldTrail or Lofty)",
+      "value": null,
+      "status": "needed",
+      "source": "Your eXp CRM of Choice",
+      "note": "Powers the search-all-homes page at no extra cost."
+    },
+    {
+      "key": "brokerApproval",
+      "group": "Decisions",
+      "label": "Broker approval of the site",
+      "value": null,
+      "status": "needed",
+      "source": "After the fixes are done"
+    }
+  ]
+}

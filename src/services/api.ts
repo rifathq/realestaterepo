@@ -233,6 +233,9 @@ export const api = {
   activity: {
     list: () => request<any[]>('/api/activity'),
   },
+  compliance: {
+    get: () => request<any>('/api/compliance'),
+  },
 
   // Stats
   stats: {
