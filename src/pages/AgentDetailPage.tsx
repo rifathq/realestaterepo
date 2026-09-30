@@ -295,7 +295,7 @@ export const AgentDetailPage: React.FC = () => {
 
               <button
                 type="submit"
-                className="w-full py-2.5 bg-stone-900 text-white text-xs font-semibold hover:bg-stone-800 transition-colors"
+                className="w-full py-3 bg-black hover:bg-neutral-900 active:scale-95 text-white text-xs font-medium border border-black shadow-md hover:shadow-lg transition-all duration-200 rounded-md cursor-pointer"
               >
                 Schedule Consultation
               </button>

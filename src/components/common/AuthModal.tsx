@@ -217,7 +217,7 @@ export const AuthModal: React.FC = () => {
               {/* CTA Button */}
               <button
                 type="submit"
-                className="w-full py-3 px-4 mt-2 text-xs sm:text-sm font-medium tracking-wide text-white bg-black hover:bg-neutral-900 border border-black rounded-xl transition-all duration-200 shadow-md hover:shadow-lg active:scale-95 cursor-pointer"
+                className="w-full py-3 px-4 mt-2 text-xs sm:text-sm font-medium tracking-wide text-white bg-black hover:bg-neutral-900 active:scale-95 rounded-xl border border-black shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer"
               >
                 {isRegister ? 'Create Account' : 'Sign In'}
               </button>

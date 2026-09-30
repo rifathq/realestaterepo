@@ -8,7 +8,9 @@ import {
   ShieldCheck, 
   FileText, 
   Eye,
-  ArrowRight
+  ArrowRight,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 import { PROPERTIES } from '../data/properties';
 import { useMarketplace } from '../context/MarketplaceContext';
@@ -109,7 +111,7 @@ export const HomePage: React.FC = () => {
               className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full border flex items-center justify-center transition-all ${
                 validIndex <= 0
                   ? 'border-stone-200 text-stone-300 cursor-not-allowed bg-stone-50/50'
-                  : 'border-stone-300 bg-white text-stone-800 hover:bg-black hover:text-white hover:border-black shadow-2xs active:scale-95 transition-all duration-200 cursor-pointer'
+                  : 'border-stone-300 bg-white text-stone-800 hover:bg-stone-900 hover:text-white hover:border-stone-900 shadow-2xs active:scale-95 cursor-pointer'
               }`}
             >
               <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
@@ -123,7 +125,7 @@ export const HomePage: React.FC = () => {
               className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full border flex items-center justify-center transition-all ${
                 validIndex >= maxIndex
                   ? 'border-stone-200 text-stone-300 cursor-not-allowed bg-stone-50/50'
-                  : 'border-stone-300 bg-white text-stone-800 hover:bg-black hover:text-white hover:border-black shadow-2xs active:scale-95 transition-all duration-200 cursor-pointer'
+                  : 'border-stone-300 bg-white text-stone-800 hover:bg-stone-900 hover:text-white hover:border-stone-900 shadow-2xs active:scale-95 cursor-pointer'
               }`}
             >
               <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
@@ -174,66 +176,83 @@ export const HomePage: React.FC = () => {
           </div>
         )}
 
-        {/* Modern Luxury CTA: Explore All Listings */}
+        {/* 3. Modern Luxury "Explore All Listings" Call-to-Action (CTA) Section */}
         <div className="mt-12 mb-8 flex flex-col items-center justify-center text-center">
-          {/* Pill Badge indicating total count */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100/90 text-slate-700 border border-slate-200 text-xs font-mono font-medium mb-3.5 shadow-2xs">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          {/* Clean Pill Badge: Total Count */}
+          <div className="mb-4 inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-xs font-medium shadow-2xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             <span>120+ Verified Properties</span>
           </div>
 
-          {/* Action Row */}
-          <div className="flex flex-col sm:flex-row items-center gap-3">
-            {/* Primary Action Button (Option A: Direct link to /explore catalog) */}
+          {/* Buttons: Sleek Dark Slate Pill & Expand Toggle */}
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {/* Primary Action: Link directly to /explore catalog */}
             <Link
               to="/explore"
-              className="group inline-flex items-center gap-2.5 bg-black hover:bg-neutral-900 text-white font-medium rounded-full px-8 py-3.5 text-sm border border-black shadow-md hover:shadow-lg hover:-translate-y-0.5 active:scale-95 transition-all duration-200 cursor-pointer"
+              className="group inline-flex items-center gap-2.5 bg-black hover:bg-neutral-900 active:scale-95 text-white font-medium rounded-full px-8 py-3.5 text-sm border border-black shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
             >
-              <span>Explore All Listings</span>
-              <ArrowRight className="w-4 h-4 stroke-[2] text-white transition-transform duration-200 group-hover:translate-x-1.5" />
+              <span className="text-white font-medium">Explore All Listings</span>
+              <ArrowRight className="w-4 h-4 text-white transition-transform duration-200 group-hover:translate-x-1.5" />
             </Link>
 
-            {/* In-page Toggle Button (Option B: Expands full grid in place) */}
+            {/* Toggle State (Option B): Expand grid from carousel to reveal all available properties */}
             <button
               type="button"
               onClick={() => setShowAllListings((prev) => !prev)}
-              className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium text-slate-700 hover:text-slate-950 bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-300 transition-all duration-200 shadow-2xs hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+              className="group inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 rounded-full px-6 py-3.5 text-sm font-medium transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm active:translate-y-0 cursor-pointer shadow-2xs"
             >
-              <span>{showAllListings ? 'Collapse Grid' : 'Quick View All in Grid'}</span>
+              <span>{showAllListings ? 'Collapse View' : 'Quick Preview All'}</span>
+              {showAllListings ? (
+                <ChevronUp className="w-4 h-4 text-slate-500 transition-transform group-hover:-translate-y-0.5" />
+              ) : (
+                <ChevronDown className="w-4 h-4 text-slate-500 transition-transform group-hover:translate-y-0.5" />
+              )}
             </button>
           </div>
 
-          {/* Subtle micro-copy */}
-          <p className="text-xs text-slate-500 mt-3 font-normal tracking-tight">
+          {/* Subtle Micro-Copy */}
+          <p className="mt-3.5 text-xs text-slate-500">
             Updated in real-time · Full portfolio available
           </p>
         </div>
 
-        {/* Option B: Expanded Grid View when toggled */}
+        {/* Expanded Grid (Option B): Smoothly reveal all properties in responsive layout */}
         {showAllListings && (
-          <div className="mt-8 pt-8 border-t border-slate-200 animate-in fade-in duration-300">
+          <div className="mt-8 pt-8 border-t border-slate-200 animate-in fade-in slide-in-from-top-4 duration-300">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
               <div>
-                <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-950 font-architectural">
-                  Full Portfolio Showcase
+                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 font-architectural">
+                  Full Available Portfolio
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-                  Displaying all verified architectural assets currently on-market
+                  Showing all {featuredProperties.length} active architectural estates and luxury residences
                 </p>
               </div>
               <Link
                 to="/explore"
-                className="text-xs font-semibold text-slate-900 hover:text-amber-700 transition-colors inline-flex items-center gap-1 group self-start sm:self-auto"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-800 hover:text-slate-950 underline underline-offset-4"
               >
-                <span>Open Advanced Filter Catalog</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                <span>Open Full Catalog & Filters</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {featuredProperties.map((property) => (
-                <RedfinPropertyCard key={`grid-${property.id}`} property={property} />
+                <div key={`expanded-${property.id}`} className="w-full">
+                  <RedfinPropertyCard property={property} />
+                </div>
               ))}
+            </div>
+
+            <div className="mt-8 text-center">
+              <Link
+                to="/explore"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-black hover:bg-neutral-900 active:scale-95 text-white text-xs font-medium border border-black shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer"
+              >
+                <span className="text-white font-medium">View Full Filterable Search Catalog</span>
+                <ArrowRight className="w-3.5 h-3.5 text-white" />
+              </Link>
             </div>
           </div>
         )}

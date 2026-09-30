@@ -63,9 +63,9 @@ export const PropertyDetailPage: React.FC = () => {
         <p className="text-sm text-stone-500">The requested property listing does not exist or may have been unlisted.</p>
         <Link
           to="/properties"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-black hover:bg-neutral-900 text-white font-medium text-xs border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-black hover:bg-neutral-900 active:scale-95 text-white text-xs font-medium border border-black shadow-md hover:shadow-lg transition-all duration-200 rounded-md"
         >
-          <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5] text-white" />
+          <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5]" />
           <span>Return to Marketplace Directory</span>
         </Link>
       </div>
@@ -483,7 +483,7 @@ export const PropertyDetailPage: React.FC = () => {
                       />
                       <button
                         type="submit"
-                        className="w-full py-2.5 bg-black hover:bg-neutral-900 text-white font-medium text-xs border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200 cursor-pointer"
+                        className="w-full py-3 bg-black hover:bg-neutral-900 active:scale-95 text-white text-xs font-medium border border-black shadow-md hover:shadow-lg transition-all duration-200 rounded-md cursor-pointer"
                       >
                         Request Complete Dossier
                       </button>

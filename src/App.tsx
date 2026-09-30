@@ -87,6 +87,7 @@ export default function App() {
             {/* 1. PUBLIC WEBSITE ROUTES */}
             <Route element={<PublicLayout />}>
               <Route path="/" element={<HomePage />} />
+              <Route path="/explore" element={<Navigate to="/properties" replace />} />
               <Route path="/properties" element={<PropertiesPage />} />
               <Route path="/properties/:slug" element={<PropertyDetailPage />} />
               <Route path="/saved" element={<SavedPage />} />

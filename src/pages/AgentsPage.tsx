@@ -181,11 +181,11 @@ export const AgentsPage: React.FC<AgentsPageProps> = ({ defaultCity }) => {
           <div className="flex flex-wrap items-center justify-between gap-2">
             <Link
               to="/agents/advisors"
-              className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1 bg-stone-900 hover:bg-stone-800 text-white rounded-md transition-colors shadow-2xs group"
+              className="inline-flex items-center gap-2 text-xs font-medium px-3.5 py-1.5 bg-black hover:bg-neutral-900 active:scale-95 text-white rounded-md border border-black shadow-md hover:shadow-lg transition-all duration-200 group"
             >
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Looking for verified brokers? Visit Licensed Advisors</span>
-              <span className="text-stone-400 group-hover:translate-x-0.5 transition-transform">→</span>
+              <span className="text-white font-medium">Looking for verified brokers? Visit Licensed Advisors</span>
+              <span className="text-white group-hover:translate-x-0.5 transition-transform">→</span>
             </Link>
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 leading-[1.15]">
@@ -352,7 +352,7 @@ export const AgentsPage: React.FC<AgentsPageProps> = ({ defaultCity }) => {
                 setDealType('All');
                 setSelectedLanguage('All');
               }}
-              className="px-5 py-2.5 bg-neutral-900 text-white text-xs font-semibold rounded-md hover:bg-neutral-800 transition-colors cursor-pointer"
+              className="px-5 py-2.5 bg-black text-white text-xs font-medium rounded-md hover:bg-neutral-900 active:scale-95 border border-black shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer"
             >
               View All Nationwide Agents ({AGENTS.length})
             </button>
@@ -559,7 +559,7 @@ export const AgentsPage: React.FC<AgentsPageProps> = ({ defaultCity }) => {
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="w-full py-2.5 bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-semibold rounded-full transition-colors cursor-pointer"
+                    className="w-full py-3 bg-black hover:bg-neutral-900 active:scale-95 text-white text-xs font-medium rounded-full border border-black shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer"
                   >
                     Send Confidential Inquiry
                   </button>

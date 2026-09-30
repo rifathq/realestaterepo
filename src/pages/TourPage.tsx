@@ -121,7 +121,7 @@ export const TourPage: React.FC = () => {
               <div className="pt-2 flex flex-col sm:flex-row gap-3">
                 <Link
                   to={`/properties/${property.slug}`}
-                  className="w-full py-2.5 bg-black hover:bg-neutral-900 text-white font-medium text-xs border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200 text-center"
+                  className="w-full py-2.5 bg-stone-900 text-white text-xs font-medium hover:bg-stone-800 transition-colors text-center"
                 >
                   Return to Property Overview
                 </Link>
@@ -286,7 +286,7 @@ export const TourPage: React.FC = () => {
 
               <button
                 type="submit"
-                className="w-full py-3 bg-black hover:bg-neutral-900 text-white font-medium text-xs tracking-tight border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200 cursor-pointer"
+                className="w-full py-3.5 bg-black hover:bg-neutral-900 active:scale-95 text-white text-xs font-medium tracking-tight border border-black shadow-md hover:shadow-lg transition-all duration-200 rounded-md cursor-pointer"
               >
                 Confirm Private Viewing Request
               </button>

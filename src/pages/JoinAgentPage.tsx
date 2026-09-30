@@ -60,8 +60,8 @@ export const JoinAgentPage: React.FC = () => {
               <ArrowRight className="w-4 h-4" />
             </a>
             <Link
-              to="/agents/advisors"
-              className="px-6 py-3.5 border border-stone-700 text-white font-medium text-sm hover:bg-black active:scale-95 transition-all duration-200"
+              to="/agents"
+              className="px-6 py-3.5 border border-stone-700 text-white font-medium text-sm hover:bg-stone-900 transition-colors"
             >
               Explore Current Advisors
             </Link>
@@ -130,7 +130,7 @@ export const JoinAgentPage: React.FC = () => {
                 </p>
                 <div className="pt-4">
                   <Link
-                    to="/agents/advisors"
+                    to="/agents"
                     className="inline-flex items-center gap-2 px-6 py-2.5 bg-stone-900 text-white text-xs font-medium hover:bg-stone-800 transition-colors"
                   >
                     <span>View Advisory Directory</span>
@@ -292,10 +292,10 @@ export const JoinAgentPage: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="w-full py-3.5 px-6 bg-black hover:bg-neutral-900 text-white font-medium text-sm border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full py-3.5 px-6 bg-black hover:bg-neutral-900 active:scale-95 text-white font-medium text-sm border border-black shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer rounded-md"
                 >
                   <FileCheck className="w-4 h-4 text-white" />
-                  <span>Submit Confidential Application</span>
+                  <span className="text-white font-medium">Submit Confidential Application</span>
                 </button>
               </form>
             )}

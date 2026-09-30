@@ -606,7 +606,7 @@ export const PropertiesPage: React.FC = () => {
               <button
                 type="button"
                 onClick={resetFilters}
-                className="px-5 py-2.5 bg-black hover:bg-neutral-900 text-white font-medium text-xs border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200 cursor-pointer"
+                className="px-5 py-2.5 bg-black text-white text-xs font-medium hover:bg-neutral-900 active:scale-95 border border-black shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer rounded-md"
               >
                 Reset All Filters
               </button>
@@ -807,7 +807,7 @@ export const PropertiesPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setMobileFilterOpen(false)}
-                className="w-full py-3 bg-stone-900 text-white text-xs font-medium"
+                className="w-full py-3.5 bg-black hover:bg-neutral-900 active:scale-95 text-white text-xs font-medium border border-black shadow-md hover:shadow-lg transition-all duration-200 rounded-md cursor-pointer"
               >
                 Apply Filters ({filteredProperties.length} Results)
               </button>
