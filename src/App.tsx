@@ -20,6 +20,7 @@ import { TourPage } from './pages/TourPage';
 import { AboutPage } from './pages/AboutPage';
 import { HowItWorksPage } from './pages/HowItWorksPage';
 import { AgentsPage } from './pages/AgentsPage';
+import { FindAgentPage } from './pages/FindAgentPage';
 import { AgentDetailPage } from './pages/AgentDetailPage';
 import { JoinAgentPage } from './pages/JoinAgentPage';
 import { FaqPage } from './pages/FaqPage';
@@ -94,11 +95,11 @@ export default function App() {
               <Route path="/tour/:property" element={<TourPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/how-it-works" element={<HowItWorksPage />} />
-              <Route path="/agents" element={<Navigate to="/agents/advisors" replace />} />
+              <Route path="/agents" element={<FindAgentPage />} />
+              <Route path="/find-an-agent" element={<FindAgentPage />} />
+              <Route path="/find-agent" element={<FindAgentPage />} />
               <Route path="/agents/advisors" element={<AgentsPage />} />
-              <Route path="/licensed-advisors" element={<Navigate to="/agents/advisors" replace />} />
-              <Route path="/agents/arlington" element={<AgentsPage defaultCity="Arlington, VA" />} />
-              <Route path="/agents/chicago" element={<AgentsPage defaultCity="Chicago" />} />
+              <Route path="/licensed-advisors" element={<AgentsPage />} />
               <Route path="/agents/:slug" element={<AgentDetailPage />} />
               <Route path="/join-agent" element={<JoinAgentPage />} />
               <Route path="/faq" element={<FaqPage />} />

@@ -167,6 +167,19 @@ export const Header: React.FC = () => {
                 <div className="absolute top-full left-0 pt-2 w-64 z-50 animate-in fade-in duration-150">
                   <div className="bg-white rounded-xl shadow-lg border border-stone-200 p-2 space-y-1">
                     <Link
+                      to="/agents"
+                      onClick={() => setAgentsDropdownOpen(false)}
+                      className={`block px-3.5 py-2.5 rounded-lg text-sm transition-colors ${
+                        location.pathname === '/agents' || location.pathname === '/find-an-agent'
+                          ? 'bg-stone-100 text-stone-950 font-semibold'
+                          : 'text-stone-700 hover:text-stone-950 hover:bg-stone-50 font-medium'
+                      }`}
+                    >
+                      <div className="font-semibold text-stone-900">Find an Agent</div>
+                      <div className="text-xs text-stone-500 font-normal mt-0.5">Search top-rated agents nationwide</div>
+                    </Link>
+
+                    <Link
                       to="/agents/advisors"
                       onClick={() => setAgentsDropdownOpen(false)}
                       className={`block px-3.5 py-2.5 rounded-lg text-sm transition-colors ${
@@ -177,19 +190,6 @@ export const Header: React.FC = () => {
                     >
                       <div className="font-semibold text-stone-900">Licensed Advisors</div>
                       <div className="text-xs text-stone-500 font-normal mt-0.5">Explore verified real estate advisors and brokers</div>
-                    </Link>
-
-                    <Link
-                      to="/agents"
-                      onClick={() => setAgentsDropdownOpen(false)}
-                      className={`block px-3.5 py-2.5 rounded-lg text-sm transition-colors ${
-                        location.pathname === '/agents'
-                          ? 'bg-stone-100 text-stone-950 font-semibold'
-                          : 'text-stone-700 hover:text-stone-950 hover:bg-stone-50 font-medium'
-                      }`}
-                    >
-                      <div className="font-semibold text-stone-900">Find an Agent</div>
-                      <div className="text-xs text-stone-500 font-normal mt-0.5">Search top-rated agents nationwide</div>
                     </Link>
 
                     <Link
@@ -331,18 +331,18 @@ export const Header: React.FC = () => {
               {isMobileAgentsOpen && (
                 <div className="mt-2 space-y-2.5 pl-4 border-l-2 border-stone-200 py-1 text-sm font-medium animate-in fade-in slide-in-from-top-1 duration-150">
                   <Link
-                    to="/agents/advisors"
+                    to="/agents"
                     onClick={() => setMobileMenuOpen(false)}
                     className="block text-stone-600 hover:text-stone-950 transition-colors font-medium"
                   >
-                    Licensed Advisors
+                    Find an Agent
                   </Link>
                   <Link
-                    to="/agents"
+                    to="/agents/advisors"
                     onClick={() => setMobileMenuOpen(false)}
                     className="block text-stone-600 hover:text-stone-950 transition-colors"
                   >
-                    Find an Agent
+                    Licensed Advisors
                   </Link>
                   <Link
                     to={dynamicCityLink}

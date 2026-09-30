@@ -94,10 +94,14 @@ export interface Agent {
   salesVolume?: string;
   totalDeals?: number;
   rating?: number;
+  reviewsCount?: number;
   isLuxuryExpert?: boolean;
-  dealType?: 'Buy' | 'Sell' | 'Both';
+  dealType?: 'Buy' | 'Sell' | 'Rent' | 'Both';
   city?: string;
   state?: string;
+  neighborhoods?: string[];
+  serviceAreas?: string[];
+  verified?: boolean;
 }
 
 export interface FilterState {
