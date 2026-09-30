@@ -94,7 +94,9 @@ export default function App() {
               <Route path="/tour/:property" element={<TourPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/how-it-works" element={<HowItWorksPage />} />
-              <Route path="/agents" element={<AgentsPage />} />
+              <Route path="/agents" element={<Navigate to="/agents/advisors" replace />} />
+              <Route path="/agents/advisors" element={<AgentsPage />} />
+              <Route path="/licensed-advisors" element={<Navigate to="/agents/advisors" replace />} />
               <Route path="/agents/arlington" element={<AgentsPage defaultCity="Arlington, VA" />} />
               <Route path="/agents/chicago" element={<AgentsPage defaultCity="Chicago" />} />
               <Route path="/agents/:slug" element={<AgentDetailPage />} />

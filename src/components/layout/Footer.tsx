@@ -60,7 +60,7 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2.5 text-sm text-stone-400">
               <li>
-                <Link to="/agents" className="hover:text-white transition-colors">
+                <Link to="/agents/advisors" className="hover:text-white transition-colors">
                   Licensed Advisors
                 </Link>
               </li>

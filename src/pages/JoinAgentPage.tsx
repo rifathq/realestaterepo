@@ -60,7 +60,7 @@ export const JoinAgentPage: React.FC = () => {
               <ArrowRight className="w-4 h-4" />
             </a>
             <Link
-              to="/agents"
+              to="/agents/advisors"
               className="px-6 py-3.5 border border-stone-700 text-white font-medium text-sm hover:bg-black active:scale-95 transition-all duration-200"
             >
               Explore Current Advisors
@@ -130,7 +130,7 @@ export const JoinAgentPage: React.FC = () => {
                 </p>
                 <div className="pt-4">
                   <Link
-                    to="/agents"
+                    to="/agents/advisors"
                     className="inline-flex items-center gap-2 px-6 py-2.5 bg-stone-900 text-white text-xs font-medium hover:bg-stone-800 transition-colors"
                   >
                     <span>View Advisory Directory</span>

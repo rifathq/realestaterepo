@@ -34,7 +34,7 @@ export const AgentDetailPage: React.FC = () => {
         <h2 className="text-2xl font-bold text-stone-900">Advisor Not Found</h2>
         <p className="text-sm text-stone-500">The requested advisor profile does not exist or may have transferred offices.</p>
         <Link
-          to="/agents"
+          to="/agents/advisors"
           className="inline-flex items-center gap-2 px-4 py-2 bg-black hover:bg-neutral-900 text-white font-medium text-xs tracking-wide border border-black shadow-md hover:shadow-lg active:scale-95 transition-all duration-200"
         >
           <ArrowLeft className="w-3.5 h-3.5 stroke-[1.5] text-white" />
@@ -74,7 +74,7 @@ export const AgentDetailPage: React.FC = () => {
         {/* Breadcrumb / Back button */}
         <div>
           <Link
-            to="/agents"
+            to="/agents/advisors"
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-[#5F625F] hover:text-[#111111] transition-colors"
           >
             <ArrowLeft className="w-4 h-4 stroke-[1.5]" />

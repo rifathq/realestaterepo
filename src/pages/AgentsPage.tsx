@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Search, ChevronDown, MapPin, ShieldCheck, X, ArrowRight } from 'lucide-react';
 import { AGENTS } from '../data/agents';
 import { Agent } from '../types/property';
@@ -10,8 +10,18 @@ interface AgentsPageProps {
 }
 
 export const AgentsPage: React.FC<AgentsPageProps> = ({ defaultCity }) => {
-  const [searchQuery, setSearchQuery] = useState(defaultCity || '');
+  const [searchParams] = useSearchParams();
+  const queryParam = searchParams.get('city') || searchParams.get('q') || searchParams.get('search') || '';
+  const [searchQuery, setSearchQuery] = useState(defaultCity || queryParam || '');
   const [selectedSpecialization, setSelectedSpecialization] = useState('All');
+
+  useEffect(() => {
+    if (defaultCity) {
+      setSearchQuery(defaultCity);
+    } else if (queryParam) {
+      setSearchQuery(queryParam);
+    }
+  }, [defaultCity, queryParam]);
 
   // Filter agents based on search query and specialization
   const filteredAgents = useMemo(() => {

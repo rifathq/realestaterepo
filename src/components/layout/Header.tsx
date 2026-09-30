@@ -16,8 +16,8 @@ export const Header: React.FC = () => {
   const { savedIds, user, setAuthModalOpen } = useMarketplace();
   const { city: userCity, formattedLocation: userLocation } = useUserLocation();
 
-  const dynamicCityLink = `/agents?city=${encodeURIComponent(userCity || userLocation || 'Arlington')}`;
-  const isDynamicCityActive = (location.pathname === '/agents' && location.search.includes(encodeURIComponent(userCity || 'Arlington'))) || location.pathname === '/agents/arlington';
+  const dynamicCityLink = `/agents/advisors?city=${encodeURIComponent(userCity || userLocation || 'Arlington')}`;
+  const isDynamicCityActive = (location.pathname.startsWith('/agents') && location.search.includes(encodeURIComponent(userCity || 'Arlington'))) || location.pathname === '/agents/arlington';
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -85,6 +85,7 @@ export const Header: React.FC = () => {
   const isAgentsActive = 
     location.pathname === '/agents' || 
     location.pathname.startsWith('/agents/') || 
+    location.pathname === '/licensed-advisors' ||
     location.pathname === '/join-agent';
 
   const navLinksBefore = [
@@ -140,7 +141,7 @@ export const Header: React.FC = () => {
               onMouseLeave={handleMouseLeave}
             >
               <Link
-                to="/agents"
+                to="/agents/advisors"
                 onClick={() => setAgentsDropdownOpen(false)}
                 className={`inline-flex items-center gap-1.5 py-1 transition-colors relative cursor-pointer select-none text-sm font-medium ${
                   isAgentsActive
@@ -165,6 +166,19 @@ export const Header: React.FC = () => {
               {agentsDropdownOpen && (
                 <div className="absolute top-full left-0 pt-2 w-64 z-50 animate-in fade-in duration-150">
                   <div className="bg-white rounded-xl shadow-lg border border-stone-200 p-2 space-y-1">
+                    <Link
+                      to="/agents/advisors"
+                      onClick={() => setAgentsDropdownOpen(false)}
+                      className={`block px-3.5 py-2.5 rounded-lg text-sm transition-colors ${
+                        location.pathname === '/agents/advisors' || location.pathname === '/licensed-advisors'
+                          ? 'bg-stone-100 text-stone-950 font-semibold'
+                          : 'text-stone-700 hover:text-stone-950 hover:bg-stone-50 font-medium'
+                      }`}
+                    >
+                      <div className="font-semibold text-stone-900">Licensed Advisors</div>
+                      <div className="text-xs text-stone-500 font-normal mt-0.5">Explore verified real estate advisors and brokers</div>
+                    </Link>
+
                     <Link
                       to="/agents"
                       onClick={() => setAgentsDropdownOpen(false)}
@@ -291,7 +305,7 @@ export const Header: React.FC = () => {
             <div className="py-1">
               <div className="w-full flex items-center justify-between py-1">
                 <Link
-                  to="/agents"
+                  to="/agents/advisors"
                   onClick={() => setMobileMenuOpen(false)}
                   className={`text-base font-medium transition-colors ${
                     isAgentsActive ? 'text-stone-950 font-semibold' : 'text-stone-800 hover:text-stone-950'
@@ -316,6 +330,13 @@ export const Header: React.FC = () => {
               {/* Collapsible Submenu Child Items */}
               {isMobileAgentsOpen && (
                 <div className="mt-2 space-y-2.5 pl-4 border-l-2 border-stone-200 py-1 text-sm font-medium animate-in fade-in slide-in-from-top-1 duration-150">
+                  <Link
+                    to="/agents/advisors"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block text-stone-600 hover:text-stone-950 transition-colors font-medium"
+                  >
+                    Licensed Advisors
+                  </Link>
                   <Link
                     to="/agents"
                     onClick={() => setMobileMenuOpen(false)}
