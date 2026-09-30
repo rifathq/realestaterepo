@@ -99,7 +99,9 @@ export const ListingCard: React.FC<{ listing: SiteListing }> = ({ listing }) => 
   </article>
 );
 
-const CONSENT_TEXT = `${AGENT.name} of ${FIRM.shortName} may call or text me at the number above about this inquiry, including by automated means. Consent is not a condition of buying or selling. Message and data rates may apply. Reply STOP to opt out.`;
+// eXp Realty's consent wording for agent websites, used as written.
+const CONSENT_TEXT =
+  'By proceeding, I am electronically signing and consenting to receive marketing communications (about real estate brokerage services and one or more properties that I may buy, sell, or rent), that may be delivered to me via email, telephone and/or text messaging (using "automated technology" such as an automatic telephone dialing system, and/or an artificial or prerecorded voice), from eXp Realty® and its independent contractor real estate professionals using the contact information I provided. Your consent is not a condition of purchase and you may revoke it at any time by replying to any of our texts to opt-out, unsubscribing via email, or contacting us directly at the email or telephone number listed on this website.';
 
 const TOPICS = ['Buying a home', 'Selling a home', 'This listing', 'Something else'];
 
@@ -228,7 +230,10 @@ export const LeadForm: React.FC<LeadFormProps> = ({ defaultTopic = 'Buying a hom
           onChange={(e) => setConsent(e.target.checked)}
           className="mt-0.5 w-4 h-4 shrink-0 accent-stone-900"
         />
-        <span>{CONSENT_TEXT}</span>
+        <span>
+          <span className="block font-semibold text-stone-800">I consent to receive communications in accordance with the terms below.</span>
+          {CONSENT_TEXT}
+        </span>
       </label>
 
       {state === 'error' && <p className="text-sm text-red-700">{error}</p>}
@@ -242,7 +247,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({ defaultTopic = 'Buying a hom
       </button>
       <p className="text-[11px] text-stone-500 leading-relaxed">
         By sending this form you agree to the <Link to="/privacy" className="underline underline-offset-2">Privacy Policy</Link>. Your details go
-        only to {AGENT.name} at {FIRM.shortName} and are never sold.
+        to {AGENT.name} at {FIRM.shortName} and are never sold.
       </p>
     </form>
   );
