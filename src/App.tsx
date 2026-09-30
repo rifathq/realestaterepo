@@ -20,7 +20,7 @@ import { TourPage } from './pages/TourPage';
 import { AboutPage } from './pages/AboutPage';
 import { HowItWorksPage } from './pages/HowItWorksPage';
 import { AgentsPage } from './pages/AgentsPage';
-import { FindAgentPage } from './pages/FindAgentPage';
+import { LicensedAdvisorsPage } from './pages/LicensedAdvisorsPage';
 import { AgentDetailPage } from './pages/AgentDetailPage';
 import { JoinAgentPage } from './pages/JoinAgentPage';
 import { FaqPage } from './pages/FaqPage';
@@ -88,7 +88,6 @@ export default function App() {
             <Route element={<PublicLayout />}>
               <Route path="/" element={<HomePage />} />
               <Route path="/properties" element={<PropertiesPage />} />
-              <Route path="/explore" element={<PropertiesPage />} />
               <Route path="/properties/:slug" element={<PropertyDetailPage />} />
               <Route path="/saved" element={<SavedPage />} />
               <Route path="/sell" element={<SellPage />} />
@@ -96,10 +95,10 @@ export default function App() {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/how-it-works" element={<HowItWorksPage />} />
               <Route path="/agents" element={<AgentsPage />} />
-              <Route path="/find-an-agent" element={<AgentsPage />} />
-              <Route path="/find-agent" element={<AgentsPage />} />
-              <Route path="/agents/advisors" element={<AgentsPage />} />
-              <Route path="/licensed-advisors" element={<AgentsPage />} />
+              <Route path="/agents/advisors" element={<LicensedAdvisorsPage />} />
+              <Route path="/licensed-advisors" element={<Navigate to="/agents/advisors" replace />} />
+              <Route path="/agents/arlington" element={<AgentsPage defaultCity="Arlington, VA" />} />
+              <Route path="/agents/chicago" element={<AgentsPage defaultCity="Chicago" />} />
               <Route path="/agents/:slug" element={<AgentDetailPage />} />
               <Route path="/join-agent" element={<JoinAgentPage />} />
               <Route path="/faq" element={<FaqPage />} />

@@ -16,8 +16,8 @@ export const Header: React.FC = () => {
   const { savedIds, user, setAuthModalOpen } = useMarketplace();
   const { city: userCity, formattedLocation: userLocation } = useUserLocation();
 
-  const dynamicCityLink = `/agents/advisors?city=${encodeURIComponent(userCity || userLocation || 'Arlington')}`;
-  const isDynamicCityActive = (location.pathname.startsWith('/agents') && location.search.includes(encodeURIComponent(userCity || 'Arlington'))) || location.pathname === '/agents/arlington';
+  const dynamicCityLink = `/agents?city=${encodeURIComponent(userCity || userLocation || 'Arlington')}`;
+  const isDynamicCityActive = (location.pathname === '/agents' && location.search.includes(encodeURIComponent(userCity || 'Arlington'))) || location.pathname === '/agents/arlington';
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -136,13 +136,13 @@ export const Header: React.FC = () => {
             {/* Interactive Agents Dropdown */}
             <div
               ref={agentsRef}
-              className="relative inline-flex items-center"
+              className="relative"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <Link
-                to="/agents/advisors"
-                onClick={() => setAgentsDropdownOpen(false)}
+              <button
+                type="button"
+                onClick={() => setAgentsDropdownOpen((prev) => !prev)}
                 className={`inline-flex items-center gap-1.5 py-1 transition-colors relative cursor-pointer select-none text-sm font-medium ${
                   isAgentsActive
                     ? 'text-neutral-900 font-semibold'
@@ -160,25 +160,12 @@ export const Header: React.FC = () => {
                 {isAgentsActive && (
                   <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-neutral-900" />
                 )}
-              </Link>
+              </button>
 
               {/* Floating Dropdown Card */}
               {agentsDropdownOpen && (
-                <div className="absolute top-full left-0 pt-2 w-64 z-50 animate-in fade-in duration-150">
-                  <div className="bg-white rounded-xl shadow-lg border border-stone-200 p-2 space-y-1">
-                    <Link
-                      to="/agents"
-                      onClick={() => setAgentsDropdownOpen(false)}
-                      className={`block px-3.5 py-2.5 rounded-lg text-sm transition-colors ${
-                        location.pathname === '/agents' || location.pathname === '/find-an-agent'
-                          ? 'bg-stone-100 text-stone-950 font-semibold'
-                          : 'text-stone-700 hover:text-stone-950 hover:bg-stone-50 font-medium'
-                      }`}
-                    >
-                      <div className="font-semibold text-stone-900">Find an Agent</div>
-                      <div className="text-xs text-stone-500 font-normal mt-0.5">Search top-rated agents nationwide</div>
-                    </Link>
-
+                <div className="absolute top-full left-0 pt-2 w-72 z-50 animate-in fade-in duration-150">
+                  <div className="bg-white rounded-xl shadow-xl border border-stone-200 p-2 space-y-1">
                     <Link
                       to="/agents/advisors"
                       onClick={() => setAgentsDropdownOpen(false)}
@@ -188,8 +175,26 @@ export const Header: React.FC = () => {
                           : 'text-stone-700 hover:text-stone-950 hover:bg-stone-50 font-medium'
                       }`}
                     >
-                      <div className="font-semibold text-stone-900">Licensed Advisors</div>
+                      <div className="flex items-center justify-between">
+                        <span className="font-semibold text-stone-900">Licensed Advisors</span>
+                        <span className="text-[10px] font-bold uppercase tracking-wider bg-stone-900 text-white px-1.5 py-0.5 rounded-xs">
+                          Verified
+                        </span>
+                      </div>
                       <div className="text-xs text-stone-500 font-normal mt-0.5">Explore verified real estate advisors and brokers</div>
+                    </Link>
+
+                    <Link
+                      to="/agents"
+                      onClick={() => setAgentsDropdownOpen(false)}
+                      className={`block px-3.5 py-2.5 rounded-lg text-sm transition-colors ${
+                        location.pathname === '/agents'
+                          ? 'bg-stone-100 text-stone-950 font-semibold'
+                          : 'text-stone-700 hover:text-stone-950 hover:bg-stone-50 font-medium'
+                      }`}
+                    >
+                      <div className="font-semibold text-stone-900">Find an Agent</div>
+                      <div className="text-xs text-stone-500 font-normal mt-0.5">Search top-rated agents nationwide</div>
                     </Link>
 
                     <Link
@@ -303,46 +308,40 @@ export const Header: React.FC = () => {
 
             {/* Agents Mobile Accordion */}
             <div className="py-1">
-              <div className="w-full flex items-center justify-between py-1">
-                <Link
-                  to="/agents/advisors"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`text-base font-medium transition-colors ${
-                    isAgentsActive ? 'text-stone-950 font-semibold' : 'text-stone-800 hover:text-stone-950'
+              <button
+                type="button"
+                onClick={() => setIsMobileAgentsOpen((prev) => !prev)}
+                className="w-full flex items-center justify-between py-1 text-left text-base font-medium text-stone-800 hover:text-stone-950 cursor-pointer transition-colors"
+                aria-expanded={isMobileAgentsOpen}
+              >
+                <span>Agents</span>
+                <ChevronDown
+                  className={`w-4 h-4 text-stone-500 transition-transform duration-200 ${
+                    isMobileAgentsOpen ? 'rotate-180 text-stone-900' : ''
                   }`}
-                >
-                  Agents
-                </Link>
-                <button
-                  type="button"
-                  onClick={() => setIsMobileAgentsOpen((prev) => !prev)}
-                  className="p-1 text-stone-500 hover:text-stone-900 cursor-pointer"
-                  aria-label="Toggle agent submenu"
-                >
-                  <ChevronDown
-                    className={`w-4 h-4 text-stone-500 transition-transform duration-200 ${
-                      isMobileAgentsOpen ? 'rotate-180 text-stone-900' : ''
-                    }`}
-                  />
-                </button>
-              </div>
+                />
+              </button>
 
               {/* Collapsible Submenu Child Items */}
               {isMobileAgentsOpen && (
                 <div className="mt-2 space-y-2.5 pl-4 border-l-2 border-stone-200 py-1 text-sm font-medium animate-in fade-in slide-in-from-top-1 duration-150">
                   <Link
-                    to="/agents"
+                    to="/agents/advisors"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block text-stone-600 hover:text-stone-950 transition-colors font-medium"
+                    className={`block transition-colors ${
+                      location.pathname === '/agents/advisors' || location.pathname === '/licensed-advisors'
+                        ? 'text-stone-950 font-semibold'
+                        : 'text-stone-600 hover:text-stone-950'
+                    }`}
                   >
-                    Find an Agent
+                    Licensed Advisors
                   </Link>
                   <Link
-                    to="/agents/advisors"
+                    to="/agents"
                     onClick={() => setMobileMenuOpen(false)}
                     className="block text-stone-600 hover:text-stone-950 transition-colors"
                   >
-                    Licensed Advisors
+                    Find an Agent
                   </Link>
                   <Link
                     to={dynamicCityLink}
