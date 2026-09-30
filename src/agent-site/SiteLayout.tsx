@@ -6,9 +6,18 @@ import { EqualHousingMark } from './components';
 
 const NAV = [
   { to: '/listings', label: 'Listings' },
+  { to: '/off-market', label: 'Off-Market' },
+  { to: '/creative-financing', label: 'Creative Financing' },
+  { to: '/foreclosure-help', label: 'Foreclosure Help' },
+  { to: '/about', label: 'About' },
+];
+
+// Everything, for the phone menu and the footer.
+const ALL_PAGES = [
+  ...NAV,
   { to: '/search', label: 'Search all homes' },
   { to: '/selling', label: 'Selling' },
-  { to: '/about', label: 'About' },
+  { to: '/contact', label: 'Contact' },
 ];
 
 const Brand: React.FC = () => (
@@ -31,7 +40,7 @@ const Header: React.FC = () => {
     <header className="sticky top-0 z-40 bg-stone-50/90 backdrop-blur-md border-b border-stone-200">
       <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-6">
         <Brand />
-        <nav className="hidden md:flex items-center gap-7" aria-label="Main">
+        <nav className="hidden lg:flex items-center gap-6" aria-label="Main">
           {NAV.map((n) => (
             <NavLink key={n.to} to={n.to} className={linkClass}>
               {n.label}
@@ -43,7 +52,7 @@ const Header: React.FC = () => {
         </nav>
         <button
           type="button"
-          className="md:hidden p-2 -mr-2 text-stone-800"
+          className="lg:hidden p-2 -mr-2 text-stone-800"
           onClick={() => setOpen(!open)}
           aria-expanded={open}
           aria-label={open ? 'Close menu' : 'Open menu'}
@@ -52,8 +61,8 @@ const Header: React.FC = () => {
         </button>
       </div>
       {open && (
-        <nav className="md:hidden border-t border-stone-200 bg-stone-50 px-5 py-4 flex flex-col gap-1" aria-label="Main">
-          {[...NAV, { to: '/contact', label: 'Contact' }].map((n) => (
+        <nav className="lg:hidden border-t border-stone-200 bg-stone-50 px-5 py-4 flex flex-col gap-1" aria-label="Main">
+          {ALL_PAGES.map((n) => (
             <NavLink key={n.to} to={n.to} className={({ isActive }) => `py-2.5 text-base ${isActive ? 'font-semibold text-stone-950' : 'text-stone-700'}`}>
               {n.label}
             </NavLink>
@@ -101,7 +110,7 @@ const Footer: React.FC = () => (
       <div className="md:col-span-3">
         <div className="text-[11px] uppercase tracking-[0.2em] text-stone-500 font-semibold">Site</div>
         <ul className="mt-4 space-y-2.5 text-sm">
-          {[...NAV, { to: '/contact', label: 'Contact' }].map((n) => (
+          {ALL_PAGES.map((n) => (
             <li key={n.to}>
               <Link to={n.to} className="hover:text-white">{n.label}</Link>
             </li>

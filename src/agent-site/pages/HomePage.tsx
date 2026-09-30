@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
-import { AGENT, FIRM, DPOR_LOOKUP_URL } from '../profile';
+import { AGENT, FIRM, DPOR_LOOKUP_URL, AFFILIATION } from '../profile';
 import { useListings } from '../useListings';
-import { ListingCard, SectionHeading, TextLink } from '../components';
+import { ListingCard, OwnershipNotice, SectionHeading, TextLink } from '../components';
 
 const HELP = [
   {
@@ -28,11 +28,23 @@ const HELP = [
     ],
     cta: { to: '/selling', label: 'Talk about selling' },
   },
+  {
+    title: 'Creative & investing',
+    body: "When a bank loan doesn't fit, there are other ways to make a deal work.",
+    points: [
+      'Seller financing and lease options',
+      'Subject-to and assumable loans',
+      'Off-market homes I own, sold direct',
+      'Written terms, attorney-reviewed',
+    ],
+    cta: { to: '/creative-financing', label: 'How creative financing works' },
+  },
 ];
 
 export const HomePage: React.FC = () => {
   const { listings, error } = useListings();
-  const featured = (listings || []).filter((l) => l.status !== 'sold').slice(0, 3);
+  const featured = (listings || []).filter((l) => !l.offMarket && l.status !== 'sold').slice(0, 3);
+  const offMarket = (listings || []).filter((l) => l.offMarket).slice(0, 3);
 
   return (
     <>
@@ -47,15 +59,15 @@ export const HomePage: React.FC = () => {
             Northern Virginia homes, handled personally.
           </h1>
           <p className="mt-5 max-w-xl text-base sm:text-lg text-stone-200 leading-relaxed">
-            I help buyers and sellers in {AGENT.serving}, with straight answers and one point of contact from the first
-            showing to closing.
+            Traditional sales and creative deals, from seller financing to subject-to, for buyers, sellers and
+            investors across {AGENT.serving}.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
             <Link to="/listings" className="inline-flex justify-center bg-white text-stone-950 hover:bg-stone-200 text-sm font-semibold px-6 py-3 transition-colors">
               See my listings
             </Link>
-            <Link to="/search" className="inline-flex justify-center border border-white/40 hover:border-white text-white text-sm font-semibold px-6 py-3 transition-colors">
-              Search all homes
+            <Link to="/off-market" className="inline-flex justify-center border border-white/40 hover:border-white text-white text-sm font-semibold px-6 py-3 transition-colors">
+              Off-market deals
             </Link>
           </div>
         </div>
@@ -75,10 +87,24 @@ export const HomePage: React.FC = () => {
         </p>
       </section>
 
+      {offMarket.length > 0 && (
+        <section className="max-w-6xl mx-auto px-5 sm:px-8 pb-20">
+          <SectionHeading kicker="Off-market" title="Homes with flexible terms" action={<TextLink to="/off-market">All off-market homes</TextLink>} />
+          <div className="mb-6 max-w-3xl">
+            <OwnershipNotice compact />
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {offMarket.map((l) => (
+              <ListingCard key={l.id} listing={l} />
+            ))}
+          </div>
+        </section>
+      )}
+
       <section className="bg-white border-y border-stone-200">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-20">
-          <SectionHeading kicker="How I can help" title="Buying or selling, the same care" />
-          <div className="grid gap-6 md:grid-cols-2">
+          <SectionHeading kicker="How I can help" title="Traditional or creative, the same care" />
+          <div className="grid gap-6 md:grid-cols-3">
             {HELP.map((h) => (
               <div key={h.title} className="border border-stone-200 p-7 sm:p-9 flex flex-col">
                 <h3 className="text-2xl font-bold font-architectural text-stone-950">{h.title}</h3>
@@ -100,6 +126,20 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
+      <section className="max-w-6xl mx-auto px-5 sm:px-8 pt-20">
+        <div className="border border-stone-300 bg-stone-100 p-7 sm:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-bold font-architectural text-stone-950">Behind on your mortgage?</h2>
+            <p className="mt-2 max-w-xl text-stone-700 leading-relaxed">
+              You have more options than you think, starting with free ones. See them all, with no cost and no pressure.
+            </p>
+          </div>
+          <Link to="/foreclosure-help" className="inline-flex justify-center bg-stone-950 hover:bg-stone-800 text-white text-sm font-semibold px-6 py-3 transition-colors shrink-0">
+            See your options
+          </Link>
+        </div>
+      </section>
+
       <section className="max-w-6xl mx-auto px-5 sm:px-8 py-20 grid gap-10 md:grid-cols-12 items-center">
         <div className="md:col-span-5">
           <div className="aspect-[4/5] bg-stone-200 overflow-hidden">
@@ -111,8 +151,10 @@ export const HomePage: React.FC = () => {
           <h2 className="mt-2 text-3xl sm:text-4xl font-bold font-architectural text-stone-950">{AGENT.name}</h2>
           <p className="mt-5 text-lg text-stone-700 leading-relaxed">
             I'm a Virginia-licensed real estate agent with {FIRM.shortName}, based in Arlington. I work with buyers and
-            sellers across Northern Virginia and keep things plain: clear numbers, honest advice and quick replies.
+            sellers across Northern Virginia, on traditional sales and creative ones, and keep things plain: clear
+            numbers, honest advice and quick replies.
           </p>
+          <p className="mt-3 text-sm text-stone-500">{AFFILIATION}.</p>
           <dl className="mt-8 grid sm:grid-cols-2 gap-px bg-stone-200 border border-stone-200">
             <div className="bg-stone-50 p-4">
               <dt className="text-[11px] uppercase tracking-wide text-stone-500">Licence</dt>

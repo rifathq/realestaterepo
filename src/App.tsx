@@ -54,6 +54,9 @@ import { SellingPage as SiteSellingPage } from './agent-site/pages/SellingPage';
 import { AboutPage as SiteAboutPage } from './agent-site/pages/AboutPage';
 import { ContactPage as SiteContactPage } from './agent-site/pages/ContactPage';
 import { LegalPage } from './agent-site/pages/LegalPage';
+import { OffMarketPage as SiteOffMarketPage } from './agent-site/pages/OffMarketPage';
+import { CreativeFinancingPage as SiteCreativeFinancingPage } from './agent-site/pages/CreativeFinancingPage';
+import { ForeclosureHelpPage as SiteForeclosureHelpPage } from './agent-site/pages/ForeclosureHelpPage';
 
 // Agent Portal Pages
 import { AgentLoginPage } from './pages/agent/AgentLoginPage';
@@ -103,6 +106,9 @@ export default function App() {
               <Route path="/listings/:slug" element={<SiteListingDetailPage />} />
               <Route path="/search" element={<SiteSearchPage />} />
               <Route path="/selling" element={<SiteSellingPage />} />
+              <Route path="/off-market" element={<SiteOffMarketPage />} />
+              <Route path="/creative-financing" element={<SiteCreativeFinancingPage />} />
+              <Route path="/foreclosure-help" element={<SiteForeclosureHelpPage />} />
               <Route path="/about" element={<SiteAboutPage />} />
               <Route path="/contact" element={<SiteContactPage />} />
               <Route path="/privacy" element={<LegalPage kind="privacy" />} />

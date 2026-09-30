@@ -7,7 +7,7 @@ import { ListingCard } from '../components';
 export const ListingsPage: React.FC = () => {
   const { listings, error } = useListings();
   const [filter, setFilter] = useState<'all' | ListingStatus>('all');
-  const all = listings || [];
+  const all = (listings || []).filter((l) => !l.offMarket);
   const visible = filter === 'all' ? all : all.filter((l) => l.status === filter);
   const count = (s: ListingStatus) => all.filter((l) => l.status === s).length;
 
@@ -17,7 +17,8 @@ export const ListingsPage: React.FC = () => {
       <h1 className="mt-2 text-4xl sm:text-5xl font-bold font-architectural text-stone-950">My listings</h1>
       <p className="mt-4 max-w-2xl text-stone-600 leading-relaxed">
         Homes I represent with eXp Realty. To see every home for sale in the area, use{' '}
-        <Link to="/search" className="font-semibold text-stone-950 underline underline-offset-4">Search all homes</Link>.
+        <Link to="/search" className="font-semibold text-stone-950 underline underline-offset-4">Search all homes</Link>. For homes I own
+        with flexible terms, see <Link to="/off-market" className="font-semibold text-stone-950 underline underline-offset-4">off-market</Link>.
       </p>
 
       <div className="mt-8 flex gap-2 overflow-x-auto no-scrollbar pb-1" role="tablist" aria-label="Filter by status">

@@ -46,3 +46,22 @@ export const STATUS_LABEL: Record<ListingStatus, string> = {
 };
 
 export const STATUS_ORDER: ListingStatus[] = ['coming_soon', 'active', 'under_contract', 'sold'];
+
+// Creative financing labels shown on listings. Labels only: no down payment,
+// payment or rate figures, so ads stay clear of Truth in Lending trigger terms.
+export const FINANCING_OPTIONS = [
+  'Seller financing',
+  'Subject-to existing loan',
+  'Lease option',
+  'Wrap-around mortgage',
+  'Assumable loan',
+  'Cash',
+];
+
+export const AFFILIATION = 'Member of the SubTo community of creative real estate investors and agents';
+
+// Virginia § 54.1-2138.2: a licensee with an ownership interest must say so in writing.
+export const OWNERSHIP_DISCLOSURE = `${AGENT.name} is a real estate salesperson licensed in ${AGENT.licensedIn} (#${AGENT.licence}) and has an ownership interest in this property, directly or through a company he owns. He is acting as a principal, not as the buyer's agent.`;
+
+// HUD-approved housing counseling, free.
+export const HUD_COUNSELING_PHONE = '(800) 569-4287';

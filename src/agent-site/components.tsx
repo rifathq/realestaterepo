@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
-import { AGENT, FIRM, ListingStatus, STATUS_LABEL } from './profile';
+import { AGENT, FIRM, ListingStatus, STATUS_LABEL, OWNERSHIP_DISCLOSURE } from './profile';
 import type { SiteListing } from './useListings';
 
 const STATUS_DOT: Record<ListingStatus, string> = {
@@ -22,6 +22,31 @@ export const SampleBadge: React.FC = () => (
   <span className="inline-flex items-center bg-stone-900/85 text-white text-[11px] font-semibold uppercase tracking-wide px-2 py-1">
     Sample
   </span>
+);
+
+export const OwnerBadge: React.FC = () => (
+  <span className="inline-flex items-center bg-amber-400 text-stone-950 text-[11px] font-semibold uppercase tracking-wide px-2 py-1">
+    Agent-owned
+  </span>
+);
+
+export const FinancingTags: React.FC<{ options?: string[]; className?: string }> = ({ options, className = '' }) =>
+  options && options.length ? (
+    <ul className={`flex flex-wrap gap-1.5 ${className}`} aria-label="Financing options">
+      {options.map((o) => (
+        <li key={o} className="text-[11px] font-medium text-stone-700 border border-stone-300 px-2 py-0.5">
+          {o}
+        </li>
+      ))}
+    </ul>
+  ) : null;
+
+// Virginia § 54.1-2138.2 disclosure, shown wherever an agent-owned home is advertised.
+export const OwnershipNotice: React.FC<{ compact?: boolean }> = ({ compact }) => (
+  <div className={`border-l-2 border-amber-500 bg-amber-50 text-stone-800 leading-relaxed ${compact ? 'px-3 py-2 text-xs' : 'px-4 py-3 text-sm'}`}>
+    <span className="font-semibold">Licensee ownership disclosure. </span>
+    {OWNERSHIP_DISCLOSURE}
+  </div>
 );
 
 export const EqualHousingMark: React.FC<{ className?: string }> = ({ className = 'w-9 h-9' }) => (
@@ -80,6 +105,7 @@ export const ListingCard: React.FC<{ listing: SiteListing }> = ({ listing }) => 
         />
         <div className="absolute top-3 left-3 flex gap-1.5">
           <StatusBadge status={listing.status} />
+          {listing.ownership === 'agent' && <OwnerBadge />}
           {listing.sample && <SampleBadge />}
         </div>
       </div>
@@ -91,8 +117,9 @@ export const ListingCard: React.FC<{ listing: SiteListing }> = ({ listing }) => 
         <div className="text-sm text-stone-600 mt-1">{specLine(listing)}</div>
         <h3 className="mt-3 font-semibold text-stone-900">{listing.title}</h3>
         <p className="text-sm text-stone-500 mt-0.5">{placeLine(listing)}</p>
+        <FinancingTags options={listing.financing} className="mt-3" />
         <div className="mt-4 pt-3 border-t border-stone-100 text-[11px] text-stone-500">
-          Listed by {AGENT.name} · {FIRM.name}
+          {listing.ownership === 'agent' ? `Owned by ${AGENT.name}, a licensee · ${FIRM.name}` : `Listed by ${AGENT.name} · ${FIRM.name}`}
         </div>
       </div>
     </Link>
@@ -103,7 +130,7 @@ export const ListingCard: React.FC<{ listing: SiteListing }> = ({ listing }) => 
 const CONSENT_TEXT =
   'By proceeding, I am electronically signing and consenting to receive marketing communications (about real estate brokerage services and one or more properties that I may buy, sell, or rent), that may be delivered to me via email, telephone and/or text messaging (using "automated technology" such as an automatic telephone dialing system, and/or an artificial or prerecorded voice), from eXp Realty® and its independent contractor real estate professionals using the contact information I provided. Your consent is not a condition of purchase and you may revoke it at any time by replying to any of our texts to opt-out, unsubscribing via email, or contacting us directly at the email or telephone number listed on this website.';
 
-const TOPICS = ['Buying a home', 'Selling a home', 'This listing', 'Something else'];
+const TOPICS = ['Buying a home', 'Selling a home', 'Off-market homes', 'Creative financing', 'Facing foreclosure', 'This listing', 'Something else'];
 
 interface LeadFormProps {
   defaultTopic?: string;

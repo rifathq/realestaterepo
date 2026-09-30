@@ -17,6 +17,9 @@ export interface SiteListing {
   featured?: boolean;
   sample?: boolean;
   listedDate: string;
+  offMarket?: boolean;
+  ownership?: 'agent';
+  financing?: string[];
 }
 
 export function useListings() {

@@ -82,6 +82,18 @@ const RULES: Record<string, Rule> = {
     label: 'Bright listing rules 2026',
     url: 'https://www.realestatenews.com/2026/07/09/brights-new-rules-aim-to-provide-more-options-more-control',
   },
+  ownership: {
+    label: '§ 54.1-2138.2',
+    url: 'https://law.lis.virginia.gov/vacode/title54.1/chapter21/section54.1-2138.2/',
+  },
+  triggerTerms: {
+    label: 'Reg Z § 1026.24',
+    url: 'https://www.consumerfinance.gov/rules-policy/regulations/1026/24/',
+  },
+  foreclosure: {
+    label: '12 CFR 1015 · § 59.1-200.1',
+    url: 'https://www.ecfr.gov/current/title-12/chapter-X/part-1015',
+  },
   launch: { label: 'Before launch' },
 };
 
@@ -405,6 +417,80 @@ function runChecks(db: any, facts: Fact[]): Check[] {
     found: [{ text: crm?.value ? `Using ${crm.value}` : 'Waiting on which eXp tool you use: BoldTrail or Lofty.' }],
     fix: 'Link the search page to your eXp BoldTrail or Lofty site, at no extra cost.',
   });
+
+  // --- Investor & creative deals -----------------------------------------
+  const ownerListings = (db.properties || []).filter((p: any) => p.ownership === 'agent');
+  const detailFile = path.resolve(siteDir, 'pages/ListingDetailPage.tsx');
+  const showsOwnerNotice =
+    agentSite && fs.existsSync(detailFile) && /OwnershipNotice/.test(fs.readFileSync(detailFile, 'utf-8')) && /ownership interest/.test(profileText);
+  checks.push({
+    id: 'owner-disclosure',
+    area: 'Investor & creative deals',
+    title: 'Agent-owned homes say you are a licensee with an ownership interest',
+    status: ownerListings.length === 0 || showsOwnerNotice ? 'pass' : 'fix',
+    rule: RULES.ownership,
+    found: ownerListings.length === 0
+      ? [{ text: 'No agent-owned homes are advertised.' }]
+      : showsOwnerNotice
+        ? [{ text: `${ownerListings.length} agent-owned homes, each showing the ownership disclosure on its card and page.`, where: rel(detailFile) }]
+        : ownerListings.map((p: any) => ({ text: `${p.title} is agent-owned but shows no disclosure`, where: 'data/db.json' })),
+    fix: 'Show the licensee ownership disclosure on every agent-owned home, and give it in writing before discussing terms.',
+  });
+
+  // Truth in Lending: a down payment, payment amount or number of payments in an ad
+  // requires the APR and full repayment terms beside it.
+  const trigger = /\$\s?[\d,.]+\s?k?\s*(down|\/\s?mo\b|per month|a month|monthly)|\d+(\.\d+)?\s?%\s*(down|interest|apr)|\b\d+\s+(monthly\s+)?payments\b/i;
+  const triggerHits: Finding[] = [];
+  for (const p of db.properties || []) {
+    const text = [p.title, p.tagline, p.description, ...(p.features || []), ...(p.financing || [])].join(' ');
+    if (trigger.test(text)) triggerHits.push({ text: `${p.title}: "${clean(text.match(trigger)![0])}"`, where: 'data/db.json' });
+  }
+  triggerHits.push(...scan(trigger, publicFiles));
+  checks.push({
+    id: 'financing-terms',
+    area: 'Investor & creative deals',
+    title: 'Financing ads avoid down-payment and monthly-payment figures',
+    status: triggerHits.length ? 'fix' : 'pass',
+    rule: RULES.triggerTerms,
+    found: triggerHits.length
+      ? triggerHits.slice(0, 8)
+      : [{ text: 'Financing appears as labels only (seller financing, subject-to, lease option), with terms on request.' }],
+    fix: 'Remove down-payment, payment or rate figures, or add the APR and full repayment terms right next to them.',
+  });
+
+  const fcRoute = scan(/path="\/foreclosure-help"/, [app]);
+  const fcFile = path.resolve(siteDir, 'pages/ForeclosureHelpPage.tsx');
+  if (fcRoute.length && fs.existsSync(fcFile)) {
+    const fcText = fs.readFileSync(fcFile, 'utf-8');
+    const required: [string, RegExp][] = [
+      ['"not associated with the government"', /not associated with the government/i],
+      ['"your lender may not agree to change your loan"', /lender may not agree to change your loan/i],
+      ['"you could lose your home"', /could lose your home/i],
+      ['no upfront fees', /upfront fees/i],
+      ['"you may stop working with me at any time"', /stop working with me at any time/i],
+      ['free HUD counselor', /HUD/],
+      ['payment promises in a written contract', /written contract/i],
+      ['no forced arbitration', /arbitration/i],
+    ];
+    const missing = required.filter(([, re]) => !re.test(fcText)).map(([label]) => label);
+    const marketingPages = ['ForeclosureHelpPage', 'HomePage', 'CreativeFinancingPage', 'OffMarketPage']
+      .map((f) => path.resolve(siteDir, `pages/${f}.tsx`))
+      .filter((f) => fs.existsSync(f));
+    const risky = scan(/stop (your )?foreclosure|(?<!not )guarantee[ds]?\b|save your home/i, marketingPages);
+    checks.push({
+      id: 'foreclosure-disclosures',
+      area: 'Investor & creative deals',
+      title: 'Foreclosure help carries the required disclosures and no promises',
+      status: missing.length || risky.length ? 'fix' : 'pass',
+      rule: RULES.foreclosure,
+      found: [
+        ...missing.map((m) => ({ text: `Missing: ${m}`, where: rel(fcFile) })),
+        ...risky,
+        ...(missing.length || risky.length ? [] : [{ text: 'All federal and Virginia disclosures present; no "stop foreclosure" or guarantee claims.', where: rel(fcFile) }]),
+      ],
+      fix: 'Keep every disclosure on the page, charge nothing before settlement, and never promise to stop a foreclosure.',
+    });
+  }
 
   // --- Before launch -------------------------------------------------------
   const seeded = scan(/hashPassword\('[^']+'\)/, [server]).map((f) => ({

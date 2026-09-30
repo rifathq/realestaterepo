@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
-import { AGENT, FIRM, DPOR_LOOKUP_URL } from '../profile';
+import { AGENT, FIRM, DPOR_LOOKUP_URL, AFFILIATION } from '../profile';
 
 export const AboutPage: React.FC = () => (
   <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14 sm:py-20 grid gap-12 md:grid-cols-12">
@@ -20,9 +20,15 @@ export const AboutPage: React.FC = () => (
           sellers across Northern Virginia.
         </p>
         <p>
+          I'm not only a traditional agent. I also buy and sell as an investor and work with creative structures such
+          as seller financing, subject-to and lease options, and I help homeowners who are behind on their mortgage
+          understand every option they have.
+        </p>
+        <p>
           My approach is simple: clear numbers, honest advice, and quick replies. If a home isn't right for you, I'll say
           so. If a price doesn't make sense, I'll show you why.
         </p>
+        <p className="text-base text-stone-500">{AFFILIATION}.</p>
       </div>
 
       <div className="mt-10 bg-white border border-stone-200 divide-y divide-stone-200">

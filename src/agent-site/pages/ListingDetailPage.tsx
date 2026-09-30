@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, Check } from 'lucide-react';
 import { AGENT, FIRM, STATUS_LABEL } from '../profile';
 import { useListings } from '../useListings';
-import { LeadForm, SampleBadge, StatusBadge, placeLine } from '../components';
+import { FinancingTags, LeadForm, OwnerBadge, OwnershipNotice, SampleBadge, StatusBadge, placeLine } from '../components';
 
 const STATUS_NOTE: Record<string, string> = {
   coming_soon: 'Coming Soon: showings start when the listing goes active.',
@@ -40,14 +40,15 @@ export const ListingDetailPage: React.FC = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10 sm:py-14">
-      <Link to="/listings" className="inline-flex items-center gap-1.5 text-sm text-stone-600 hover:text-stone-950">
-        <ArrowLeft className="w-4 h-4" /> All listings
+      <Link to={listing.offMarket ? '/off-market' : '/listings'} className="inline-flex items-center gap-1.5 text-sm text-stone-600 hover:text-stone-950">
+        <ArrowLeft className="w-4 h-4" /> {listing.offMarket ? 'Off-market homes' : 'All listings'}
       </Link>
 
       <div className="mt-6 flex flex-col lg:flex-row lg:items-end justify-between gap-5">
         <div>
           <div className="flex gap-1.5">
             <span className="border border-stone-200"><StatusBadge status={listing.status} /></span>
+            {listing.ownership === 'agent' && <OwnerBadge />}
             {listing.sample && <SampleBadge />}
           </div>
           <h1 className="mt-4 text-3xl sm:text-5xl font-bold font-architectural text-stone-950 text-balance">{listing.title}</h1>
@@ -58,6 +59,12 @@ export const ListingDetailPage: React.FC = () => {
           <div className="text-3xl sm:text-4xl font-bold font-architectural text-stone-950">{listing.priceDisplay}</div>
         </div>
       </div>
+
+      {listing.ownership === 'agent' && (
+        <div className="mt-6">
+          <OwnershipNotice />
+        </div>
+      )}
 
       <div className="mt-8 grid gap-2 md:grid-cols-3">
         <div className="md:col-span-2 aspect-[4/3] md:aspect-auto md:h-[460px] bg-stone-100 overflow-hidden">
@@ -83,6 +90,16 @@ export const ListingDetailPage: React.FC = () => {
       <div className="mt-12 grid gap-12 lg:grid-cols-3">
         <div className="lg:col-span-2">
           {note && <div className="mb-8 border-l-2 border-stone-900 bg-white px-4 py-3 text-sm text-stone-700">{note}</div>}
+          {listing.financing && listing.financing.length > 0 && (
+            <div className="mb-10">
+              <h2 className="text-2xl font-bold font-architectural text-stone-950">Terms available</h2>
+              <FinancingTags options={listing.financing} className="mt-4" />
+              <p className="mt-3 text-sm text-stone-600">
+                Terms are set with each buyer. Ask me for details; see{' '}
+                <Link to="/creative-financing" className="underline underline-offset-4">how creative financing works</Link>.
+              </p>
+            </div>
+          )}
           <h2 className="text-2xl font-bold font-architectural text-stone-950">About this home</h2>
           <p className="mt-4 text-stone-700 leading-relaxed">{listing.description}</p>
 
@@ -100,7 +117,9 @@ export const ListingDetailPage: React.FC = () => {
           )}
 
           <div className="mt-12 border-t border-stone-200 pt-6 text-sm text-stone-600 leading-relaxed">
-            <div className="font-semibold text-stone-900">Listed by {AGENT.name}, {FIRM.name}</div>
+            <div className="font-semibold text-stone-900">
+              {listing.ownership === 'agent' ? `Owned by ${AGENT.name}, a licensee with ${FIRM.name}` : `Listed by ${AGENT.name}, ${FIRM.name}`}
+            </div>
             <div>{AGENT.phone ? `${AGENT.phone} · ` : ''}{AGENT.email} · Office {FIRM.phone}</div>
             <div className="mt-2 text-xs text-stone-500">
               Status: {STATUS_LABEL[listing.status]} · Listed {listed}. Information deemed reliable but not guaranteed.
