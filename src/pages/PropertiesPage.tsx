@@ -14,12 +14,15 @@ import {
   Sparkles
 } from 'lucide-react';
 import { PROPERTIES, CITIES } from '../data/properties';
+import { useMarketplace } from '../context/MarketplaceContext';
 import { Property, PropertyCategory, ListingType } from '../types/property';
 import { PropertyCard } from '../components/property/PropertyCard';
 import { PropertyMapView } from '../components/property/PropertyMapView';
 import { ImageWithFallback } from '../components/common/ImageWithFallback';
 
 export const PropertiesPage: React.FC = () => {
+  const { properties } = useMarketplace();
+  const sourceProperties = properties && properties.length > 0 ? properties : PROPERTIES;
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const [isPending, startTransition] = useTransition();
@@ -125,7 +128,7 @@ export const PropertiesPage: React.FC = () => {
 
   // Filtered Properties Computation
   const filteredProperties = useMemo(() => {
-    return PROPERTIES.filter((p) => {
+    return sourceProperties.filter((p) => {
       // 1. Transaction Type (Buy vs Rent)
       if (typeParam !== 'all' && p.listingType !== typeParam) return false;
       
@@ -369,10 +372,10 @@ export const PropertiesPage: React.FC = () => {
                 }`}
               >
                 <span>All Categories</span>
-                <span className="font-mono text-[11px]">{PROPERTIES.length}</span>
+                <span className="font-mono text-[11px]">{sourceProperties.length}</span>
               </button>
               {categories.map((cat) => {
-                const count = PROPERTIES.filter((p) => p.category === cat).length;
+                const count = sourceProperties.filter((p) => p.category === cat).length;
                 return (
                   <button
                     key={cat}

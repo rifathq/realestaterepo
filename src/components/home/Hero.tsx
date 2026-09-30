@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { HeroSearchBar, HeroSearchTab } from './HeroSearchBar';
 import { CinematicBrandText } from '../common/CinematicBrandText';
+import { useMarketplace } from '../../context/MarketplaceContext';
 
 const TAB_MESSAGES: Record<HeroSearchTab, string> = {
   Buy: 'Find a home, property, or investment that fits your needs.',
@@ -11,6 +12,7 @@ const TAB_MESSAGES: Record<HeroSearchTab, string> = {
 };
 
 export const Hero: React.FC = () => {
+  const { content } = useMarketplace();
   const [activeTab, setActiveTab] = useState<HeroSearchTab>('Buy');
 
   return (

@@ -1,0 +1,959 @@
+{
+  "users": [
+    {
+      "id": "user-admin",
+      "email": "admin@demo.digenticrealty.com",
+      "name": "Elena Rostova (Executive Director)",
+      "passwordHash": "dbb0c7de0a08baf0c7c89f3edb7cf7f1eb07e85f65ed66f50d08b182b082c8ada09e632cc2aa5d33575c302b58a3a671f3c382d5313457aa1a7a4c0112b50965:2e7911124d1e21d8816a627d5169a0ee",
+      "role": "super_admin",
+      "title": "Managing Principal & System Director",
+      "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+      "status": "active",
+      "createdAt": "2026-01-15T08:00:00.000Z"
+    },
+    {
+      "id": "user-agent-demo",
+      "email": "agent@demo.digenticrealty.com",
+      "name": "Marcus Vance",
+      "passwordHash": "ec190ba7de4d8b549665076d9d74d333b3d9cc24f712b18588472fa8fc261085f5e4d676c181222453dea7740f093e9ee35c5abe06a9ec03db25abc4762fbfbc:f0417ae32b4d9a5d244de92845d6a7d1",
+      "role": "agent",
+      "agentId": "agent-demo",
+      "title": "Senior Portfolio Advisor",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      "status": "active",
+      "createdAt": "2026-02-01T10:00:00.000Z"
+    },
+    {
+      "id": "user-client-1",
+      "email": "a.wright@firm-partners.com",
+      "name": "Alexander Wright",
+      "passwordHash": "8989d2d13ce1779cc3bab3cb3d736f2ebf406f97ad1c306eb6382eb3fcec5d45f7a6400561e436293f50c510216ff812b4d4a47e4716c139b11660d1e685df48:1ef586ae8638d8d5ed481638ced8f16a",
+      "role": "client",
+      "title": "Institutional Investor",
+      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+      "status": "active",
+      "createdAt": "2026-03-12T14:30:00.000Z"
+    },
+    {
+      "id": "user-agent-2",
+      "email": "agent2@demo.digenticrealty.com",
+      "name": "Rob Wittman",
+      "passwordHash": "de9c03282cd552ac586eb2f20259b4f2ec54a21a599ea06eed479355a2cecd12ada09d16e559dae14c41308263e6c96af7dd20c0392257959ae9dad96635c486:5538dbd6d74de2e70998bd0ffd52a87a",
+      "role": "agent",
+      "agentId": "agent-rob-wittman",
+      "title": "Principal Agent (Arlington)",
+      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+      "status": "active",
+      "createdAt": "2026-02-10T10:00:00.000Z"
+    }
+  ],
+  "agents": [
+    {
+      "id": "agent-demo",
+      "slug": "marcus-vance",
+      "name": "Marcus Vance",
+      "role": "Senior Portfolio Advisor",
+      "agency": "Digentic Private Client Advisory",
+      "licenseNumber": "CA-DRE #02198421",
+      "phone": "+1 (415) 890-5542",
+      "email": "agent@demo.digenticrealty.com",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
+      "bio": "Specializing in commercial headquarters acquisitions and landmark penthouse estates across the West Coast corridor. Marcus brings 12+ years of institutional advisory experience to Digentic Realty.",
+      "yearsExperience": 12,
+      "activeListingsCount": 5,
+      "dealsClosed": 324,
+      "salesVolume": "$380.5M",
+      "rating": 4.9,
+      "city": "San Francisco",
+      "state": "CA",
+      "specializations": [
+        "Commercial Headquarters",
+        "Prime Penthouses",
+        "Capital Markets"
+      ]
+    },
+    {
+      "id": "agent-rob-wittman",
+      "slug": "rob-wittman",
+      "name": "Rob Wittman",
+      "role": "Principal Agent",
+      "agency": "Digentic Arlington Luxury Group",
+      "licenseNumber": "VA-DRE #02258931",
+      "phone": "+1 (703) 891-4420",
+      "email": "rob.wittman@digentic-realty.com",
+      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80",
+      "bio": "Recognized as one of Northern Virginia’s top-producing luxury advisors. Rob specializes in architect-designed estates, historic restorations, and waterfront properties.",
+      "yearsExperience": 14,
+      "activeListingsCount": 9,
+      "dealsClosed": 513,
+      "salesVolume": "$320.1M",
+      "rating": 4.8,
+      "city": "Arlington",
+      "state": "VA",
+      "specializations": [
+        "Luxury Residential",
+        "Historic Properties",
+        "New Development"
+      ]
+    },
+    {
+      "id": "agent-anthony-lam",
+      "slug": "anthony-lam",
+      "name": "Anthony Lam",
+      "role": "Principal Agent",
+      "agency": "Digentic Capital Partners",
+      "licenseNumber": "VA-DRE #02294108",
+      "phone": "+1 (703) 745-9210",
+      "email": "anthony.lam@digentic-realty.com",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
+      "bio": "With over half a billion dollars in career transaction volume, Anthony represents discerning private buyers and tech executives.",
+      "yearsExperience": 16,
+      "activeListingsCount": 12,
+      "dealsClosed": 700,
+      "salesVolume": "$503.0M",
+      "rating": 4.9,
+      "city": "Arlington",
+      "state": "VA",
+      "specializations": [
+        "Waterfront Estates",
+        "Modern Mansions",
+        "Commercial Relocation"
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "id": "prop-1",
+      "slug": "the-monolith-glass-headquarters",
+      "title": "The Monolith Glass Pavilion",
+      "tagline": "Precision engineered glass facade with triple-height cantilevered atrium",
+      "price": 18500000,
+      "priceDisplay": "$18,500,000",
+      "listingType": "buy",
+      "category": "Offices",
+      "featured": true,
+      "editorialHighlight": "Curated Architectural Marquee",
+      "location": {
+        "address": "420 Montgomery Financial Boulevard",
+        "neighborhood": "Financial District",
+        "city": "San Francisco",
+        "state": "CA",
+        "zip": "94104",
+        "coordinates": {
+          "lat": 37.7925,
+          "lng": -122.4018
+        }
+      },
+      "specs": {
+        "beds": 0,
+        "baths": 12,
+        "sqft": 28400,
+        "parking": 36,
+        "yearBuilt": 2023,
+        "floor": 14,
+        "lotSize": "0.85 Acres",
+        "pricePerSqft": 651,
+        "hoaMonthly": 3400
+      },
+      "description": [
+        "Commissioned by an international design practice, The Monolith stands as a masterwork of structural glass and carbon-neutral steel framing.",
+        "A triple-height internal atrium connects executive lounges, private boardroom wings, and column-free open floors."
+      ],
+      "features": [
+        "Triple-glazed low-emissivity glass curtain facade",
+        "Column-free floor plates with 3.8m ceiling heights",
+        "Private landscaped rooftop garden with city views",
+        "Dedicated fiber-optic redundant infrastructure"
+      ],
+      "amenities": [
+        "Executive Dining Room",
+        "Private Boardroom Suites",
+        "Wellness Center & Showers"
+      ],
+      "architecturalHighlights": {
+        "architect": "Kappe & Partners Architectural Studio",
+        "style": "High-Tech Contemporary Structuralism",
+        "materials": [
+          "Low-iron acoustic glass",
+          "Brushed anodized aluminum"
+        ],
+        "facing": "North-East with panoramic bay vistas"
+      },
+      "verified": true,
+      "verifiedBadgeText": "Digentic Certified & Title Inspected",
+      "agentId": "agent-demo",
+      "status": "active",
+      "images": [
+        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "virtualTourAvailable": true,
+      "listedDate": "2026-08-14"
+    },
+    {
+      "id": "prop-2",
+      "slug": "solarium-cantilever-residence",
+      "title": "Solarium Cantilever Villa",
+      "tagline": "Suspended post-tensioned concrete residence with horizon saltwater pool",
+      "price": 9200000,
+      "priceDisplay": "$9,200,000",
+      "listingType": "buy",
+      "category": "Residential",
+      "featured": true,
+      "editorialHighlight": "Structural Landmark 2026",
+      "location": {
+        "address": "1840 Bel Air Crest Road",
+        "neighborhood": "Bel Air Foothills",
+        "city": "Los Angeles",
+        "state": "CA",
+        "zip": "90077",
+        "coordinates": {
+          "lat": 34.0837,
+          "lng": -118.4485
+        }
+      },
+      "specs": {
+        "beds": 5,
+        "baths": 7,
+        "sqft": 8650,
+        "parking": 4,
+        "yearBuilt": 2024,
+        "floor": 2,
+        "lotSize": "1.2 Acres",
+        "pricePerSqft": 1063,
+        "hoaMonthly": 620
+      },
+      "description": [
+        "Engineered into a dramatic ridge line, this cantilevered villa floats effortlessly above the canyon.",
+        "Custom millwork, Belgian minimalist glazing, and a 60-foot vanishing edge infinity pool."
+      ],
+      "features": [
+        "Cantilevered 60-foot infinity saltwater pool",
+        "Crestron smart architectural lighting"
+      ],
+      "amenities": [
+        "Private Wine Cellar",
+        "Canyon-view Screening Room",
+        "Outdoor Kitchen"
+      ],
+      "architecturalHighlights": {
+        "architect": "Olson Kundig Associates",
+        "style": "Organic Brutalism & Warm Minimalism",
+        "materials": [
+          "Board-formed architectural concrete",
+          "Reclaimed cedar timber"
+        ],
+        "facing": "South-facing with ocean horizon glimpse"
+      },
+      "verified": true,
+      "verifiedBadgeText": "Digentic Certified & Title Inspected",
+      "agentId": "agent-demo",
+      "status": "active",
+      "images": [
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "virtualTourAvailable": true,
+      "listedDate": "2026-07-28"
+    },
+    {
+      "id": "prop-3",
+      "slug": "tribeca-cast-iron-penthouse",
+      "title": "The Tribeca Cast-Iron Sky Penthouse",
+      "tagline": "Duplex loft with private wraparound zinc terrace and custom bronze hearth",
+      "price": 14750000,
+      "priceDisplay": "$14,750,000",
+      "listingType": "buy",
+      "category": "Penthouses",
+      "featured": true,
+      "editorialHighlight": "Manhattan Heritage Landmark",
+      "location": {
+        "address": "74 Franklin Street, Penthouse A",
+        "neighborhood": "Tribeca Historic District",
+        "city": "New York",
+        "state": "NY",
+        "zip": "10013",
+        "coordinates": {
+          "lat": 40.7183,
+          "lng": -74.0048
+        }
+      },
+      "specs": {
+        "beds": 4,
+        "baths": 5,
+        "sqft": 6100,
+        "parking": 2,
+        "yearBuilt": 1894,
+        "floor": 6,
+        "pricePerSqft": 2418,
+        "hoaMonthly": 4120
+      },
+      "description": [
+        "A crowning achievement atop one of Tribeca’s most photographed 19th-century cast-iron buildings."
+      ],
+      "features": [
+        "Original 1894 fluted Corinthian cast-iron columns",
+        "Direct keyed private dual elevators"
+      ],
+      "amenities": [
+        "Private Keyed Elevator",
+        "Wraparound Zinc Terrace",
+        "24/7 Concierge"
+      ],
+      "architecturalHighlights": {
+        "architect": "Annabelle Selldorf Architects",
+        "style": "Historic Restoration & Contemporary Loft",
+        "materials": [
+          "Restored structural cast iron",
+          "Wide-plank white oak"
+        ],
+        "facing": "Corner North/West exposure"
+      },
+      "verified": true,
+      "verifiedBadgeText": "Digentic Certified & Title Inspected",
+      "agentId": "agent-anthony-lam",
+      "status": "active",
+      "images": [
+        "https://images.unsplash.com/photo-1567496898669-ee935f5f647a?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "virtualTourAvailable": true,
+      "listedDate": "2026-09-02"
+    },
+    {
+      "id": "prop-4",
+      "slug": "potomac-waterfront-pavilion",
+      "title": "Potomac Riverfront Sanctuary",
+      "tagline": "Modern limestone estate directly on the Potomac Palisades in Arlington",
+      "price": 7850000,
+      "priceDisplay": "$7,850,000",
+      "listingType": "buy",
+      "category": "Waterfront",
+      "featured": true,
+      "editorialHighlight": "Virginia Palisades Estate",
+      "location": {
+        "address": "3810 North River Road",
+        "neighborhood": "Rivercrest Palisades",
+        "city": "Arlington",
+        "state": "VA",
+        "zip": "22207",
+        "coordinates": {
+          "lat": 38.9189,
+          "lng": -77.1264
+        }
+      },
+      "specs": {
+        "beds": 6,
+        "baths": 8,
+        "sqft": 9400,
+        "parking": 4,
+        "yearBuilt": 2022,
+        "lotSize": "1.8 Acres",
+        "pricePerSqft": 835,
+        "hoaMonthly": 380
+      },
+      "description": [
+        "Set high upon the granite palisades of Arlington overlooking the historic Potomac."
+      ],
+      "features": [
+        "Direct private deepwater dock riparian rights",
+        "Three-story glass curtain wall"
+      ],
+      "amenities": [
+        "Private Boat Slip",
+        "Wine Tasting Room",
+        "Infinity Spa Overlook"
+      ],
+      "architecturalHighlights": {
+        "architect": "Bohlin Cywinski Jackson",
+        "style": "Palisades Modernist Architecture",
+        "materials": [
+          "Indiana cut limestone",
+          "Standing seam zinc"
+        ],
+        "facing": "Eastern sunrise over Georgetown spires"
+      },
+      "verified": true,
+      "verifiedBadgeText": "Digentic Certified & Title Inspected",
+      "agentId": "agent-rob-wittman",
+      "status": "active",
+      "images": [
+        "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "virtualTourAvailable": true,
+      "listedDate": "2026-08-20"
+    },
+    {
+      "id": "prop-5",
+      "slug": "austin-lady-bird-creative-campus",
+      "title": "Lady Bird Lake Tech Pavilion",
+      "tagline": "Mass-timber modern commercial campus on the lakefront parkway",
+      "price": 65000,
+      "priceDisplay": "$65,000 / mo",
+      "listingType": "rent",
+      "category": "Offices",
+      "featured": true,
+      "editorialHighlight": "Mass Timber Innovation",
+      "location": {
+        "address": "1100 Cesar Chavez Parkway West",
+        "neighborhood": "Downtown Lakefront",
+        "city": "Austin",
+        "state": "TX",
+        "zip": "78701",
+        "coordinates": {
+          "lat": 30.2642,
+          "lng": -97.7471
+        }
+      },
+      "specs": {
+        "beds": 0,
+        "baths": 8,
+        "sqft": 14200,
+        "parking": 28,
+        "yearBuilt": 2025,
+        "floor": 3,
+        "pricePerSqft": 55
+      },
+      "description": [
+        "A forward-thinking commercial headquarters crafted entirely of Austrian spruce cross-laminated timber."
+      ],
+      "features": [
+        "PEFC-certified Austrian spruce mass timber structure",
+        "Private dock access on Lady Bird Lake"
+      ],
+      "amenities": [
+        "Kayaking Launch Dock",
+        "On-site Artisan Cafe",
+        "Boardroom Suite"
+      ],
+      "architecturalHighlights": {
+        "architect": "Michael Green Architecture",
+        "style": "Contemporary Biophilic Timber Construction",
+        "materials": [
+          "Cross-laminated timber",
+          "Corten weathered steel accents"
+        ],
+        "facing": "South with uninterrupted lake views"
+      },
+      "verified": true,
+      "verifiedBadgeText": "Digentic Certified & Title Inspected",
+      "agentId": "agent-demo",
+      "status": "active",
+      "images": [
+        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "virtualTourAvailable": true,
+      "listedDate": "2026-09-08"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "apt-101",
+      "propertyId": "prop-1",
+      "propertyTitle": "The Monolith Glass Pavilion",
+      "clientName": "Alexander Wright",
+      "clientEmail": "a.wright@firm-partners.com",
+      "clientPhone": "+1 (415) 555-0199",
+      "date": "2026-10-04",
+      "time": "14:00",
+      "type": "Private Walkthrough",
+      "notes": "Client requests Phase 1 environmental summary and structural engineering drawings before arrival.",
+      "status": "confirmed",
+      "agentId": "agent-demo",
+      "agentName": "Marcus Vance",
+      "createdAt": "2026-09-28T09:15:00.000Z"
+    },
+    {
+      "id": "apt-102",
+      "propertyId": "prop-2",
+      "propertyTitle": "Solarium Cantilever Villa",
+      "clientName": "Victoria Chen",
+      "clientEmail": "v.chen@sovereign-holdings.sg",
+      "clientPhone": "+1 (310) 555-8842",
+      "date": "2026-10-06",
+      "time": "11:00",
+      "type": "Executive Inspection",
+      "notes": "Private architectural tour with family principal. Security detail accompanying.",
+      "status": "pending",
+      "agentId": "agent-demo",
+      "agentName": "Marcus Vance",
+      "createdAt": "2026-09-29T10:00:00.000Z"
+    },
+    {
+      "id": "apt-103",
+      "propertyId": "prop-4",
+      "propertyTitle": "Potomac Riverfront Sanctuary",
+      "clientName": "Julian Sterling",
+      "clientEmail": "j.sterling@sterling-cap.com",
+      "clientPhone": "+1 (703) 555-3211",
+      "date": "2026-10-08",
+      "time": "15:30",
+      "type": "Title & Survey Review",
+      "notes": "Reviewing Potomac riverfront riparian water rights and dock expansion permits.",
+      "status": "confirmed",
+      "agentId": "agent-rob-wittman",
+      "agentName": "Rob Wittman",
+      "createdAt": "2026-09-27T16:20:00.000Z"
+    }
+  ],
+  "leads": [
+    {
+      "id": "lead-201",
+      "propertyId": "prop-1",
+      "propertyTitle": "The Monolith Glass Pavilion",
+      "clientName": "Global AI Ventures Advisory",
+      "clientEmail": "realestate@globalai.tech",
+      "clientPhone": "+1 (415) 322-9011",
+      "inquiryType": "Corporate Purchase",
+      "budget": "$18M - $22M",
+      "message": "Looking to acquire a stand-alone corporate headquarters for our 120-person executive staff in downtown SF.",
+      "status": "touring",
+      "agentId": "agent-demo",
+      "agentName": "Marcus Vance",
+      "createdAt": "2026-09-25T11:45:00.000Z"
+    },
+    {
+      "id": "lead-202",
+      "propertyId": "prop-2",
+      "propertyTitle": "Solarium Cantilever Villa",
+      "clientName": "David & Clara Thorne",
+      "clientEmail": "thorne.family@crestview.org",
+      "clientPhone": "+1 (310) 902-1844",
+      "inquiryType": "Residential Acquisition",
+      "budget": "$9.5M Cash",
+      "message": "Interested in making an un-contingent offer on the Bel Air villa. Requesting preliminary title audit.",
+      "status": "contacted",
+      "agentId": "agent-demo",
+      "agentName": "Marcus Vance",
+      "createdAt": "2026-09-28T14:10:00.000Z"
+    },
+    {
+      "id": "lead-203",
+      "propertyId": "prop-3",
+      "propertyTitle": "The Tribeca Cast-Iron Sky Penthouse",
+      "clientName": "Monroe Private Wealth LLC",
+      "clientEmail": "advisory@monroewealth.com",
+      "clientPhone": "+1 (212) 488-9900",
+      "inquiryType": "Client Representation",
+      "budget": "$15M",
+      "message": "Representing an international sports figure relocating to Manhattan in Q4.",
+      "status": "new",
+      "agentId": "agent-anthony-lam",
+      "agentName": "Anthony Lam",
+      "createdAt": "2026-09-29T08:30:00.000Z"
+    },
+    {
+      "id": "lead-204",
+      "propertyId": "prop-5",
+      "propertyTitle": "Lady Bird Lake Tech Pavilion",
+      "clientName": "SaaS Austin Scale",
+      "clientEmail": "facilities@scaleaustin.io",
+      "clientPhone": "+1 (512) 809-4411",
+      "inquiryType": "Commercial Lease",
+      "budget": "$70,000 / mo",
+      "message": "Interested in a 5-year lease on the timber creative campus starting November 2026.",
+      "status": "contacted",
+      "agentId": "agent-demo",
+      "agentName": "Marcus Vance",
+      "createdAt": "2026-09-26T17:15:00.000Z"
+    },
+    {
+      "id": "lead-205",
+      "propertyId": "prop-4",
+      "propertyTitle": "Potomac Riverfront Sanctuary",
+      "clientName": "Katherine Bradford",
+      "clientEmail": "k.bradford@capitol-heritage.com",
+      "clientPhone": "+1 (703) 555-9082",
+      "inquiryType": "Private Acquisition",
+      "budget": "$8.0M",
+      "message": "Interested in scheduling a private river dock inspection and surveying the riparian parcel lines.",
+      "status": "new",
+      "agentId": "agent-rob-wittman",
+      "agentName": "Rob Wittman",
+      "createdAt": "2026-09-29T09:45:00.000Z"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "rev-1",
+      "propertyId": "prop-1",
+      "propertyTitle": "The Monolith Glass Pavilion",
+      "authorName": "Harrison Reed (CFO, Apex Robotics)",
+      "authorTitle": "Corporate Client",
+      "rating": 5,
+      "comment": "Digentic handled our downtown campus transaction with military precision. Structural and MEP verification saved us weeks of due diligence.",
+      "date": "2026-08-30",
+      "status": "published",
+      "agentId": "agent-demo"
+    },
+    {
+      "id": "rev-2",
+      "propertyId": "prop-2",
+      "propertyTitle": "Solarium Cantilever Villa",
+      "authorName": "Dr. Evelyn Morales",
+      "authorTitle": "Private Estate Owner",
+      "rating": 5,
+      "comment": "The architectural curation at Digentic is second to none. Marcus Vance understood exactly what we wanted in an organic concrete sanctuary.",
+      "date": "2026-09-12",
+      "status": "published",
+      "agentId": "agent-demo"
+    },
+    {
+      "id": "rev-3",
+      "propertyId": "prop-4",
+      "propertyTitle": "Potomac Riverfront Sanctuary",
+      "authorName": "Senator Thomas Vance (Ret.)",
+      "authorTitle": "Estate Buyer",
+      "rating": 5,
+      "comment": "Rob Wittman and the Digentic team navigated the Potomac riparian rights flawlessly. The highest level of discreet institutional service.",
+      "date": "2026-09-18",
+      "status": "published",
+      "agentId": "agent-rob-wittman"
+    }
+  ],
+  "categories": [
+    {
+      "id": "cat-1",
+      "name": "Offices & Commercial HQs",
+      "slug": "offices",
+      "propertyCount": 14,
+      "description": "LEED-certified and institutional headquarters campuses"
+    },
+    {
+      "id": "cat-2",
+      "name": "Architectural Residences",
+      "slug": "residential",
+      "propertyCount": 28,
+      "description": "Custom architect-designed modern villas and luxury residences"
+    },
+    {
+      "id": "cat-3",
+      "name": "Landmark Penthouses",
+      "slug": "penthouses",
+      "propertyCount": 9,
+      "description": "Skyline duplexes and full-floor crown residences"
+    },
+    {
+      "id": "cat-4",
+      "name": "Waterfront Estates",
+      "slug": "waterfront",
+      "propertyCount": 12,
+      "description": "Riparian rights, private docks, and ocean/riverfront parcels"
+    },
+    {
+      "id": "cat-5",
+      "name": "Development Parcels",
+      "slug": "development",
+      "propertyCount": 6,
+      "description": "Zoned urban plots with municipal entitlements"
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc-1",
+      "city": "San Francisco",
+      "state": "CA",
+      "region": "West Coast",
+      "activeListings": 18,
+      "image": "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "loc-2",
+      "city": "New York",
+      "state": "NY",
+      "region": "Tri-State",
+      "activeListings": 32,
+      "image": "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "loc-3",
+      "city": "Arlington",
+      "state": "VA",
+      "region": "Capital Corridor",
+      "activeListings": 14,
+      "image": "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "loc-4",
+      "city": "Austin",
+      "state": "TX",
+      "region": "Southwest Hub",
+      "activeListings": 11,
+      "image": "https://images.unsplash.com/photo-1531218150217-54595bc2b934?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "loc-5",
+      "city": "Chicago",
+      "state": "IL",
+      "region": "Midwest Metro",
+      "activeListings": 16,
+      "image": "https://images.unsplash.com/photo-1494522855154-9297ac14b55f?auto=format&fit=crop&w=600&q=80"
+    }
+  ],
+  "settings": {
+    "brokerageName": "Digentic Realty Institutional Advisory",
+    "licenseId": "US-FINRA/DRE-98002",
+    "defaultCurrency": "USD ($)",
+    "standardCommissionBuy": 2.25,
+    "standardCommissionRent": 8,
+    "notificationEmail": "advisory@digenticrealty.com",
+    "systemStatus": "Operational",
+    "maintenanceMode": false,
+    "requireMfaForAdmins": true,
+    "dataRetentionDays": 365
+  },
+  "activity": [
+    {
+      "id": "act-1790716174812-r485",
+      "userId": "user-admin",
+      "userName": "Elena Rostova (Executive Director)",
+      "userRole": "Super Admin",
+      "action": "Property Deleted: Pacific Palisades Ocean Pavilion (Updated Price)",
+      "entity": "Property",
+      "entityId": "prop-1790716174794",
+      "timestamp": "2026-09-29T21:09:34.812Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1790716174805-3k9s",
+      "userId": "user-admin",
+      "userName": "Elena Rostova (Executive Director)",
+      "userRole": "Super Admin",
+      "action": "Property Updated: Pacific Palisades Ocean Pavilion (Updated Price)",
+      "entity": "Property",
+      "entityId": "prop-1790716174794",
+      "timestamp": "2026-09-29T21:09:34.805Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1790716174794-osxt",
+      "userId": "user-admin",
+      "userName": "Elena Rostova (Executive Director)",
+      "userRole": "Super Admin",
+      "action": "Property Created: Pacific Palisades Ocean Pavilion Test",
+      "entity": "Property",
+      "entityId": "prop-1790716174794",
+      "timestamp": "2026-09-29T21:09:34.794Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1790716174723-9zw6",
+      "userId": "user-admin",
+      "userName": "Elena Rostova (Executive Director)",
+      "userRole": "Super Admin",
+      "action": "User Authenticated",
+      "entity": "Auth Session",
+      "entityId": "user-admin",
+      "timestamp": "2026-09-29T21:09:34.723Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1790716174644-3oxw",
+      "userId": "user-admin",
+      "userName": "Elena Rostova (Executive Director)",
+      "userRole": "Super Admin",
+      "action": "User Signed Out",
+      "entity": "Auth Session",
+      "entityId": "user-admin",
+      "timestamp": "2026-09-29T21:09:34.644Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1790716174552-axux",
+      "userId": "user-agent-2",
+      "userName": "Rob Wittman",
+      "userRole": "Agent",
+      "action": "User Authenticated",
+      "entity": "Auth Session",
+      "entityId": "user-agent-2",
+      "timestamp": "2026-09-29T21:09:34.552Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1790716174477-q997",
+      "userId": "user-agent-demo",
+      "userName": "Marcus Vance",
+      "userRole": "Agent",
+      "action": "User Authenticated",
+      "entity": "Auth Session",
+      "entityId": "user-agent-demo",
+      "timestamp": "2026-09-29T21:09:34.477Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1790716174384-8kcz",
+      "userId": "user-admin",
+      "userName": "Elena Rostova (Executive Director)",
+      "userRole": "Super Admin",
+      "action": "User Authenticated",
+      "entity": "Auth Session",
+      "entityId": "user-admin",
+      "timestamp": "2026-09-29T21:09:34.384Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1790715928828-mytm",
+      "userId": "user-agent-demo",
+      "userName": "Marcus Vance",
+      "userRole": "Agent",
+      "action": "User Authenticated",
+      "entity": "Auth Session",
+      "entityId": "user-agent-demo",
+      "timestamp": "2026-09-29T21:05:28.828Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1790715924706-yrg4",
+      "userId": "user-admin",
+      "userName": "Elena Rostova (Executive Director)",
+      "userRole": "Super Admin",
+      "action": "User Authenticated",
+      "entity": "Auth Session",
+      "entityId": "user-admin",
+      "timestamp": "2026-09-29T21:05:24.706Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1790715264088-1kux",
+      "userId": "user-admin",
+      "userName": "Elena Rostova (Executive Director)",
+      "userRole": "Super Admin",
+      "action": "Property Deleted: Apex Bellevue Commercial Center",
+      "entity": "Property",
+      "entityId": "prop-1790715257138",
+      "timestamp": "2026-09-29T20:54:24.088Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1790715264054-4mbf",
+      "userId": "user-admin",
+      "userName": "Elena Rostova (Executive Director)",
+      "userRole": "Super Admin",
+      "action": "User Authenticated",
+      "entity": "Auth Session",
+      "entityId": "user-admin",
+      "timestamp": "2026-09-29T20:54:24.054Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1790715257139-h6a3",
+      "userId": "user-admin",
+      "userName": "Elena Rostova (Executive Director)",
+      "userRole": "Super Admin",
+      "action": "Property Created: Apex Bellevue Commercial Center",
+      "entity": "Property",
+      "entityId": "prop-1790715257138",
+      "timestamp": "2026-09-29T20:54:17.139Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1790715257120-k0lc",
+      "userId": "user-admin",
+      "userName": "Elena Rostova (Executive Director)",
+      "userRole": "Super Admin",
+      "action": "User Authenticated",
+      "entity": "Auth Session",
+      "entityId": "user-admin",
+      "timestamp": "2026-09-29T20:54:17.120Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1790715253886-2evl",
+      "userId": "user-agent-demo",
+      "userName": "Marcus Vance",
+      "userRole": "Agent",
+      "action": "User Authenticated",
+      "entity": "Auth Session",
+      "entityId": "user-agent-demo",
+      "timestamp": "2026-09-29T20:54:13.886Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1790715248946-777r",
+      "userId": "user-admin",
+      "userName": "Elena Rostova (Executive Director)",
+      "userRole": "Super Admin",
+      "action": "User Authenticated",
+      "entity": "Auth Session",
+      "entityId": "user-admin",
+      "timestamp": "2026-09-29T20:54:08.946Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1790715245071-rl4m",
+      "userId": "user-agent-demo",
+      "userName": "Marcus Vance",
+      "userRole": "Agent",
+      "action": "User Authenticated",
+      "entity": "Auth Session",
+      "entityId": "user-agent-demo",
+      "timestamp": "2026-09-29T20:54:05.071Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1790715235455-eg85",
+      "userId": "user-agent-demo",
+      "userName": "Marcus Vance",
+      "userRole": "Agent",
+      "action": "User Authenticated",
+      "entity": "Auth Session",
+      "entityId": "user-agent-demo",
+      "timestamp": "2026-09-29T20:53:55.455Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1790715231964-wt7c",
+      "userId": "user-admin",
+      "userName": "Elena Rostova (Executive Director)",
+      "userRole": "Super Admin",
+      "action": "User Authenticated",
+      "entity": "Auth Session",
+      "entityId": "user-admin",
+      "timestamp": "2026-09-29T20:53:51.964Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-1",
+      "userId": "user-admin",
+      "userName": "Elena Rostova",
+      "userRole": "Super Admin",
+      "action": "System Initialized",
+      "entity": "Database Engine",
+      "entityId": "db-core",
+      "timestamp": "2026-09-29T20:53:48.832Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-2",
+      "userId": "user-admin",
+      "userName": "Elena Rostova",
+      "userRole": "Super Admin",
+      "action": "Verified Title Audit Completed",
+      "entity": "Property",
+      "entityId": "prop-1",
+      "timestamp": "2026-09-29T19:53:48.832Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "act-3",
+      "userId": "user-agent-demo",
+      "userName": "Marcus Vance",
+      "userRole": "Agent",
+      "action": "Tour Confirmed with Client",
+      "entity": "Appointment",
+      "entityId": "apt-101",
+      "timestamp": "2026-09-29T18:53:48.832Z",
+      "ip": "127.0.0.1"
+    }
+  ],
+  "content": {
+    "heroTitle": "Real Estate for Business & Living",
+    "heroSubtitle": "Rent, purchase, and manage verified commercial headquarters, modern residences, and urban development parcels with institutional precision.",
+    "heroKicker": "Q3/2026 Index",
+    "charterText": "Every asset listed on Digentic Realty undergoes a four-stage audit: municipal title deed cross-referencing, architectural square footage measurement, Phase 1 environmental review, and mechanical/electrical compliance verification.",
+    "contactDisclaimer": "Digentic Realty advises private clients and luxury estates nationwide. All client inquiries are held under strict non-disclosure compliance."
+  }
+}

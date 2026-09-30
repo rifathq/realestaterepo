@@ -10,11 +10,13 @@ import {
   Eye
 } from 'lucide-react';
 import { PROPERTIES } from '../data/properties';
+import { useMarketplace } from '../context/MarketplaceContext';
 import { RedfinPropertyCard } from '../components/property/RedfinPropertyCard';
 import { ImageWithFallback } from '../components/common/ImageWithFallback';
 import { Hero } from '../components/home/Hero';
 
 export const HomePage: React.FC = () => {
+  const { properties } = useMarketplace();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(3);
 
@@ -41,7 +43,7 @@ export const HomePage: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const featuredProperties = PROPERTIES;
+  const featuredProperties = properties && properties.length > 0 ? properties : PROPERTIES;
   const maxIndex = Math.max(0, featuredProperties.length - cardsPerView);
   const validIndex = Math.min(currentIndex, maxIndex);
 

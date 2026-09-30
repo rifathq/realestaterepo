@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { 
   Bookmark, 
@@ -17,7 +17,9 @@ import {
 } from 'lucide-react';
 import { PROPERTIES } from '../data/properties';
 import { AGENTS } from '../data/agents';
+import { Property } from '../types/property';
 import { useMarketplace } from '../context/MarketplaceContext';
+import { api } from '../services/api';
 import { ImageWithFallback } from '../components/common/ImageWithFallback';
 import { PropertyGalleryModal } from '../components/property/PropertyGalleryModal';
 import { PropertyCard } from '../components/property/PropertyCard';
@@ -25,9 +27,22 @@ import { PropertyCard } from '../components/property/PropertyCard';
 export const PropertyDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const { isSaved, toggleSave, notify } = useMarketplace();
+  const { isSaved, toggleSave, notify, properties } = useMarketplace();
 
-  const property = PROPERTIES.find((p) => p.slug === slug);
+  const contextProperty = (properties && properties.length > 0 ? properties : PROPERTIES).find((p) => p.slug === slug || p.id === slug);
+  const [fetchedProperty, setFetchedProperty] = useState<Property | null>(null);
+
+  useEffect(() => {
+    if (!contextProperty && slug) {
+      api.properties.get(slug)
+        .then((data) => {
+          if (data && !data.error) setFetchedProperty(data);
+        })
+        .catch(() => {});
+    }
+  }, [contextProperty, slug]);
+
+  const property = contextProperty || fetchedProperty;
   const agent = property ? AGENTS.find((a) => a.id === property.agentId) || AGENTS[0] : null;
 
   // Gallery state
