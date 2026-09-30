@@ -23,9 +23,10 @@
       "key": "agentPhone",
       "group": "You",
       "label": "Phone to show",
-      "value": null,
-      "status": "needed",
-      "source": "Needed from you"
+      "value": "(571) 236-9633",
+      "status": "verified",
+      "source": "Your eXp agent site",
+      "sourceUrl": "https://masudhaque.exprealty.com/"
     },
     {
       "key": "firm",
@@ -62,7 +63,7 @@
       "status": "confirm",
       "source": "eXp Virginia website listing",
       "sourceUrl": "https://va.exprealty.com/contact.php",
-      "note": "eXp's written policy decides which number goes on your ads."
+      "note": "eXp's written policy decides which number goes on your ads. Your BoldTrail site lists an \"eXp Realty - Holding Office\" at 571-751-2207."
     },
     {
       "key": "supervisingBroker",
@@ -103,9 +104,10 @@
       "key": "idxCrm",
       "group": "Decisions",
       "label": "eXp search tool (BoldTrail or Lofty)",
-      "value": null,
-      "status": "needed",
-      "source": "Your eXp CRM of Choice",
+      "value": "BoldTrail · masudhaque.exprealty.com",
+      "status": "verified",
+      "source": "Your eXp agent site",
+      "sourceUrl": "https://masudhaque.exprealty.com/",
       "note": "Powers the search-all-homes page at no extra cost."
     },
     {

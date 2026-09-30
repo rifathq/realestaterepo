@@ -19,6 +19,14 @@ export const ContactPage: React.FC = () => (
           {AGENT.email}
         </a>
       </div>
+      {AGENT.phone && (
+        <div>
+          <div className="text-[11px] uppercase tracking-[0.2em] text-stone-500 font-semibold">Phone</div>
+          <a href={`tel:${AGENT.phone.replace(/\D/g, '')}`} className="mt-2 block text-base font-semibold text-stone-950 hover:underline underline-offset-4">
+            {AGENT.phone}
+          </a>
+        </div>
+      )}
       <div>
         <div className="text-[11px] uppercase tracking-[0.2em] text-stone-500 font-semibold">Brokerage office</div>
         <div className="mt-2 text-stone-800 leading-relaxed">

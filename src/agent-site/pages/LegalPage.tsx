@@ -2,7 +2,7 @@ import React from 'react';
 import { AGENT, FIRM } from '../profile';
 import { DemoNote, EqualHousingMark } from '../components';
 
-type Kind = 'privacy' | 'terms' | 'fair-housing';
+type Kind = 'privacy' | 'terms' | 'fair-housing' | 'accessibility';
 
 const CONTENT: Record<Kind, { title: string; sections: { heading: string; body: string }[] }> = {
   privacy: {
@@ -40,6 +40,23 @@ const CONTENT: Record<Kind, { title: string; sections: { heading: string; body: 
       {
         heading: 'Other sites',
         body: `"Search all homes" opens ${FIRM.shortName}'s home search, which ${FIRM.shortName} operates under its own terms.`,
+      },
+    ],
+  },
+  accessibility: {
+    title: 'Accessibility',
+    sections: [
+      {
+        heading: 'My commitment',
+        body: 'I want everyone, including people with disabilities, to be able to use this website. I aim to meet the Web Content Accessibility Guidelines (WCAG) 2.1 at level AA.',
+      },
+      {
+        heading: 'Need help?',
+        body: `Should you require assistance in navigating this website or searching for real estate, please call me at ${AGENT.phone || FIRM.phone} or email ${AGENT.email}.`,
+      },
+      {
+        heading: 'Tell me what is hard to use',
+        body: 'If any part of this site is hard to use with your device or assistive technology, let me know. I will fix it or get you the information another way.',
       },
     ],
   },

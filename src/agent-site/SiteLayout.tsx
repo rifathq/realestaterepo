@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-import { AGENT, FIRM, DPOR_LOOKUP_URL } from './profile';
+import { AGENT, FIRM, DPOR_LOOKUP_URL, SOCIAL } from './profile';
 import { EqualHousingMark } from './components';
 
 const NAV = [
@@ -84,6 +84,11 @@ const Footer: React.FC = () => (
           <div>
             Licensed {AGENT.licenceType} in {AGENT.licensedIn} · #{AGENT.licence}
           </div>
+          {AGENT.phone && (
+            <div>
+              <a href={`tel:${AGENT.phone.replace(/\D/g, '')}`} className="text-stone-200 hover:text-white">{AGENT.phone}</a>
+            </div>
+          )}
           <a href={`mailto:${AGENT.email}`} className="text-stone-200 hover:text-white">{AGENT.email}</a>
           <div className="mt-1">
             <a href={DPOR_LOOKUP_URL} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-white">
@@ -102,6 +107,13 @@ const Footer: React.FC = () => (
             </li>
           ))}
         </ul>
+        <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+          {SOCIAL.map((s) => (
+            <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="hover:text-white">
+              {s.label}
+            </a>
+          ))}
+        </div>
       </div>
 
       <div className="md:col-span-4">
@@ -110,6 +122,7 @@ const Footer: React.FC = () => (
           <li><Link to="/privacy" className="hover:text-white">Privacy Policy</Link></li>
           <li><Link to="/terms" className="hover:text-white">Terms of Use</Link></li>
           <li><Link to="/fair-housing" className="hover:text-white">Fair Housing</Link></li>
+          <li><Link to="/accessibility" className="hover:text-white">Accessibility</Link></li>
         </ul>
         <div className="mt-6 flex items-start gap-3 text-stone-300">
           <EqualHousingMark className="w-9 h-9 shrink-0" />

@@ -9,7 +9,7 @@ export const AGENT = {
   licensedIn: 'Virginia',
   licence: '0225276696',
   email: 'masud.haque@exprealty.com',
-  phone: null as string | null,
+  phone: '(571) 236-9633' as string | null,
   photo: '/agent/masud-haque.jpg',
   serving: 'Arlington and Northern Virginia',
 };
@@ -23,8 +23,16 @@ export const FIRM = {
   phone: '866-825-7169',
 };
 
-// Until the BoldTrail or Lofty site is chosen, "Search all homes" opens eXp's public search.
-export const SEARCH_ALL_HOMES_URL = 'https://exprealty.com/';
+// Masud's eXp agent site (BoldTrail) carries the licensed search of every home for sale.
+export const EXP_SITE_URL = 'https://masudhaque.exprealty.com/';
+export const SEARCH_ALL_HOMES_URL = 'https://masudhaque.exprealty.com/index.php?advanced=1&beds=0&baths=0&min=0&max=100000000&rtype=map';
+
+export const SOCIAL = [
+  { label: 'Facebook', href: 'https://www.facebook.com/m4sudd' },
+  { label: 'Instagram', href: 'https://www.instagram.com/m4sudd/' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/masudhaque/' },
+  { label: 'X', href: 'https://www.x.com/masudx99' },
+];
 
 export const DPOR_LOOKUP_URL = 'https://dporweb.dpor.virginia.gov/LicenseLookup/';
 

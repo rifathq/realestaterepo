@@ -101,7 +101,7 @@ export const ListingDetailPage: React.FC = () => {
 
           <div className="mt-12 border-t border-stone-200 pt-6 text-sm text-stone-600 leading-relaxed">
             <div className="font-semibold text-stone-900">Listed by {AGENT.name}, {FIRM.name}</div>
-            <div>Office {FIRM.phone} · {AGENT.email}</div>
+            <div>{AGENT.phone ? `${AGENT.phone} · ` : ''}{AGENT.email} · Office {FIRM.phone}</div>
             <div className="mt-2 text-xs text-stone-500">
               Status: {STATUS_LABEL[listing.status]} · Listed {listed}. Information deemed reliable but not guaranteed.
             </div>

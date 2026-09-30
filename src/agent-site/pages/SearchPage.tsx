@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { FIRM, SEARCH_ALL_HOMES_URL } from '../profile';
-import { DemoNote } from '../components';
 
 export const SearchPage: React.FC = () => (
   <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14 sm:py-20 grid gap-12 lg:grid-cols-12">
@@ -13,7 +12,7 @@ export const SearchPage: React.FC = () => (
       </h1>
       <p className="mt-5 text-lg text-stone-700 leading-relaxed">
         This site shows the homes I represent. To see every other home on the market across Virginia, DC and Maryland,
-        use {FIRM.shortName}'s home search. It opens in a new tab.
+        use my home search on {FIRM.shortName}. It opens in a new tab.
       </p>
       <a
         href={SEARCH_ALL_HOMES_URL}
@@ -36,10 +35,6 @@ export const SearchPage: React.FC = () => (
           and credits the agent who listed it.
         </p>
       </div>
-      <DemoNote>
-        This button will open your own {FIRM.shortName} search site (BoldTrail or Lofty), which your eXp tech fee already
-        covers. Until you choose one, it opens exprealty.com.
-      </DemoNote>
     </div>
   </div>
 );

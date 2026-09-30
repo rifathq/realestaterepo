@@ -30,6 +30,7 @@ export const AboutPage: React.FC = () => (
           ['Licence', `${AGENT.licenceType}, licensed in ${AGENT.licensedIn} · #${AGENT.licence}`],
           ['Brokerage', `${FIRM.name} · Firm #${FIRM.licence}`],
           ['Office', `${FIRM.street}, ${FIRM.cityStateZip} · ${FIRM.phone}`],
+          ...(AGENT.phone ? [['Phone', AGENT.phone]] : []),
           ['Email', AGENT.email],
         ].map(([k, v]) => (
           <div key={k} className="grid grid-cols-[7rem_1fr] gap-4 px-5 py-3.5 text-sm">

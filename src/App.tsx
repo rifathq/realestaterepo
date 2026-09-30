@@ -108,6 +108,7 @@ export default function App() {
               <Route path="/privacy" element={<LegalPage kind="privacy" />} />
               <Route path="/terms" element={<LegalPage kind="terms" />} />
               <Route path="/fair-housing" element={<LegalPage kind="fair-housing" />} />
+              <Route path="/accessibility" element={<LegalPage kind="accessibility" />} />
             </Route>
 
             {/* 2. ADMIN PORTAL (Separated & Protected) */}
