@@ -5,6 +5,8 @@ import fs from 'fs';
 import crypto from 'crypto';
 import { registerComplianceRoutes } from './compliance';
 import { leadGuard } from './lib/leadGuard';
+import { registerListingFeed } from './lib/listingFeed';
+import { AGENT } from './src/agent-site/profile';
 
 const PORT = Number(process.env.PORT) || 3000;
 const DATA_DIR = path.resolve(process.cwd(), 'data');
@@ -901,7 +903,7 @@ async function startServer() {
       .replace(/(^-|-$)/g, '');
 
     // If agent, enforce their assigned agentId
-    const assignedAgentId = user.role === 'agent' ? user.agentId : body.agentId || 'agent-demo';
+    const assignedAgentId = user.role === 'agent' ? user.agentId : body.agentId || AGENT.id;
 
     const newProperty = {
       ...body,
@@ -909,8 +911,9 @@ async function startServer() {
       slug: `${slug}-${Date.now().toString(36).substr(2, 4)}`,
       agentId: assignedAgentId,
       status: body.status || 'active',
-      verified: body.verified !== undefined ? body.verified : true,
-      verifiedBadgeText: body.verifiedBadgeText || 'Digentic Certified & Title Inspected',
+      // No certification claim unless someone actually checked it.
+      verified: body.verified === true,
+      verifiedBadgeText: body.verified === true ? body.verifiedBadgeText || '' : '',
       listedDate: new Date().toISOString().split('T')[0],
       createdAt: new Date().toISOString(),
     };
@@ -1393,6 +1396,7 @@ async function startServer() {
   });
 
   registerComplianceRoutes(app, getDb, requireSuperAdmin);
+  registerListingFeed(app, getDb, PORT);
 
   // -------------------------------------------------------------
   // VITE / STATIC CLIENT MIDDLEWARE
