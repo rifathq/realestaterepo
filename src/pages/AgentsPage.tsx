@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, ChevronDown, MapPin, ShieldCheck, X } from 'lucide-react';
+import { Search, ChevronDown, MapPin, ShieldCheck, X, ArrowRight } from 'lucide-react';
 import { AGENTS } from '../data/agents';
 import { Agent } from '../types/property';
 import { ImageWithFallback } from '../components/common/ImageWithFallback';
@@ -88,44 +88,63 @@ export const AgentsPage: React.FC<AgentsPageProps> = ({ defaultCity }) => {
     });
   }, [searchQuery, selectedSpecialization]);
 
-  return (
-    <div className="w-full min-h-screen bg-stone-50">
-      <div className="max-w-[1760px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-8 sm:py-12">
-        {/* 1. Page Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-stone-200">
-          <div className="space-y-1.5">
-            <div className="text-[11px] font-mono tracking-widest text-stone-500 uppercase font-semibold">
-              ESTRA ADVISORY NETWORK
-            </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-stone-950 font-sans">
-              Licensed Real Estate Advisors
-            </h1>
-            <p className="text-sm sm:text-base text-stone-600 max-w-3xl font-normal">
-              Partner with dedicated brokers specializing in commercial headquarters, residential architecture, and land entitlements.
-            </p>
-          </div>
-          <div className="text-xs sm:text-sm font-mono text-stone-600 whitespace-nowrap md:pb-1">
-            {filteredAgents.length} Licensed Advisor{filteredAgents.length === 1 ? '' : 's'} Available
-          </div>
-        </div>
+  // Formatted count display
+  const countString = filteredAgents.length < 10 ? `0${filteredAgents.length}` : `${filteredAgents.length}`;
 
-        {/* 2. Search + Filter Bar */}
-        <div className="bg-white border border-stone-200 p-3 sm:p-4 my-6 sm:my-8 flex flex-col md:flex-row gap-3 sm:gap-4 items-stretch md:items-center shadow-xs">
+  return (
+    <div className="w-full min-h-screen bg-[#F7F6F1] text-[#111111] selection:bg-[#4C5544] selection:text-[#F7F6F1]">
+      <div className="max-w-[1580px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-10 sm:py-16">
+        
+        {/* Section Intro */}
+        <header className="pb-8 sm:pb-12 border-b border-[#DCDAD3]/80">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+            <span className="text-[11px] font-mono tracking-[0.22em] text-[#5F625F] uppercase font-medium">
+              ESTRA ADVISORY NETWORK
+            </span>
+            <span className="hidden sm:inline-block text-[11px] font-mono tracking-[0.18em] text-[#5F625F] uppercase">
+              TRUSTED EXPERTS. BETTER DECISIONS.
+            </span>
+          </div>
+
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8 mt-2">
+            <div className="max-w-2xl space-y-3">
+              <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#111111] leading-[1.1]">
+                Licensed Real Estate Advisors
+              </h1>
+              <p className="text-sm sm:text-base text-[#5F625F] font-normal leading-relaxed max-w-xl">
+                Partner with dedicated brokers specializing in commercial headquarters, residential architecture, and land entitlements.
+              </p>
+            </div>
+
+            {/* Big Elegant Stat on the Right */}
+            <div className="flex items-center gap-3.5 self-start lg:self-end shrink-0 pl-0 lg:pl-8 lg:border-l border-[#DCDAD3]/80">
+              <div className="font-sans text-4xl sm:text-5xl font-semibold tracking-tight text-[#111111] leading-none">
+                {countString}
+              </div>
+              <div className="text-[11px] sm:text-xs font-sans text-[#5F625F] uppercase tracking-wider leading-tight font-medium">
+                Licensed Advisors<br />Available
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* Search + Filter Bar */}
+        <div className="bg-[#FDFDFB] border border-[#DCDAD3] rounded-xs mt-8 sm:mt-10 mb-8 sm:mb-10 flex flex-col md:flex-row items-stretch md:items-center shadow-[0_1px_3px_rgba(0,0,0,0.02)] transition-colors">
           {/* Search Input */}
-          <div className="relative flex-1">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 stroke-[1.5]" />
+          <div className="relative flex-1 flex items-center px-4 sm:px-5 py-3.5">
+            <Search className="w-4 h-4 text-[#5F625F] mr-3 stroke-[1.6] shrink-0" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by advisor name, metropolitan city, or agency..."
-              className="w-full pl-10 pr-10 py-2.5 text-sm bg-white border border-stone-200 rounded-none focus:outline-none focus:border-stone-900 placeholder:text-stone-400 text-stone-900 transition-colors"
+              className="w-full bg-transparent text-sm text-[#111111] placeholder:text-[#888880] focus:outline-none font-sans"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-700 p-1 cursor-pointer"
+                className="text-[#5F625F] hover:text-[#111111] p-1 ml-2 cursor-pointer transition-colors"
                 aria-label="Clear search"
               >
                 <X className="w-3.5 h-3.5" />
@@ -133,12 +152,15 @@ export const AgentsPage: React.FC<AgentsPageProps> = ({ defaultCity }) => {
             )}
           </div>
 
+          {/* Vertical Divider for desktop */}
+          <div className="hidden md:block w-px h-8 bg-[#DCDAD3] shrink-0" />
+
           {/* Specialization Filter Dropdown */}
-          <div className="relative shrink-0">
+          <div className="relative md:w-64 shrink-0 px-4 sm:px-5 py-3.5 border-t md:border-t-0 border-[#DCDAD3]">
             <select
               value={selectedSpecialization}
               onChange={(e) => setSelectedSpecialization(e.target.value)}
-              className="w-full md:w-auto min-w-[240px] px-3.5 py-2.5 text-sm bg-white border border-stone-200 rounded-none focus:outline-none focus:border-stone-900 text-stone-800 cursor-pointer appearance-none pr-9 font-medium"
+              className="w-full bg-transparent text-xs sm:text-sm font-medium text-[#111111] focus:outline-none cursor-pointer appearance-none pr-8 tracking-tight"
             >
               <option value="All">All Specializations</option>
               <option value="Residential">Residential</option>
@@ -150,21 +172,21 @@ export const AgentsPage: React.FC<AgentsPageProps> = ({ defaultCity }) => {
               <option value="Architecture">Architecture</option>
               <option value="Corporate Real Estate">Corporate Real Estate</option>
             </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-500 pointer-events-none stroke-[1.5]" />
+            <ChevronDown className="absolute right-4 sm:right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#5F625F] pointer-events-none stroke-[1.6]" />
           </div>
         </div>
 
-        {/* 3. Agent Grid */}
+        {/* Advisor Grid */}
         {filteredAgents.length === 0 ? (
-          <div className="bg-white border border-stone-200 p-12 text-center space-y-3">
-            <div className="text-stone-400 font-mono text-xs uppercase tracking-wider font-semibold">
-              No Advisors Found
+          <div className="bg-[#FDFDFB] border border-[#DCDAD3] p-12 sm:p-16 text-center space-y-3 shadow-[0_1px_3px_rgba(0,0,0,0.02)] rounded-xs my-8">
+            <div className="text-[#5F625F] font-mono text-[11px] uppercase tracking-widest font-medium">
+              NO ADVISORS FOUND
             </div>
-            <h3 className="text-lg font-bold text-stone-900">
-              No licensed advisors match your current filter criteria
+            <h3 className="font-sans text-xl sm:text-2xl text-[#111111] font-bold tracking-tight">
+              No advisors match your search criteria
             </h3>
-            <p className="text-xs sm:text-sm text-stone-500 max-w-md mx-auto">
-              Try searching for a different advisor name, city (e.g. &ldquo;San Francisco&rdquo;, &ldquo;New York&rdquo;, &ldquo;Austin&rdquo;), or reset the specialization filter.
+            <p className="text-xs sm:text-sm text-[#5F625F] max-w-md mx-auto leading-relaxed">
+              Try searching for a different metropolitan corridor, advisor name, or reset the specialization filter.
             </p>
             <button
               type="button"
@@ -172,104 +194,121 @@ export const AgentsPage: React.FC<AgentsPageProps> = ({ defaultCity }) => {
                 setSearchQuery('');
                 setSelectedSpecialization('All');
               }}
-              className="mt-2 inline-flex items-center px-4 py-2 text-xs font-semibold bg-stone-950 text-white hover:bg-stone-800 transition-colors cursor-pointer"
+              className="mt-3 inline-flex items-center px-5 py-2.5 text-xs font-medium bg-[#151515] text-[#F7F6F1] hover:bg-[#000000] transition-colors cursor-pointer rounded-xs"
             >
               Reset Filters
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-7">
             {filteredAgents.map((agent) => (
               <article
                 key={agent.id}
-                className="bg-white border border-stone-200 p-6 sm:p-7 flex flex-col justify-between hover:border-stone-400 transition-colors duration-200 shadow-xs"
+                className="group bg-[#FDFDFB] border border-[#DCDAD3] hover:border-[#111111] p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 shadow-[0_1px_3px_rgba(0,0,0,0.02)] rounded-xs"
               >
                 <div>
-                  {/* Top Section */}
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-start gap-4">
-                      {/* Agent Profile Image */}
-                      <div className="w-20 h-20 sm:w-24 sm:h-24 shrink-0 overflow-hidden bg-stone-100 border border-stone-200">
-                        <ImageWithFallback
-                          src={agent.avatar}
-                          alt={agent.name}
-                          fallbackTitle={agent.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-
-                      {/* Credentials & Details */}
-                      <div className="space-y-0.5">
-                        <div className="text-[11px] font-mono text-stone-500 uppercase tracking-wider font-semibold">
-                          {agent.licenseNumber}
-                        </div>
-                        <h2 className="text-xl sm:text-2xl font-bold text-stone-950 tracking-tight leading-tight">
-                          <Link
-                            to={`/agents/${agent.slug || agent.id}`}
-                            className="hover:text-stone-700 transition-colors"
-                          >
-                            {agent.name}
-                          </Link>
-                        </h2>
-                        <div className="text-xs sm:text-sm text-stone-600 font-medium">
-                          {agent.role}
-                        </div>
-                        <div className="flex items-center gap-1.5 text-xs text-stone-500 pt-0.5">
-                          <MapPin className="w-3.5 h-3.5 text-stone-400 shrink-0 stroke-[1.5]" />
-                          <span>{agent.officeLocation}</span>
-                        </div>
-                      </div>
+                  {/* Top Profile Section */}
+                  <div className="flex flex-col sm:flex-row items-start gap-5 sm:gap-6">
+                    {/* Portrait Image with subtle hover zoom */}
+                    <div className="w-[125px] sm:w-[145px] aspect-[4/5] shrink-0 overflow-hidden bg-stone-200 border border-[#DCDAD3]/60 relative self-start">
+                      <ImageWithFallback
+                        src={agent.avatar}
+                        alt={agent.name}
+                        fallbackTitle={agent.name}
+                        className="w-full h-full object-cover object-top transition-transform duration-350 ease-out group-hover:scale-[1.03]"
+                      />
                     </div>
 
-                    {/* Satisfaction Badge */}
-                    <div className="shrink-0">
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-emerald-800 bg-emerald-50/70 border border-emerald-300 rounded">
-                        <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 stroke-[2]" />
-                        <span>{agent.satisfactionRating}% Satisfaction</span>
+                    {/* Advisor Details */}
+                    <div className="flex-1 min-w-0 space-y-1">
+                      {/* Metadata Row: License & Subtle Verification */}
+                      <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] pb-1 border-b border-[#DCDAD3]/50">
+                        <span className="font-mono text-[#5F625F] tracking-wider uppercase">
+                          {agent.licenseNumber}
+                        </span>
+                        <div className="inline-flex items-center gap-1.5 text-[#5F625F] font-sans text-[11px] font-normal">
+                          <ShieldCheck className="w-3.5 h-3.5 text-[#4C5544] stroke-[1.8]" />
+                          <span>Verified Advisor · {agent.satisfactionRating}% Client Satisfaction</span>
+                        </div>
+                      </div>
+
+                      {/* Name */}
+                      <h2 className="font-sans text-xl sm:text-2xl font-bold text-[#111111] tracking-tight leading-tight pt-1 group-hover:text-[#4C5544] transition-colors">
+                        <Link to={`/agents/${agent.slug || agent.id}`}>
+                          {agent.name}
+                        </Link>
+                      </h2>
+
+                      {/* Professional Title */}
+                      <div className="text-xs sm:text-[13px] font-medium text-[#111111] tracking-tight">
+                        {agent.role}
+                      </div>
+
+                      {/* Location with subtle icon */}
+                      <div className="flex items-center gap-1.5 text-xs text-[#5F625F] pt-0.5">
+                        <MapPin className="w-3.5 h-3.5 text-[#5F625F] stroke-[1.5] shrink-0" />
+                        <span>{agent.officeLocation.replace(' & ', ' · ').replace(' • ', ' · ')}</span>
+                      </div>
+
+                      {/* Bio (Concise 2-3 lines) */}
+                      <p className="pt-2 text-xs sm:text-[13px] text-[#5F625F] leading-relaxed line-clamp-3 font-normal">
+                        {agent.bio}
+                      </p>
+
+                      {/* Specializations as subtle uppercase metadata labels */}
+                      <div className="pt-3 border-t border-[#DCDAD3]/60 text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#5F625F]">
+                        {agent.specializations.slice(0, 3).map((s) => s.toUpperCase()).join(' · ')}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom Section: Separated Metrics & Refined CTA */}
+                <div className="mt-6 pt-4 border-t border-[#DCDAD3] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  {/* Three-Column Metrics */}
+                  <div className="flex items-center text-left">
+                    <div className="pr-4 sm:pr-5 border-r border-[#DCDAD3]">
+                      <span className="block text-xl sm:text-2xl font-normal text-[#111111] font-sans leading-none">
+                        {agent.yearsExperience < 10 ? `0${agent.yearsExperience}` : agent.yearsExperience}
+                      </span>
+                      <span className="text-[10px] sm:text-[11px] text-[#5F625F] block mt-1 tracking-tight">
+                        Years Experience
+                      </span>
+                    </div>
+
+                    <div className="px-4 sm:px-5 border-r border-[#DCDAD3]">
+                      <span className="block text-xl sm:text-2xl font-normal text-[#111111] font-sans leading-none">
+                        {agent.dealsClosed || agent.totalDeals}
+                      </span>
+                      <span className="text-[10px] sm:text-[11px] text-[#5F625F] block mt-1 tracking-tight">
+                        Transactions
+                      </span>
+                    </div>
+
+                    <div className="pl-4 sm:pl-5">
+                      <span className="block text-xl sm:text-2xl font-normal text-[#111111] font-sans leading-none">
+                        {agent.activeListingsCount < 10 ? `0${agent.activeListingsCount}` : agent.activeListingsCount}
+                      </span>
+                      <span className="text-[10px] sm:text-[11px] text-[#5F625F] block mt-1 tracking-tight">
+                        Active Listings
                       </span>
                     </div>
                   </div>
 
-                  {/* Agent Description */}
-                  <p className="mt-4 text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
-                    {agent.bio}
-                  </p>
-
-                  {/* Specializations */}
-                  <div className="mt-4 pt-3.5 border-t border-stone-100 text-xs text-stone-600">
-                    <strong className="font-semibold text-stone-900">Specializations:</strong>{' '}
-                    <span className="text-stone-700">{agent.specializations.join(' · ')}</span>
-                  </div>
-                </div>
-
-                {/* Bottom Section: Stats & View Profile Button */}
-                <div className="mt-6 pt-4 border-t border-stone-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="flex items-center gap-3 sm:gap-4 text-xs font-mono text-stone-700">
-                    <span>
-                      <strong className="font-bold text-stone-950">{agent.yearsExperience}</strong> yrs exp.
-                    </span>
-                    <span>
-                      <strong className="font-bold text-stone-950">
-                        {agent.dealsClosed || agent.totalDeals}
-                      </strong>{' '}
-                      deals
-                    </span>
-                    <span>
-                      <strong className="font-bold text-stone-950">{agent.activeListingsCount}</strong> active listings
-                    </span>
-                  </div>
-
+                  {/* Refined CTA Button with moving arrow on card hover */}
                   <Link
                     to={`/agents/${agent.slug || agent.id}`}
-                    className="inline-flex items-center justify-center px-4 py-2 bg-stone-950 hover:bg-stone-800 text-white text-xs font-semibold tracking-wide transition-colors whitespace-nowrap shadow-xs"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#151515] hover:bg-[#000000] text-[#F7F6F1] text-xs font-medium tracking-wide transition-all rounded-xs self-stretch sm:self-auto cursor-pointer shadow-2xs whitespace-nowrap"
                   >
-                    View Profile & Listings
+                    <span>View Profile & Listings</span>
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
                   </Link>
                 </div>
               </article>
             ))}
           </div>
         )}
+
       </div>
     </div>
   );

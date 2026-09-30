@@ -7,7 +7,8 @@ import {
   CheckCircle2, 
   ShieldCheck, 
   FileText, 
-  Eye
+  Eye,
+  ArrowRight
 } from 'lucide-react';
 import { PROPERTIES } from '../data/properties';
 import { useMarketplace } from '../context/MarketplaceContext';
@@ -19,6 +20,7 @@ export const HomePage: React.FC = () => {
   const { properties } = useMarketplace();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(3);
+  const [showAllListings, setShowAllListings] = useState(false);
 
   // Touch tracking for mobile swipe
   const touchStartX = useRef<number | null>(null);
@@ -169,6 +171,70 @@ export const HomePage: React.FC = () => {
                 }`}
               />
             ))}
+          </div>
+        )}
+
+        {/* Modern Luxury CTA: Explore All Listings */}
+        <div className="mt-12 mb-8 flex flex-col items-center justify-center text-center">
+          {/* Pill Badge indicating total count */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-100/90 text-slate-700 border border-slate-200 text-xs font-mono font-medium mb-3.5 shadow-2xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>120+ Verified Properties</span>
+          </div>
+
+          {/* Action Row */}
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            {/* Primary Action Button (Option A: Direct link to /explore catalog) */}
+            <Link
+              to="/explore"
+              className="group inline-flex items-center gap-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-full px-8 py-3.5 text-sm font-medium transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+            >
+              <span>Explore All Listings</span>
+              <ArrowRight className="w-4 h-4 stroke-[2] transition-transform duration-200 group-hover:translate-x-1.5" />
+            </Link>
+
+            {/* In-page Toggle Button (Option B: Expands full grid in place) */}
+            <button
+              type="button"
+              onClick={() => setShowAllListings((prev) => !prev)}
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium text-slate-700 hover:text-slate-950 bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-300 transition-all duration-200 shadow-2xs hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+            >
+              <span>{showAllListings ? 'Collapse Grid' : 'Quick View All in Grid'}</span>
+            </button>
+          </div>
+
+          {/* Subtle micro-copy */}
+          <p className="text-xs text-slate-500 mt-3 font-normal tracking-tight">
+            Updated in real-time · Full portfolio available
+          </p>
+        </div>
+
+        {/* Option B: Expanded Grid View when toggled */}
+        {showAllListings && (
+          <div className="mt-8 pt-8 border-t border-slate-200 animate-in fade-in duration-300">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+              <div>
+                <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-950 font-architectural">
+                  Full Portfolio Showcase
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+                  Displaying all verified architectural assets currently on-market
+                </p>
+              </div>
+              <Link
+                to="/explore"
+                className="text-xs font-semibold text-slate-900 hover:text-amber-700 transition-colors inline-flex items-center gap-1 group self-start sm:self-auto"
+              >
+                <span>Open Advanced Filter Catalog</span>
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featuredProperties.map((property) => (
+                <RedfinPropertyCard key={`grid-${property.id}`} property={property} />
+              ))}
+            </div>
           </div>
         )}
       </section>

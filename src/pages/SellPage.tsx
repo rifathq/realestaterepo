@@ -8,7 +8,6 @@ import {
   CheckCircle2, 
   ArrowRight, 
   ArrowLeft, 
-  FileText, 
   ShieldCheck,
   Check,
   Landmark,
@@ -17,8 +16,7 @@ import {
   Briefcase,
   Compass,
   ChevronDown,
-  Info,
-  KeyRound
+  Info
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PropertyCategory, ListingType } from '../types/property';
@@ -173,20 +171,20 @@ export const SellPage: React.FC = () => {
 
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
-      window.scrollTo({ top: 320, behavior: 'smooth' });
+      window.scrollTo({ top: 280, behavior: 'smooth' });
     }
   };
 
   const handlePrev = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
-      window.scrollTo({ top: 320, behavior: 'smooth' });
+      window.scrollTo({ top: 280, behavior: 'smooth' });
     }
   };
 
   const handleFinalSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const generatedRef = `DIG-${Math.floor(100000 + Math.random() * 900000)}`;
+    const generatedRef = `EST-${Math.floor(100000 + Math.random() * 900000)}`;
     setReferenceId(generatedRef);
     setIsSubmitted(true);
     notify(`Listing proposal registered under dossier ${generatedRef}`);
@@ -195,37 +193,36 @@ export const SellPage: React.FC = () => {
   const selectedCategoryOption = CATEGORY_OPTIONS.find((c) => c.value === category) || CATEGORY_OPTIONS[0];
 
   return (
-    <div className="min-h-screen bg-[#0A0B0E] text-stone-100 pb-28 relative overflow-hidden selection:bg-amber-500 selection:text-black">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 pb-28 relative font-sans selection:bg-amber-100 selection:text-amber-900">
       
-      {/* Ambient background glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[500px] bg-gradient-to-b from-amber-500/10 via-amber-500/0 to-transparent blur-3xl pointer-events-none -z-10" />
-      <div className="absolute top-96 right-0 w-[500px] h-[500px] bg-blue-500/5 blur-[120px] pointer-events-none -z-10" />
+      {/* Subtle modern ambient background */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[480px] bg-gradient-to-b from-amber-100/35 via-slate-100/30 to-transparent blur-3xl pointer-events-none -z-10" />
 
       {/* Editorial Header */}
-      <section className="relative pt-16 sm:pt-24 pb-14 sm:pb-20 border-b border-white/[0.08] w-full">
-        <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 text-center space-y-4 max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.6)]" />
-            <span className="text-[11px] uppercase tracking-[0.2em] text-stone-300 font-mono font-medium">
-              Digentic Advisory & Capital Markets
+      <section className="relative pt-12 sm:pt-20 pb-12 sm:pb-16 border-b border-slate-200 bg-white/70 backdrop-blur-xs w-full">
+        <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 text-center space-y-3.5 max-w-4xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FEF3C7] border border-amber-300/80 shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-[#D97706]" />
+            <span className="text-[11px] uppercase tracking-[0.18em] text-[#92400E] font-mono font-bold">
+              ESTRA Advisory & Capital Markets
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white font-architectural leading-[1.08] text-balance">
+          <h1 className="text-3xl sm:text-5xl lg:text-[52px] font-bold tracking-tight text-[#0F172A] font-sans leading-[1.12] text-balance">
             Institutional Intake & Asset Syndication
           </h1>
 
-          <p className="text-stone-400 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto font-normal leading-relaxed">
+          <p className="text-[#475569] text-sm sm:text-base lg:text-lg max-w-2xl mx-auto font-normal leading-relaxed">
             Market your commercial headquarters, prime residential estate, or strategic development tract directly to accredited institutional funds, family offices, and sovereign capital.
           </p>
         </div>
       </section>
 
       {/* Wizard Shell */}
-      <div className="w-full max-w-5xl mx-auto px-4 sm:px-8 -mt-8 relative z-10">
+      <div className="w-full max-w-5xl mx-auto px-4 sm:px-8 -mt-6 sm:-mt-8 relative z-10">
         
         {/* Sleek Institutional Stepper / Breadcrumbs */}
-        <div className="bg-[#12151F]/90 backdrop-blur-xl border border-white/[0.08] rounded-2xl p-4 sm:p-5 shadow-2xl mb-6">
+        <div className="bg-white border border-[#E2E8F0] rounded-2xl p-4 sm:p-5 shadow-sm shadow-slate-100 mb-6">
           {/* Desktop & Tablet Segmented Pill Breadcrumbs */}
           <div className="hidden md:grid grid-cols-6 gap-2">
             {STEPS.map((step) => {
@@ -242,27 +239,27 @@ export const SellPage: React.FC = () => {
                   disabled={!isPast}
                   className={`text-left p-2.5 rounded-xl border transition-all duration-200 relative ${
                     isCurrent
-                      ? 'bg-gradient-to-r from-amber-500/15 to-amber-600/5 border-amber-400/50 shadow-[0_0_15px_rgba(251,191,36,0.15)] text-white'
+                      ? 'bg-[#FFFDF5] border-[#D97706] shadow-xs text-[#0F172A] ring-1 ring-[#D97706]/30'
                       : isPast
-                      ? 'bg-white/[0.02] border-white/[0.1] text-stone-300 hover:border-amber-400/30 hover:bg-white/[0.04] cursor-pointer'
-                      : 'bg-transparent border-white/[0.03] text-stone-600 cursor-not-allowed opacity-60'
+                      ? 'bg-slate-50 border-[#E2E8F0] text-slate-700 hover:border-slate-300 hover:bg-slate-100/70 cursor-pointer'
+                      : 'bg-white border-transparent text-slate-400 cursor-not-allowed opacity-50'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className={`text-[10px] font-mono uppercase tracking-wider font-semibold ${
-                      isCurrent ? 'text-amber-400' : isPast ? 'text-stone-400' : 'text-stone-600'
+                    <span className={`text-[10px] font-mono uppercase tracking-wider font-bold ${
+                      isCurrent ? 'text-[#B45309]' : isPast ? 'text-slate-600' : 'text-slate-400'
                     }`}>
                       {step.short}
                     </span>
                     {isPast ? (
-                      <Check className="w-3.5 h-3.5 text-amber-400 stroke-[2.5]" />
+                      <Check className="w-3.5 h-3.5 text-[#D97706] stroke-[2.5]" />
                     ) : isCurrent ? (
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_6px_#FBBF24] animate-pulse" />
+                      <span className="w-2 h-2 rounded-full bg-[#D97706]" />
                     ) : (
-                      <span className="w-1.5 h-1.5 rounded-full bg-stone-700" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-300" />
                     )}
                   </div>
-                  <div className="text-xs font-semibold truncate text-stone-200">
+                  <div className="text-xs font-semibold truncate text-[#0F172A]">
                     {step.desc}
                   </div>
                 </button>
@@ -274,15 +271,15 @@ export const SellPage: React.FC = () => {
           <div className="md:hidden space-y-3">
             <div className="flex items-center justify-between text-xs font-mono">
               <div className="flex items-center gap-2">
-                <span className="text-amber-400 font-bold uppercase tracking-wider">
-                  Stage 0{currentStep} / 0{totalSteps}
+                <span className="px-2 py-0.5 rounded-md bg-[#FEF3C7] text-[#92400E] font-bold uppercase tracking-wider text-[11px] border border-amber-300/80">
+                  STAGE 0{currentStep} / 0{totalSteps}
                 </span>
-                <span className="text-stone-600">·</span>
-                <span className="text-stone-200 font-semibold">
+                <span className="text-slate-400">·</span>
+                <span className="text-[#0F172A] font-semibold">
                   {STEPS[currentStep - 1].short}
                 </span>
               </div>
-              <span className="text-stone-400 font-mono text-[11px]">
+              <span className="text-slate-500 font-mono text-[11px] font-medium">
                 {Math.round((currentStep / totalSteps) * 100)}%
               </span>
             </div>
@@ -293,10 +290,10 @@ export const SellPage: React.FC = () => {
                   key={step.id}
                   className={`h-1.5 rounded-full transition-all duration-300 ${
                     step.id < currentStep
-                      ? 'bg-amber-400'
+                      ? 'bg-[#D97706]'
                       : step.id === currentStep
-                      ? 'bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.8)]'
-                      : 'bg-white/[0.08]'
+                      ? 'bg-[#F59E0B]'
+                      : 'bg-slate-200'
                   }`}
                 />
               ))}
@@ -305,51 +302,51 @@ export const SellPage: React.FC = () => {
         </div>
 
         {/* Wizard Main Card */}
-        <div className="bg-[#12151F]/90 backdrop-blur-xl border border-white/[0.08] rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+        <div className="bg-white border border-[#E2E8F0] rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-sm shadow-slate-100 relative">
           
           {isSubmitted ? (
             /* Submission Confirmation State */
-            <div className="py-8 text-center space-y-6 animate-in fade-in zoom-in-95 duration-200">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 text-stone-950 flex items-center justify-center mx-auto shadow-[0_0_30px_rgba(251,191,36,0.35)]">
-                <CheckCircle2 className="w-8 h-8 stroke-[2]" />
+            <div className="py-8 text-center space-y-6 animate-in fade-in duration-200">
+              <div className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto shadow-xs">
+                <CheckCircle2 className="w-8 h-8 stroke-[2.2]" />
               </div>
               
               <div className="space-y-2">
-                <span className="text-xs font-mono uppercase tracking-[0.2em] text-amber-400 font-semibold">
+                <span className="inline-block px-3 py-1 rounded-full bg-[#FEF3C7] text-[#92400E] border border-amber-300/80 text-xs font-mono uppercase tracking-[0.15em] font-bold">
                   Dossier Clearance Active
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-bold text-white font-architectural">
+                <h2 className="text-2xl sm:text-3xl font-bold text-[#0F172A] font-sans">
                   Property Dossier {referenceId} Initiated
                 </h2>
-                <p className="text-xs sm:text-sm text-stone-400 max-w-lg mx-auto leading-relaxed">
-                  Thank you, <span className="font-semibold text-stone-200">{ownerName}</span>. Your offering proposal for <span className="font-semibold text-white">{title || 'the designated asset'}</span> in {city} has been routed to our managing partners for title audit and underwriting.
+                <p className="text-xs sm:text-sm text-[#475569] max-w-lg mx-auto leading-relaxed">
+                  Thank you, <span className="font-semibold text-slate-900">{ownerName}</span>. Your offering proposal for <span className="font-semibold text-slate-900">{title || 'the designated asset'}</span> in {city} has been routed to our managing partners for title audit and underwriting.
                 </p>
               </div>
 
               {/* Summary snapshot */}
-              <div className="p-5 bg-[#171B26] border border-white/[0.08] rounded-2xl text-left max-w-md mx-auto space-y-2.5 text-xs font-mono">
-                <div className="flex justify-between border-b border-white/[0.06] pb-2">
-                  <span className="text-stone-400">Asset Class:</span>
-                  <span className="font-semibold text-stone-100">{category}</span>
+              <div className="p-5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-2xl text-left max-w-md mx-auto space-y-2.5 text-xs font-mono">
+                <div className="flex justify-between border-b border-slate-200 pb-2">
+                  <span className="text-slate-500">Asset Class:</span>
+                  <span className="font-semibold text-slate-900">{category}</span>
                 </div>
-                <div className="flex justify-between border-b border-white/[0.06] pb-2">
-                  <span className="text-stone-400">Transaction Intent:</span>
-                  <span className="font-semibold text-amber-300">
-                    {listingType === 'buy' ? 'Fee Simple Acquisition' : 'Long-Term Leasehold'}
+                <div className="flex justify-between border-b border-slate-200 pb-2">
+                  <span className="text-slate-500">Transaction Intent:</span>
+                  <span className="font-semibold text-[#B45309]">
+                    {listingType === 'buy' ? 'Fee Simple Acquisition' : 'Long-Term Commercial Lease'}
                   </span>
                 </div>
-                <div className="flex justify-between border-b border-white/[0.06] pb-2">
-                  <span className="text-stone-400">Target Valuation:</span>
-                  <span className="font-semibold text-stone-100">${price}</span>
+                <div className="flex justify-between border-b border-slate-200 pb-2">
+                  <span className="text-slate-500">Target Valuation:</span>
+                  <span className="font-semibold text-slate-900">${price}</span>
                 </div>
-                <div className="flex justify-between border-b border-white/[0.06] pb-2">
-                  <span className="text-stone-400">Certified Area:</span>
-                  <span className="font-semibold text-stone-100">{sqft} sqft</span>
+                <div className="flex justify-between border-b border-slate-200 pb-2">
+                  <span className="text-slate-500">Certified Area:</span>
+                  <span className="font-semibold text-slate-900">{sqft} sqft</span>
                 </div>
                 <div className="flex justify-between items-center pt-0.5">
-                  <span className="text-stone-400">Audit Status:</span>
-                  <span className="text-emerald-400 font-sans font-semibold inline-flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-slate-500">Audit Status:</span>
+                  <span className="text-emerald-700 font-sans font-semibold inline-flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
                     Scheduled for Due Diligence Review
                   </span>
                 </div>
@@ -358,7 +355,7 @@ export const SellPage: React.FC = () => {
               <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
                 <Link
                   to="/properties"
-                  className="w-full sm:w-auto px-7 py-3 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-stone-950 font-bold text-xs tracking-wide transition-all shadow-md active:scale-95 text-center"
+                  className="w-full sm:w-auto px-7 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs tracking-wide transition-all shadow-sm text-center"
                 >
                   Explore Current Marketplace
                 </Link>
@@ -368,7 +365,7 @@ export const SellPage: React.FC = () => {
                     setIsSubmitted(false);
                     setCurrentStep(1);
                   }}
-                  className="w-full sm:w-auto px-7 py-3 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-stone-200 border border-white/[0.1] text-xs font-semibold transition-all cursor-pointer"
+                  className="w-full sm:w-auto px-7 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-[#CBD5E1] text-xs font-semibold transition-all cursor-pointer"
                 >
                   Submit Another Property Dossier
                 </button>
@@ -378,37 +375,37 @@ export const SellPage: React.FC = () => {
             /* Multi-step Form */
             <form onSubmit={handleFinalSubmit} className="space-y-8">
               <AnimatePresence mode="wait">
-                {/* STEP 1: Property Identification & Asset Class (Ultra-Premium Redesign) */}
+                {/* STEP 1: Property Identification & Asset Class */}
                 {currentStep === 1 && (
                   <motion.div
                     key="step-1"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
                     className="space-y-8"
                   >
-                    {/* Step Title & Institutional Guidance */}
-                    <div className="border-b border-white/[0.08] pb-6">
-                      <div className="flex items-center gap-2 font-mono text-[11px] text-amber-400 font-medium uppercase tracking-[0.2em] mb-2">
+                    {/* Step Title & Guidance */}
+                    <div className="border-b border-[#E2E8F0] pb-6">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#FEF3C7] border border-amber-300/80 text-[#92400E] font-mono text-[11px] font-bold uppercase tracking-wider mb-2">
                         <Sparkles className="w-3.5 h-3.5" />
-                        <span>Stage 01 · Property Identification</span>
+                        <span>STAGE 01 · Property Identification</span>
                       </div>
-                      <h2 className="text-2xl sm:text-3xl font-bold text-white font-architectural tracking-tight">
+                      <h2 className="text-2xl sm:text-3xl font-bold text-[#0F172A] font-sans tracking-tight">
                         Property Identification & Asset Class
                       </h2>
-                      <p className="text-xs sm:text-sm text-stone-400 mt-1.5 max-w-2xl leading-relaxed">
+                      <p className="text-xs sm:text-sm text-[#475569] mt-1.5 max-w-2xl leading-relaxed">
                         Establish the legal property designation, transaction conveyance structure, and institutional taxonomy for public syndication and private family office advisory.
                       </p>
                     </div>
 
-                    {/* Transaction Intent: Modern Tactile Selector Cards */}
+                    {/* Transaction Intent: Modern Cards */}
                     <div>
                       <div className="flex items-center justify-between mb-2.5">
-                        <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium">
+                        <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold">
                           Transaction Conveyance Structure *
                         </label>
-                        <span className="text-[11px] text-stone-500 font-mono">
+                        <span className="text-[11px] text-slate-500 font-mono">
                           Direct Title vs. Leasehold
                         </span>
                       </div>
@@ -424,23 +421,23 @@ export const SellPage: React.FC = () => {
                           }}
                           className={`relative p-5 rounded-2xl border transition-all duration-200 cursor-pointer select-none text-left flex flex-col justify-between ${
                             listingType === 'buy'
-                              ? 'bg-[#181C29] border-amber-400/60 shadow-[0_0_25px_rgba(251,191,36,0.12)] ring-1 ring-amber-400/30'
-                              : 'bg-[#141722]/60 border-white/[0.07] hover:border-white/[0.15] hover:bg-[#141722]'
+                              ? 'bg-[#FFFDF5] border-[#D97706] shadow-sm ring-1 ring-[#D97706]/30'
+                              : 'bg-white border-[#E2E8F0] hover:border-slate-300 hover:bg-slate-50/70 shadow-xs'
                           }`}
                         >
                           <div className="flex items-start justify-between gap-3 mb-3">
                             <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
                               listingType === 'buy'
-                                ? 'bg-amber-400/15 text-amber-400 border border-amber-400/30'
-                                : 'bg-white/[0.05] text-stone-400 border border-white/[0.08]'
+                                ? 'bg-[#FEF3C7] text-[#92400E] border border-amber-300'
+                                : 'bg-[#F1F5F9] text-slate-600 border border-[#E2E8F0]'
                             }`}>
                               <Landmark className="w-5 h-5 stroke-[1.8]" />
                             </div>
 
-                            <span className={`text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full font-semibold border ${
+                            <span className={`text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full font-bold border ${
                               listingType === 'buy'
-                                ? 'bg-amber-400/15 text-amber-300 border-amber-400/30'
-                                : 'bg-white/[0.04] text-stone-500 border-white/[0.06]'
+                                ? 'bg-[#FEF3C7] text-[#92400E] border-amber-300'
+                                : 'bg-slate-100 text-slate-600 border-[#E2E8F0]'
                             }`}>
                               For Sale · Fee Simple
                             </span>
@@ -448,14 +445,14 @@ export const SellPage: React.FC = () => {
 
                           <div>
                             <div className="flex items-center gap-2">
-                              <h3 className="text-sm sm:text-base font-bold text-white font-sans">
+                              <h3 className="text-sm sm:text-base font-bold text-[#0F172A] font-sans">
                                 Fee Simple Acquisition
                               </h3>
                               {listingType === 'buy' && (
-                                <span className="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_6px_#FBBF24]" />
+                                <span className="w-2 h-2 rounded-full bg-[#D97706]" />
                               )}
                             </div>
-                            <p className="text-xs text-stone-400 mt-1 leading-normal">
+                            <p className="text-xs text-[#475569] mt-1 leading-normal">
                               Outright freehold divestment, owner-occupied conveyance, or institutional equity recapitalization.
                             </p>
                           </div>
@@ -471,23 +468,23 @@ export const SellPage: React.FC = () => {
                           }}
                           className={`relative p-5 rounded-2xl border transition-all duration-200 cursor-pointer select-none text-left flex flex-col justify-between ${
                             listingType === 'rent'
-                              ? 'bg-[#181C29] border-amber-400/60 shadow-[0_0_25px_rgba(251,191,36,0.12)] ring-1 ring-amber-400/30'
-                              : 'bg-[#141722]/60 border-white/[0.07] hover:border-white/[0.15] hover:bg-[#141722]'
+                              ? 'bg-[#FFFDF5] border-[#D97706] shadow-sm ring-1 ring-[#D97706]/30'
+                              : 'bg-white border-[#E2E8F0] hover:border-slate-300 hover:bg-slate-50/70 shadow-xs'
                           }`}
                         >
                           <div className="flex items-start justify-between gap-3 mb-3">
                             <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
                               listingType === 'rent'
-                                ? 'bg-amber-400/15 text-amber-400 border border-amber-400/30'
-                                : 'bg-white/[0.05] text-stone-400 border border-white/[0.08]'
+                                ? 'bg-[#FEF3C7] text-[#92400E] border border-amber-300'
+                                : 'bg-[#F1F5F9] text-slate-600 border border-[#E2E8F0]'
                             }`}>
                               <Building2 className="w-5 h-5 stroke-[1.8]" />
                             </div>
 
-                            <span className={`text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full font-semibold border ${
+                            <span className={`text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full font-bold border ${
                               listingType === 'rent'
-                                ? 'bg-amber-400/15 text-amber-300 border-amber-400/30'
-                                : 'bg-white/[0.04] text-stone-500 border-white/[0.06]'
+                                ? 'bg-[#FEF3C7] text-[#92400E] border-amber-300'
+                                : 'bg-slate-100 text-slate-600 border-[#E2E8F0]'
                             }`}>
                               For Lease · Tenancy
                             </span>
@@ -495,14 +492,14 @@ export const SellPage: React.FC = () => {
 
                           <div>
                             <div className="flex items-center gap-2">
-                              <h3 className="text-sm sm:text-base font-bold text-white font-sans">
+                              <h3 className="text-sm sm:text-base font-bold text-[#0F172A] font-sans">
                                 Long-Term Commercial Lease
                               </h3>
                               {listingType === 'rent' && (
-                                <span className="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_6px_#FBBF24]" />
+                                <span className="w-2 h-2 rounded-full bg-[#D97706]" />
                               )}
                             </div>
-                            <p className="text-xs text-stone-400 mt-1 leading-normal">
+                            <p className="text-xs text-[#475569] mt-1 leading-normal">
                               Triple-net (NNN), gross corporate campus lease, or multi-year luxury residential tenancy.
                             </p>
                           </div>
@@ -510,13 +507,13 @@ export const SellPage: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Property Title Input (Floating Luxury Input) */}
+                    {/* Property Title Input */}
                     <div>
                       <div className="flex items-center justify-between mb-2">
-                        <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium">
+                        <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold">
                           Official Property or Campus Designation *
                         </label>
-                        <span className="text-[11px] text-stone-500 font-mono">
+                        <span className="text-[11px] text-slate-400 font-mono">
                           Institutional nomenclature
                         </span>
                       </div>
@@ -527,22 +524,22 @@ export const SellPage: React.FC = () => {
                           value={title}
                           onChange={(e) => setTitle(e.target.value)}
                           placeholder="e.g., One Financial Plaza or The Highland Estate"
-                          className="w-full text-sm sm:text-base font-medium p-4 sm:p-4.5 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60 focus:ring-2 focus:ring-amber-400/15 transition-all duration-200 shadow-inner group-hover:border-white/[0.18]"
+                          className="w-full text-sm sm:text-base font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white focus:ring-2 focus:ring-[#D97706]/20 transition-all duration-150 shadow-xs"
                         />
                       </div>
-                      <p className="text-[11px] text-stone-500 mt-1.5 flex items-center gap-1.5">
-                        <Info className="w-3 h-3 text-stone-500" />
+                      <p className="text-[11px] text-slate-500 mt-1.5 flex items-center gap-1.5">
+                        <Info className="w-3.5 h-3.5 text-slate-400" />
                         <span>Used across confidential marketing memorandums and buyer title registries.</span>
                       </p>
                     </div>
 
-                    {/* Asset Class: Bespoke Luxury Dropdown */}
+                    {/* Asset Class: Bespoke Dropdown */}
                     <div ref={dropdownRef} className="relative">
                       <div className="flex items-center justify-between mb-2">
-                        <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium">
+                        <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold">
                           Primary Asset Class & Classification *
                         </label>
-                        <span className="text-[11px] text-stone-500 font-mono">
+                        <span className="text-[11px] text-slate-400 font-mono">
                           Underwriting Taxonomy
                         </span>
                       </div>
@@ -551,35 +548,35 @@ export const SellPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => setCategoryDropdownOpen(!categoryDropdownOpen)}
-                        className="w-full flex items-center justify-between p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 hover:bg-[#181C2B] text-left transition-all duration-150 focus:outline-none focus:border-amber-400/60 focus:ring-2 focus:ring-amber-400/15 cursor-pointer"
+                        className="w-full flex items-center justify-between p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] hover:bg-white text-left transition-all duration-150 focus:outline-none focus:border-[#D97706] focus:ring-2 focus:ring-[#D97706]/20 cursor-pointer shadow-xs"
                       >
                         <div className="flex items-center gap-3.5 min-w-0">
-                          <div className="w-9 h-9 rounded-lg bg-amber-400/10 text-amber-400 border border-amber-400/20 flex items-center justify-center shrink-0">
-                            <selectedCategoryOption.icon className="w-4 h-4 stroke-[1.8]" />
+                          <div className="w-9 h-9 rounded-lg bg-[#FEF3C7] text-[#92400E] border border-amber-300 flex items-center justify-center shrink-0">
+                            <selectedCategoryOption.icon className="w-4.5 h-4.5 stroke-[1.8]" />
                           </div>
                           <div className="truncate">
-                            <div className="text-sm font-semibold text-white">
+                            <div className="text-sm font-semibold text-[#0F172A]">
                               {selectedCategoryOption.label}
                             </div>
-                            <div className="text-xs text-stone-400 truncate">
+                            <div className="text-xs text-[#475569] truncate">
                               {selectedCategoryOption.desc}
                             </div>
                           </div>
                         </div>
 
                         <div className="flex items-center gap-3 shrink-0 ml-3">
-                          <span className="hidden sm:inline-block text-[10px] font-mono uppercase tracking-wider text-amber-300 bg-amber-400/10 border border-amber-400/20 px-2.5 py-0.5 rounded-full font-semibold">
+                          <span className="hidden sm:inline-block text-[10px] font-mono uppercase tracking-wider text-[#92400E] bg-[#FEF3C7] border border-amber-300 px-2.5 py-0.5 rounded-full font-bold">
                             {selectedCategoryOption.tag}
                           </span>
-                          <ChevronDown className={`w-4 h-4 text-stone-400 transition-transform duration-200 ${
-                            categoryDropdownOpen ? 'rotate-180 text-white' : ''
+                          <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform duration-200 ${
+                            categoryDropdownOpen ? 'rotate-180 text-slate-900' : ''
                           }`} />
                         </div>
                       </button>
 
                       {/* Floating Glass Dropdown Menu */}
                       {categoryDropdownOpen && (
-                        <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-[#151926] border border-white/[0.12] rounded-2xl shadow-2xl backdrop-blur-2xl p-2 space-y-1 max-h-80 overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-150">
+                        <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-white border border-[#E2E8F0] rounded-2xl shadow-xl p-2 space-y-1 max-h-80 overflow-y-auto animate-in fade-in duration-150">
                           {CATEGORY_OPTIONS.map((item) => {
                             const isSelected = item.value === category;
                             const IconComponent = item.icon;
@@ -594,34 +591,34 @@ export const SellPage: React.FC = () => {
                                 }}
                                 className={`w-full flex items-center justify-between p-3 rounded-xl text-left transition-colors cursor-pointer ${
                                   isSelected
-                                    ? 'bg-amber-400/15 text-white border border-amber-400/30'
-                                    : 'text-stone-300 hover:bg-white/[0.05] hover:text-white border border-transparent'
+                                    ? 'bg-[#FFFDF5] text-[#0F172A] border border-[#D97706]/50'
+                                    : 'text-slate-700 hover:bg-slate-50 hover:text-slate-950 border border-transparent'
                                 }`}
                               >
                                 <div className="flex items-center gap-3 min-w-0">
                                   <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
                                     isSelected
-                                      ? 'bg-amber-400 text-stone-950 font-bold'
-                                      : 'bg-white/[0.06] text-stone-400'
+                                      ? 'bg-[#FEF3C7] text-[#92400E] font-bold border border-amber-300'
+                                      : 'bg-[#F1F5F9] text-slate-600 border border-[#E2E8F0]'
                                   }`}>
                                     <IconComponent className="w-4 h-4 stroke-[1.8]" />
                                   </div>
                                   <div className="truncate">
-                                    <div className="text-xs sm:text-sm font-semibold">
+                                    <div className="text-xs sm:text-sm font-semibold text-[#0F172A]">
                                       {item.label}
                                     </div>
-                                    <div className="text-[11px] text-stone-500 truncate">
+                                    <div className="text-[11px] text-slate-500 truncate">
                                       {item.desc}
                                     </div>
                                   </div>
                                 </div>
 
                                 <div className="flex items-center gap-2 shrink-0 ml-2">
-                                  <span className="text-[10px] font-mono text-stone-400 uppercase tracking-wider bg-white/[0.04] px-2 py-0.5 rounded">
+                                  <span className="text-[10px] font-mono text-slate-600 uppercase tracking-wider bg-slate-100 px-2 py-0.5 rounded border border-[#E2E8F0]">
                                     {item.tag}
                                   </span>
                                   {isSelected && (
-                                    <Check className="w-4 h-4 text-amber-400 stroke-[2.5]" />
+                                    <Check className="w-4 h-4 text-[#D97706] stroke-[2.5]" />
                                   )}
                                 </div>
                               </button>
@@ -631,13 +628,13 @@ export const SellPage: React.FC = () => {
                       )}
                     </div>
 
-                    {/* Architectural Design Idiom (Luxury Input with Quick Chips) */}
+                    {/* Architectural Design Idiom */}
                     <div>
                       <div className="flex items-center justify-between mb-2">
-                        <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium">
+                        <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold">
                           Architectural Design Idiom & Facade Language
                         </label>
-                        <span className="text-[11px] text-stone-500 font-mono">
+                        <span className="text-[11px] text-slate-400 font-mono">
                           Stylistic Indexing
                         </span>
                       </div>
@@ -646,12 +643,12 @@ export const SellPage: React.FC = () => {
                         value={architecturalStyle}
                         onChange={(e) => setArchitecturalStyle(e.target.value)}
                         placeholder="e.g. Modernist Steel & Glass, Mid-Century Organic, Brutalist Cast Concrete"
-                        className="w-full text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60 focus:ring-2 focus:ring-amber-400/15 transition-all duration-200"
+                        className="w-full text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white focus:ring-2 focus:ring-[#D97706]/20 transition-all shadow-xs"
                       />
 
                       {/* Fast selection chips */}
                       <div className="flex flex-wrap items-center gap-1.5 mt-2.5">
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-stone-500 mr-1">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 mr-1 font-semibold">
                           Curated Styles:
                         </span>
                         {ARCHITECTURAL_PRESETS.map((preset) => (
@@ -661,8 +658,8 @@ export const SellPage: React.FC = () => {
                             onClick={() => setArchitecturalStyle(preset)}
                             className={`text-[11px] px-2.5 py-1 rounded-lg border transition-colors cursor-pointer ${
                               architecturalStyle === preset
-                                ? 'bg-amber-400/15 text-amber-300 border-amber-400/30 font-semibold'
-                                : 'bg-white/[0.03] text-stone-400 border-white/[0.06] hover:text-stone-200 hover:border-white/[0.15]'
+                                ? 'bg-[#FEF3C7] text-[#92400E] border-amber-300 font-bold'
+                                : 'bg-[#F1F5F9] text-slate-600 border-[#E2E8F0] hover:text-slate-900 hover:border-slate-300'
                             }`}
                           >
                             {preset}
@@ -680,24 +677,24 @@ export const SellPage: React.FC = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
                     className="space-y-6"
                   >
-                    <div className="border-b border-white/[0.08] pb-6">
-                      <div className="flex items-center gap-2 font-mono text-[11px] text-amber-400 font-medium uppercase tracking-[0.2em] mb-2">
+                    <div className="border-b border-[#E2E8F0] pb-6">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#FEF3C7] border border-amber-300/80 text-[#92400E] font-mono text-[11px] font-bold uppercase tracking-wider mb-2">
                         <MapPin className="w-3.5 h-3.5" />
-                        <span>Stage 02 · Geographic Coordinate Audit</span>
+                        <span>STAGE 02 · Geographic Coordinate Audit</span>
                       </div>
-                      <h2 className="text-2xl sm:text-3xl font-bold text-white font-architectural">
+                      <h2 className="text-2xl sm:text-3xl font-bold text-[#0F172A] font-sans">
                         Geographic & Municipal Location
                       </h2>
-                      <p className="text-xs sm:text-sm text-stone-400 mt-1">
+                      <p className="text-xs sm:text-sm text-[#475569] mt-1 leading-relaxed">
                         Exact street coordinates for title deed cross-referencing, municipal zoning clearance, and GIS boundary mapping.
                       </p>
                     </div>
 
                     <div>
-                      <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium mb-1.5">
+                      <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold mb-1.5">
                         Street Address *
                       </label>
                       <input
@@ -706,13 +703,13 @@ export const SellPage: React.FC = () => {
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
                         placeholder="e.g. 500 Howard Street, Suite 400"
-                        className="w-full text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60 focus:ring-2 focus:ring-amber-400/15 transition-all"
+                        className="w-full text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white focus:ring-2 focus:ring-[#D97706]/20 transition-all shadow-xs"
                       />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       <div>
-                        <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium mb-1.5">
+                        <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold mb-1.5">
                           Neighborhood / District
                         </label>
                         <input
@@ -720,11 +717,11 @@ export const SellPage: React.FC = () => {
                           value={neighborhood}
                           onChange={(e) => setNeighborhood(e.target.value)}
                           placeholder="e.g. Financial District"
-                          className="w-full text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60 focus:ring-2 focus:ring-amber-400/15 transition-all"
+                          className="w-full text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white focus:ring-2 focus:ring-[#D97706]/20 transition-all shadow-xs"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium mb-1.5">
+                        <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold mb-1.5">
                           Metropolitan City *
                         </label>
                         <input
@@ -733,11 +730,11 @@ export const SellPage: React.FC = () => {
                           value={city}
                           onChange={(e) => setCity(e.target.value)}
                           placeholder="e.g. San Francisco"
-                          className="w-full text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60 focus:ring-2 focus:ring-amber-400/15 transition-all"
+                          className="w-full text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white focus:ring-2 focus:ring-[#D97706]/20 transition-all shadow-xs"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium mb-1.5">
+                        <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold mb-1.5">
                           State / Postal Code
                         </label>
                         <div className="flex gap-2">
@@ -746,14 +743,14 @@ export const SellPage: React.FC = () => {
                             value={state}
                             onChange={(e) => setState(e.target.value)}
                             placeholder="CA"
-                            className="w-20 text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 uppercase focus:outline-none focus:border-amber-400/60 transition-all font-mono"
+                            className="w-20 text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] uppercase focus:outline-none focus:border-[#D97706] focus:bg-white transition-all font-mono shadow-xs text-center"
                           />
                           <input
                             type="text"
                             value={zip}
                             onChange={(e) => setZip(e.target.value)}
                             placeholder="94105"
-                            className="flex-1 text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60 transition-all font-mono"
+                            className="flex-1 text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white transition-all font-mono shadow-xs"
                           />
                         </div>
                       </div>
@@ -768,25 +765,25 @@ export const SellPage: React.FC = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
                     className="space-y-6"
                   >
-                    <div className="border-b border-white/[0.08] pb-6">
-                      <div className="flex items-center gap-2 font-mono text-[11px] text-amber-400 font-medium uppercase tracking-[0.2em] mb-2">
+                    <div className="border-b border-[#E2E8F0] pb-6">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#FEF3C7] border border-amber-300/80 text-[#92400E] font-mono text-[11px] font-bold uppercase tracking-wider mb-2">
                         <Layers className="w-3.5 h-3.5" />
-                        <span>Stage 03 · Spatial Measurements</span>
+                        <span>STAGE 03 · Spatial Measurements</span>
                       </div>
-                      <h2 className="text-2xl sm:text-3xl font-bold text-white font-architectural">
+                      <h2 className="text-2xl sm:text-3xl font-bold text-[#0F172A] font-sans">
                         Technical Specs & Spatial Measurements
                       </h2>
-                      <p className="text-xs sm:text-sm text-stone-400 mt-1">
+                      <p className="text-xs sm:text-sm text-[#475569] mt-1 leading-relaxed">
                         Certified square footage audits and structural building capacity.
                       </p>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       <div>
-                        <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium mb-1.5">
+                        <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold mb-1.5">
                           Gross Floor Area (sqft) *
                         </label>
                         <input
@@ -795,11 +792,11 @@ export const SellPage: React.FC = () => {
                           value={sqft}
                           onChange={(e) => setSqft(e.target.value)}
                           placeholder="e.g. 18500"
-                          className="w-full text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60 font-mono"
+                          className="w-full text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white font-mono shadow-xs"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium mb-1.5">
+                        <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold mb-1.5">
                           Executive Suites / Rooms
                         </label>
                         <input
@@ -807,11 +804,11 @@ export const SellPage: React.FC = () => {
                           value={beds}
                           onChange={(e) => setBeds(e.target.value)}
                           placeholder="e.g. 4"
-                          className="w-full text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60 font-mono"
+                          className="w-full text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white font-mono shadow-xs"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium mb-1.5">
+                        <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold mb-1.5">
                           Restrooms / Facilities
                         </label>
                         <input
@@ -819,14 +816,14 @@ export const SellPage: React.FC = () => {
                           value={baths}
                           onChange={(e) => setBaths(e.target.value)}
                           placeholder="e.g. 6"
-                          className="w-full text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60 font-mono"
+                          className="w-full text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white font-mono shadow-xs"
                         />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium mb-1.5">
+                        <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold mb-1.5">
                           Dedicated Parking Capacity
                         </label>
                         <input
@@ -834,11 +831,11 @@ export const SellPage: React.FC = () => {
                           value={parking}
                           onChange={(e) => setParking(e.target.value)}
                           placeholder="e.g. 24 bays"
-                          className="w-full text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60 font-mono"
+                          className="w-full text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white font-mono shadow-xs"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium mb-1.5">
+                        <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold mb-1.5">
                           Year of Commissioning
                         </label>
                         <input
@@ -846,7 +843,7 @@ export const SellPage: React.FC = () => {
                           value={yearBuilt}
                           onChange={(e) => setYearBuilt(e.target.value)}
                           placeholder="e.g. 2024"
-                          className="w-full text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60 font-mono"
+                          className="w-full text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white font-mono shadow-xs"
                         />
                       </div>
                     </div>
@@ -860,25 +857,25 @@ export const SellPage: React.FC = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
                     className="space-y-6"
                   >
-                    <div className="border-b border-white/[0.08] pb-6">
-                      <div className="flex items-center gap-2 font-mono text-[11px] text-amber-400 font-medium uppercase tracking-[0.2em] mb-2">
+                    <div className="border-b border-[#E2E8F0] pb-6">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#FEF3C7] border border-amber-300/80 text-[#92400E] font-mono text-[11px] font-bold uppercase tracking-wider mb-2">
                         <DollarSign className="w-3.5 h-3.5" />
-                        <span>Stage 04 · Financial Capital Parameters</span>
+                        <span>STAGE 04 · Financial Capital Parameters</span>
                       </div>
-                      <h2 className="text-2xl sm:text-3xl font-bold text-white font-architectural">
+                      <h2 className="text-2xl sm:text-3xl font-bold text-[#0F172A] font-sans">
                         Valuation & Offering Terms
                       </h2>
-                      <p className="text-xs sm:text-sm text-stone-400 mt-1">
+                      <p className="text-xs sm:text-sm text-[#475569] mt-1 leading-relaxed">
                         Offering pricing, capital expenditure reserves, and underwriting narrative.
                       </p>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium mb-1.5">
+                        <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold mb-1.5">
                           Target Offering Valuation ($ USD) *
                         </label>
                         <input
@@ -887,11 +884,11 @@ export const SellPage: React.FC = () => {
                           value={price}
                           onChange={(e) => setPrice(e.target.value)}
                           placeholder="e.g. 14500000"
-                          className="w-full text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60 font-mono"
+                          className="w-full text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white font-mono shadow-xs"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium mb-1.5">
+                        <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold mb-1.5">
                           Estimated Monthly Opex / CAM ($ USD)
                         </label>
                         <input
@@ -899,13 +896,13 @@ export const SellPage: React.FC = () => {
                           value={hoaMonthly}
                           onChange={(e) => setHoaMonthly(e.target.value)}
                           placeholder="e.g. 1850"
-                          className="w-full text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60 font-mono"
+                          className="w-full text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white font-mono shadow-xs"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium mb-1.5">
+                      <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold mb-1.5">
                         Executive Offering Tagline
                       </label>
                       <input
@@ -913,12 +910,12 @@ export const SellPage: React.FC = () => {
                         value={tagline}
                         onChange={(e) => setTagline(e.target.value)}
                         placeholder="e.g. Triple-height glass pavilion with private landscaped courtyard and bay views"
-                        className="w-full text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60"
+                        className="w-full text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white shadow-xs"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium mb-1.5">
+                      <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold mb-1.5">
                         Architectural & Engineering Narrative
                       </label>
                       <textarea
@@ -926,7 +923,7 @@ export const SellPage: React.FC = () => {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="Detail materials, MEP certifications, acoustic insulation, structural spans, and LEED credits..."
-                        className="w-full text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60 leading-relaxed"
+                        className="w-full text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white leading-relaxed shadow-xs resize-none"
                       />
                     </div>
                   </motion.div>
@@ -939,24 +936,24 @@ export const SellPage: React.FC = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
                     className="space-y-6"
                   >
-                    <div className="border-b border-white/[0.08] pb-6">
-                      <div className="flex items-center gap-2 font-mono text-[11px] text-amber-400 font-medium uppercase tracking-[0.2em] mb-2">
+                    <div className="border-b border-[#E2E8F0] pb-6">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#FEF3C7] border border-amber-300/80 text-[#92400E] font-mono text-[11px] font-bold uppercase tracking-wider mb-2">
                         <Upload className="w-3.5 h-3.5" />
-                        <span>Stage 05 · Visual Assets & Documents</span>
+                        <span>STAGE 05 · Visual Assets & Documents</span>
                       </div>
-                      <h2 className="text-2xl sm:text-3xl font-bold text-white font-architectural">
+                      <h2 className="text-2xl sm:text-3xl font-bold text-[#0F172A] font-sans">
                         Architectural Photography & Documents
                       </h2>
-                      <p className="text-xs sm:text-sm text-stone-400 mt-1">
-                        Submit high-resolution assets or commission a Digentic certified architectural media crew.
+                      <p className="text-xs sm:text-sm text-[#475569] mt-1 leading-relaxed">
+                        Submit high-resolution assets or commission an ESTRA certified architectural media crew.
                       </p>
                     </div>
 
                     <div>
-                      <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium mb-1.5">
+                      <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold mb-1.5">
                         Primary Key Asset Photograph URL
                       </label>
                       <input
@@ -964,30 +961,30 @@ export const SellPage: React.FC = () => {
                         value={imageUrl}
                         onChange={(e) => setImageUrl(e.target.value)}
                         placeholder="https://images.unsplash.com/... or cloud asset link"
-                        className="w-full text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60 font-mono"
+                        className="w-full text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white font-mono shadow-xs"
                       />
-                      <span className="text-[11px] text-stone-500 mt-1.5 block">
-                        Leave blank to request an on-site Digentic architectural photography and LiDAR scanning capture.
+                      <span className="text-[11px] text-slate-500 mt-1.5 block">
+                        Leave blank to request an on-site ESTRA architectural photography and LiDAR scanning capture.
                       </span>
                     </div>
 
                     {/* Document upload container */}
-                    <div className="border border-dashed border-white/[0.15] rounded-2xl p-8 text-center bg-[#151825]/50 space-y-3">
-                      <div className="w-12 h-12 rounded-xl bg-amber-400/10 text-amber-400 border border-amber-400/20 flex items-center justify-center mx-auto">
+                    <div className="border-2 border-dashed border-[#CBD5E1] rounded-2xl p-8 text-center bg-[#F8FAFC] hover:bg-slate-50/80 transition-colors space-y-3">
+                      <div className="w-12 h-12 rounded-xl bg-[#FEF3C7] text-[#92400E] border border-amber-300 flex items-center justify-center mx-auto shadow-xs">
                         <Upload className="w-6 h-6 stroke-[1.8]" />
                       </div>
                       <div>
-                        <p className="text-sm font-bold text-white">
+                        <p className="text-sm font-bold text-[#0F172A]">
                           Upload Certified Floor Plans & Title Deeds
                         </p>
-                        <p className="text-xs text-stone-400 mt-0.5">
+                        <p className="text-xs text-[#475569] mt-0.5">
                           Supported packages: PDF, BIM/Revit, CAD DWG (Max 100MB)
                         </p>
                       </div>
                       <button
                         type="button"
                         onClick={() => notify('Sample due diligence package attached')}
-                        className="px-4 py-2 bg-white/[0.08] hover:bg-white/[0.15] border border-white/[0.15] text-white text-xs font-semibold rounded-xl transition-all cursor-pointer"
+                        className="px-4 py-2 bg-white hover:bg-slate-50 border border-[#CBD5E1] text-[#0F172A] text-xs font-semibold rounded-xl shadow-xs transition-all cursor-pointer"
                       >
                         Attach Verified PDFs
                       </button>
@@ -1002,25 +999,25 @@ export const SellPage: React.FC = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
                     className="space-y-6"
                   >
-                    <div className="border-b border-white/[0.08] pb-6">
-                      <div className="flex items-center gap-2 font-mono text-[11px] text-amber-400 font-medium uppercase tracking-[0.2em] mb-2">
+                    <div className="border-b border-[#E2E8F0] pb-6">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#FEF3C7] border border-amber-300/80 text-[#92400E] font-mono text-[11px] font-bold uppercase tracking-wider mb-2">
                         <ShieldCheck className="w-3.5 h-3.5" />
-                        <span>Stage 06 · Principal Identity Clearance</span>
+                        <span>STAGE 06 · Principal Identity Clearance</span>
                       </div>
-                      <h2 className="text-2xl sm:text-3xl font-bold text-white font-architectural">
+                      <h2 className="text-2xl sm:text-3xl font-bold text-[#0F172A] font-sans">
                         Principal or Listing Broker Verification
                       </h2>
-                      <p className="text-xs sm:text-sm text-stone-400 mt-1">
+                      <p className="text-xs sm:text-sm text-[#475569] mt-1 leading-relaxed">
                         Authorized contact credentials for title escrow, legal NDA signature, and direct client introductions.
                       </p>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium mb-1.5">
+                        <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold mb-1.5">
                           Principal Legal Representative *
                         </label>
                         <input
@@ -1029,11 +1026,11 @@ export const SellPage: React.FC = () => {
                           value={ownerName}
                           onChange={(e) => setOwnerName(e.target.value)}
                           placeholder="Full Legal Name"
-                          className="w-full text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60"
+                          className="w-full text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white shadow-xs"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium mb-1.5">
+                        <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold mb-1.5">
                           Corporate / Advisory Entity
                         </label>
                         <input
@@ -1041,14 +1038,14 @@ export const SellPage: React.FC = () => {
                           value={ownerEntity}
                           onChange={(e) => setOwnerEntity(e.target.value)}
                           placeholder="e.g. Managing Partner, Family Office Director"
-                          className="w-full text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60"
+                          className="w-full text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white shadow-xs"
                         />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium mb-1.5">
+                        <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold mb-1.5">
                           Direct Corporate Email *
                         </label>
                         <input
@@ -1057,11 +1054,11 @@ export const SellPage: React.FC = () => {
                           value={ownerEmail}
                           onChange={(e) => setOwnerEmail(e.target.value)}
                           placeholder="m.sterling@capital-group.com"
-                          className="w-full text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60 font-mono"
+                          className="w-full text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white font-mono shadow-xs"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs uppercase tracking-[0.15em] text-stone-300 font-mono font-medium mb-1.5">
+                        <label className="block text-xs uppercase tracking-[0.14em] text-slate-700 font-mono font-semibold mb-1.5">
                           Secure Telephone Line *
                         </label>
                         <input
@@ -1070,32 +1067,32 @@ export const SellPage: React.FC = () => {
                           value={ownerPhone}
                           onChange={(e) => setOwnerPhone(e.target.value)}
                           placeholder="+1 (415) 880-9921"
-                          className="w-full text-sm font-medium p-4 rounded-xl border border-white/[0.1] bg-[#141724]/90 text-stone-100 placeholder:text-stone-500 focus:outline-none focus:border-amber-400/60 font-mono"
+                          className="w-full text-sm font-medium p-3.5 sm:p-4 rounded-xl border border-[#CBD5E1] bg-[#F8FAFC] text-[#0F172A] placeholder:text-slate-400 focus:outline-none focus:border-[#D97706] focus:bg-white font-mono shadow-xs"
                         />
                       </div>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-amber-400/10 border border-amber-400/20 text-xs text-amber-200/90 leading-relaxed">
-                      By submitting this listing dossier, you certify that you hold certified legal authority or exclusive advisory rights for the specified property asset. Digentic Realty will initiate municipal title verification prior to syndicate release.
+                    <div className="p-4 rounded-xl bg-[#FEF3C7]/60 border border-amber-300 text-xs text-[#92400E] leading-relaxed font-medium">
+                      By submitting this listing dossier, you certify that you hold certified legal authority or exclusive advisory rights for the specified property asset. ESTRA Realty will initiate municipal title verification prior to syndicate release.
                     </div>
                   </motion.div>
                 )}
               </AnimatePresence>
 
               {/* Wizard Bottom Controls */}
-              <div className="pt-6 border-t border-white/[0.08] flex items-center justify-between gap-4">
+              <div className="pt-6 border-t border-[#E2E8F0] flex items-center justify-between gap-4">
                 {currentStep > 1 ? (
                   <button
                     type="button"
                     onClick={handlePrev}
-                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-white/[0.1] bg-white/[0.03] hover:bg-white/[0.08] text-stone-300 hover:text-white text-xs font-semibold transition-all cursor-pointer"
+                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-[#CBD5E1] bg-white hover:bg-slate-50 text-slate-700 hover:text-slate-950 text-xs font-semibold transition-all shadow-xs cursor-pointer"
                   >
                     <ArrowLeft className="w-4 h-4" />
                     <span>Previous Stage</span>
                   </button>
                 ) : (
-                  <div className="text-xs text-stone-500 font-mono flex items-center gap-1.5">
-                    <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+                  <div className="text-xs text-slate-500 font-mono flex items-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4 text-[#D97706]" />
                     <span>Encrypted Institutional Portal</span>
                   </div>
                 )}
@@ -1104,7 +1101,7 @@ export const SellPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleNext}
-                    className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-stone-950 font-bold text-xs tracking-wide transition-all shadow-[0_0_20px_rgba(251,191,36,0.25)] hover:scale-[1.01] active:scale-[0.99] cursor-pointer ml-auto"
+                    className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs tracking-wide transition-all shadow-sm hover:shadow active:scale-[0.99] cursor-pointer ml-auto"
                   >
                     <span>
                       {currentStep === 1
@@ -1122,7 +1119,7 @@ export const SellPage: React.FC = () => {
                 ) : (
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-400 to-emerald-500 hover:from-emerald-300 hover:to-emerald-400 text-stone-950 font-bold text-xs tracking-wide transition-all shadow-[0_0_20px_rgba(52,211,153,0.3)] hover:scale-[1.01] active:scale-[0.99] cursor-pointer ml-auto"
+                    className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs tracking-wide transition-all shadow-sm hover:shadow active:scale-[0.99] cursor-pointer ml-auto"
                   >
                     <span>Authorize & Initiate Dossier</span>
                     <CheckCircle2 className="w-4 h-4 stroke-[2.5]" />

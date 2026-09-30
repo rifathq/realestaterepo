@@ -22,6 +22,11 @@
   letter-spacing: -0.025em;
 }
 
+.font-editorial {
+  font-family: 'Cormorant Garamond', Garamond, Georgia, serif;
+  letter-spacing: -0.015em;
+}
+
 /* Hide scrollbar for clean carousels */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
