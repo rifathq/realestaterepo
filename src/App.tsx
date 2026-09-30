@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { BASE } from './lib/base';
 import { MarketplaceProvider, useMarketplace } from './context/MarketplaceContext';
 import { AuthProvider } from './context/AuthContext';
 import { Header } from './components/layout/Header';
@@ -55,6 +56,7 @@ import { AboutPage as SiteAboutPage } from './agent-site/pages/AboutPage';
 import { ContactPage as SiteContactPage } from './agent-site/pages/ContactPage';
 import { LegalPage } from './agent-site/pages/LegalPage';
 import { OffMarketPage as SiteOffMarketPage } from './agent-site/pages/OffMarketPage';
+import { RentalsPage as SiteRentalsPage } from './agent-site/pages/RentalsPage';
 import { CreativeFinancingPage as SiteCreativeFinancingPage } from './agent-site/pages/CreativeFinancingPage';
 import { ForeclosureHelpPage as SiteForeclosureHelpPage } from './agent-site/pages/ForeclosureHelpPage';
 
@@ -96,7 +98,7 @@ export default function App() {
   return (
     <AuthProvider>
       <MarketplaceProvider>
-        <BrowserRouter>
+        <BrowserRouter basename={BASE || undefined}>
           <ScrollToTop />
           <Routes>
             {/* 1. PUBLIC WEBSITE ROUTES: Masud Haque, eXp Realty agent site */}
@@ -107,6 +109,7 @@ export default function App() {
               <Route path="/search" element={<SiteSearchPage />} />
               <Route path="/selling" element={<SiteSellingPage />} />
               <Route path="/off-market" element={<SiteOffMarketPage />} />
+              <Route path="/rentals" element={<SiteRentalsPage />} />
               <Route path="/creative-financing" element={<SiteCreativeFinancingPage />} />
               <Route path="/foreclosure-help" element={<SiteForeclosureHelpPage />} />
               <Route path="/about" element={<SiteAboutPage />} />

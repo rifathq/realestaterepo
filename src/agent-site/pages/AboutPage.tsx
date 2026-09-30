@@ -2,15 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { AGENT, FIRM, DPOR_LOOKUP_URL, AFFILIATION } from '../profile';
+import { withBase } from '../../lib/base';
 
 export const AboutPage: React.FC = () => (
   <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14 sm:py-20 grid gap-12 md:grid-cols-12">
-    <div className="md:col-span-5">
+    <div className="md:col-span-5 min-w-0">
       <div className="aspect-[4/5] bg-stone-200 overflow-hidden">
-        <img src={AGENT.photo} alt={AGENT.name} className="w-full h-full object-cover object-top" />
+        <img src={withBase(AGENT.photo)} alt={AGENT.name} className="w-full h-full object-cover object-top" />
       </div>
     </div>
-    <div className="md:col-span-7">
+    <div className="md:col-span-7 min-w-0">
       <div className="text-[11px] uppercase tracking-[0.2em] text-stone-500 font-semibold">About</div>
       <h1 className="mt-2 text-4xl sm:text-5xl font-bold font-architectural text-stone-950">{AGENT.name}</h1>
       <p className="mt-1 text-stone-600">{AGENT.title} · {FIRM.name}</p>
@@ -41,7 +42,7 @@ export const AboutPage: React.FC = () => (
         ].map(([k, v]) => (
           <div key={k} className="grid grid-cols-[7rem_1fr] gap-4 px-5 py-3.5 text-sm">
             <span className="text-stone-500">{k}</span>
-            <span className="text-stone-900 break-words">{v}</span>
+            <span className="text-stone-900 min-w-0 break-all">{v}</span>
           </div>
         ))}
       </div>
@@ -50,7 +51,7 @@ export const AboutPage: React.FC = () => (
         <Link to="/contact" className="bg-stone-950 hover:bg-stone-800 text-white text-sm font-semibold px-6 py-3 transition-colors">
           Get in touch
         </Link>
-        <a href={DPOR_LOOKUP_URL} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm text-stone-600 hover:text-stone-950">
+        <a href={DPOR_LOOKUP_URL} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 py-2.5 text-sm text-stone-600 hover:text-stone-950">
           Verify my licence with DPOR <ArrowUpRight className="w-3.5 h-3.5" />
         </a>
       </div>

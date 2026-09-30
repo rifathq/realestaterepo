@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, Check } from 'lucide-react';
-import { AGENT, FIRM, STATUS_LABEL } from '../profile';
+import { AGENT, FIRM } from '../profile';
 import { useListings } from '../useListings';
-import { FinancingTags, LeadForm, OwnerBadge, OwnershipNotice, SampleBadge, StatusBadge, placeLine } from '../components';
+import { FinancingTags, LeadForm, OwnerBadge, OwnershipNotice, SampleBadge, StatusBadge, placeLine, statusLabel } from '../components';
 
 const STATUS_NOTE: Record<string, string> = {
   coming_soon: 'Coming Soon: showings start when the listing goes active.',
@@ -34,20 +34,26 @@ export const ListingDetailPage: React.FC = () => {
     { label: 'Year built', value: listing.specs.yearBuilt },
     { label: 'Lot', value: listing.specs.lotSize },
   ];
-  const note = STATUS_NOTE[listing.status];
+  const rent = listing.listingType === 'rent';
+  const note = rent
+    ? listing.status === 'rented'
+      ? 'Currently rented. Join the waitlist and I will tell you when it, or a similar home, opens up.'
+      : 'Available to rent. Housing vouchers and every lawful source of income are welcome.'
+    : STATUS_NOTE[listing.status];
   const listed = new Date(`${listing.listedDate}T12:00:00`).toLocaleDateString([], { month: 'long', day: 'numeric', year: 'numeric' });
   const askable = listing.status === 'active' || listing.status === 'coming_soon';
+  const rented = rent && listing.status === 'rented';
 
   return (
     <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10 sm:py-14">
-      <Link to={listing.offMarket ? '/off-market' : '/listings'} className="inline-flex items-center gap-1.5 text-sm text-stone-600 hover:text-stone-950">
-        <ArrowLeft className="w-4 h-4" /> {listing.offMarket ? 'Off-market homes' : 'All listings'}
+      <Link to={rent ? '/rentals' : listing.offMarket ? '/off-market' : '/listings'} className="inline-flex items-center gap-1.5 py-2.5 text-sm text-stone-600 hover:text-stone-950">
+        <ArrowLeft className="w-4 h-4" /> {rent ? 'All rentals' : listing.offMarket ? 'Off-market homes' : 'All listings'}
       </Link>
 
       <div className="mt-6 flex flex-col lg:flex-row lg:items-end justify-between gap-5">
         <div>
           <div className="flex gap-1.5">
-            <span className="border border-stone-200"><StatusBadge status={listing.status} /></span>
+            <span className="border border-stone-200"><StatusBadge status={listing.status} rent={rent} /></span>
             {listing.ownership === 'agent' && <OwnerBadge />}
             {listing.sample && <SampleBadge />}
           </div>
@@ -55,8 +61,11 @@ export const ListingDetailPage: React.FC = () => {
           <p className="mt-2 text-stone-600">{listing.location.address.startsWith('Sample') ? 'Sample address · ' : `${listing.location.address} · `}{placeLine(listing)}</p>
         </div>
         <div className="lg:text-right">
-          <div className="text-[11px] uppercase tracking-wide text-stone-500">{listing.status === 'sold' ? 'Sold' : 'List price'}</div>
-          <div className="text-3xl sm:text-4xl font-bold font-architectural text-stone-950">{listing.priceDisplay}</div>
+          <div className="text-[11px] uppercase tracking-wide text-stone-500">{rent ? 'Monthly rent' : listing.status === 'sold' ? 'Sold' : 'List price'}</div>
+          <div className="text-3xl sm:text-4xl font-bold font-architectural text-stone-950">
+            {listing.priceDisplay}
+            {rent && <span className="text-lg font-medium text-stone-500">/mo</span>}
+          </div>
         </div>
       </div>
 
@@ -122,17 +131,17 @@ export const ListingDetailPage: React.FC = () => {
             </div>
             <div>{AGENT.phone ? `${AGENT.phone} · ` : ''}{AGENT.email} · Office {FIRM.phone}</div>
             <div className="mt-2 text-xs text-stone-500">
-              Status: {STATUS_LABEL[listing.status]} · Listed {listed}. Information deemed reliable but not guaranteed.
+              Status: {statusLabel(listing.status, rent)} · Listed {listed}. Information deemed reliable but not guaranteed.
             </div>
           </div>
         </div>
 
         <aside className="lg:sticky lg:top-24 self-start bg-white border border-stone-200 p-6">
-          <h2 className="text-lg font-semibold text-stone-950">{askable ? 'Ask about this home' : 'Ask about similar homes'}</h2>
+          <h2 className="text-lg font-semibold text-stone-950">{rented ? 'Join the waitlist' : rent ? 'Ask about renting' : askable ? 'Ask about this home' : 'Ask about similar homes'}</h2>
           <p className="mt-1 mb-5 text-sm text-stone-600">
             {askable ? 'Questions, a showing, or a second look. I reply by email.' : 'Tell me what you liked and I will look for similar homes.'}
           </p>
-          <LeadForm compact listing={{ id: listing.id, title: listing.title }} submitLabel={askable ? 'Ask Masud' : 'Send to Masud'} />
+          <LeadForm compact listing={{ id: listing.id, title: listing.title }} submitLabel={rented ? 'Join the waitlist' : askable ? 'Ask Masud' : 'Send to Masud'} />
         </aside>
       </div>
     </div>

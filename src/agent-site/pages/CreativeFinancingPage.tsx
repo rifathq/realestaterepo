@@ -5,32 +5,37 @@ import { LeadForm } from '../components';
 
 const OPTIONS = [
   {
-    title: 'Seller financing',
+    title: 'Seller Finance',
     body: 'The seller acts as the lender, and the buyer pays the seller over time instead of a bank.',
     fit: "Buyers who don't fit a bank's box. Sellers who want steady income or a faster sale.",
   },
   {
-    title: 'Subject-to existing loan',
+    title: 'SubTo (subject-to)',
     body: "The buyer takes title while the seller's mortgage stays in place, and the buyer makes its payments. It can keep a low interest rate.",
     fit: "Know the risk: the loan stays in the seller's name, and the lender can call it due after a transfer (the due-on-sale clause).",
   },
   {
-    title: 'Lease option',
+    title: 'Hybrid',
+    body: "SubTo on the seller's existing loan, plus seller financing for the seller's equity, so the buyer needs less cash up front.",
+    fit: 'Sellers with equity and a good loan. Carries the due-on-sale risk of any SubTo deal.',
+  },
+  {
+    title: 'Lease Option',
     body: 'Rent now, with the right to buy later at a price agreed today. Part of the rent can count toward the purchase if the contract says so.',
     fit: 'Buyers who need time to build credit or savings.',
   },
   {
-    title: 'Wrap-around mortgage',
+    title: 'Wrap',
     body: "The seller's existing loan stays in place, and the seller finances the buyer with a new note that wraps around it.",
     fit: 'Sellers with a low-rate loan who want to earn on the spread. Carries the same due-on-sale risk.',
   },
   {
-    title: 'Assumable loan',
+    title: 'Assumable',
     body: 'Many FHA, VA and USDA loans can be taken over by a qualified buyer with the lender’s approval, keeping the original rate.',
     fit: 'The lower-risk way to keep an existing rate, when the loan allows it.',
   },
   {
-    title: 'Cash and quick close',
+    title: 'Cash',
     body: 'A direct sale for cash, on your timeline, with no showings or repairs.',
     fit: 'Sellers who value speed and certainty over top price.',
   },

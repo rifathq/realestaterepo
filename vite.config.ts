@@ -5,6 +5,8 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
+    // UAT serves the site under a sub-path (APP_BASE=/masud/); locally it is the root.
+    base: process.env.APP_BASE || '/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {

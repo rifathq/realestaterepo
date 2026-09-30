@@ -1,4 +1,5 @@
 // Digentic Enterprise API Client
+import { withBase } from '../lib/base';
 
 const TOKEN_KEY = 'digentic_auth_token_v1';
 
@@ -43,7 +44,7 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
     headers.set('Authorization', `Bearer ${token}`);
   }
 
-  const response = await fetch(endpoint, {
+  const response = await fetch(withBase(endpoint), {
     ...options,
     headers,
   });

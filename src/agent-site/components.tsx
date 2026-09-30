@@ -1,20 +1,27 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
-import { AGENT, FIRM, ListingStatus, STATUS_LABEL, OWNERSHIP_DISCLOSURE } from './profile';
+import { AGENT, FIRM, ListingStatus, STATUS_LABEL, OWNERSHIP_DISCLOSURE, FINANCING_HELP } from './profile';
 import type { SiteListing } from './useListings';
+import { withBase } from '../lib/base';
 
 const STATUS_DOT: Record<ListingStatus, string> = {
   coming_soon: 'bg-amber-500',
   active: 'bg-emerald-500',
   under_contract: 'bg-sky-600',
   sold: 'bg-stone-500',
+  rented: 'bg-stone-500',
 };
 
-export const StatusBadge: React.FC<{ status: ListingStatus }> = ({ status }) => (
+export function statusLabel(status: ListingStatus, rent?: boolean) {
+  if (rent) return status === 'rented' ? 'Rented' : 'For Rent';
+  return STATUS_LABEL[status];
+}
+
+export const StatusBadge: React.FC<{ status: ListingStatus; rent?: boolean }> = ({ status, rent }) => (
   <span className="inline-flex items-center gap-1.5 bg-white/95 text-stone-900 text-[11px] font-semibold uppercase tracking-wide px-2 py-1">
-    <span className={`w-1.5 h-1.5 rounded-full ${STATUS_DOT[status]}`} />
-    {STATUS_LABEL[status]}
+    <span className={`w-1.5 h-1.5 rounded-full ${rent && status !== 'rented' ? 'bg-emerald-500' : STATUS_DOT[status]}`} />
+    {statusLabel(status, rent)}
   </span>
 );
 
@@ -34,7 +41,7 @@ export const FinancingTags: React.FC<{ options?: string[]; className?: string }>
   options && options.length ? (
     <ul className={`flex flex-wrap gap-1.5 ${className}`} aria-label="Financing options">
       {options.map((o) => (
-        <li key={o} className="text-[11px] font-medium text-stone-700 border border-stone-300 px-2 py-0.5">
+        <li key={o} title={FINANCING_HELP[o]} className="text-[11px] font-semibold text-stone-800 bg-stone-100 border border-stone-300 px-2 py-0.5">
           {o}
         </li>
       ))}
@@ -59,7 +66,7 @@ export const EqualHousingMark: React.FC<{ className?: string }> = ({ className =
 
 export const DemoNote: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div className="border border-dashed border-amber-400 bg-amber-50 text-amber-900 text-xs leading-relaxed px-4 py-3">
-    <span className="font-semibold uppercase tracking-wide text-[10px] mr-2">Demo note</span>
+    <span className="font-semibold uppercase tracking-wide text-[11px] mr-2">Demo note</span>
     {children}
   </div>
 );
@@ -79,7 +86,7 @@ export const SectionHeading: React.FC<{ kicker: string; title: string; action?: 
 );
 
 export const TextLink: React.FC<{ to: string; children: React.ReactNode }> = ({ to, children }) => (
-  <Link to={to} className="inline-flex items-center gap-1.5 text-sm font-semibold text-stone-900 hover:gap-2.5 transition-all">
+  <Link to={to} className="inline-flex items-center gap-1.5 py-2.5 text-sm font-semibold text-stone-900 hover:gap-2.5 transition-all">
     {children}
     <ArrowRight className="w-4 h-4" />
   </Link>
@@ -104,14 +111,17 @@ export const ListingCard: React.FC<{ listing: SiteListing }> = ({ listing }) => 
           className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
         />
         <div className="absolute top-3 left-3 flex gap-1.5">
-          <StatusBadge status={listing.status} />
+          <StatusBadge status={listing.status} rent={listing.listingType === 'rent'} />
           {listing.ownership === 'agent' && <OwnerBadge />}
           {listing.sample && <SampleBadge />}
         </div>
       </div>
       <div className="p-5">
         <div className="flex items-baseline justify-between gap-3">
-          <div className="text-xl font-bold font-architectural text-stone-950">{listing.priceDisplay}</div>
+          <div className="text-xl font-bold font-architectural text-stone-950">
+            {listing.priceDisplay}
+            {listing.listingType === 'rent' && <span className="text-sm font-medium text-stone-500">/mo</span>}
+          </div>
           {listing.status === 'sold' && <span className="text-[11px] uppercase tracking-wide text-stone-500">Sold</span>}
         </div>
         <div className="text-sm text-stone-600 mt-1">{specLine(listing)}</div>
@@ -130,7 +140,7 @@ export const ListingCard: React.FC<{ listing: SiteListing }> = ({ listing }) => 
 const CONSENT_TEXT =
   'By proceeding, I am electronically signing and consenting to receive marketing communications (about real estate brokerage services and one or more properties that I may buy, sell, or rent), that may be delivered to me via email, telephone and/or text messaging (using "automated technology" such as an automatic telephone dialing system, and/or an artificial or prerecorded voice), from eXp Realty® and its independent contractor real estate professionals using the contact information I provided. Your consent is not a condition of purchase and you may revoke it at any time by replying to any of our texts to opt-out, unsubscribing via email, or contacting us directly at the email or telephone number listed on this website.';
 
-const TOPICS = ['Buying a home', 'Selling a home', 'Off-market homes', 'Creative financing', 'Facing foreclosure', 'This listing', 'Something else'];
+const TOPICS = ['Selling or just curious', 'Investing', 'Buying a home', 'Renting', 'Off-market homes', 'Creative financing', 'Facing foreclosure', 'This listing', 'Something else'];
 
 interface LeadFormProps {
   defaultTopic?: string;
@@ -154,7 +164,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({ defaultTopic = 'Buying a hom
     setState('sending');
     setError('');
     try {
-      const res = await fetch('/api/leads', {
+      const res = await fetch(withBase('/api/leads'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -197,7 +207,8 @@ export const LeadForm: React.FC<LeadFormProps> = ({ defaultTopic = 'Buying a hom
     );
   }
 
-  const input = 'w-full bg-white border border-stone-300 focus:border-stone-900 focus:outline-none px-3 py-2.5 text-sm text-stone-900 placeholder:text-stone-400';
+  // 16px on phones: iOS zooms into any field smaller than that.
+  const input = 'w-full bg-white border border-stone-300 focus:border-stone-900 focus:outline-none px-3 py-2.5 text-base sm:text-sm text-stone-900 placeholder:text-stone-400';
   const label = 'block text-xs font-semibold text-stone-700 mb-1.5';
 
   return (
@@ -255,7 +266,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({ defaultTopic = 'Buying a hom
           type="checkbox"
           checked={consent}
           onChange={(e) => setConsent(e.target.checked)}
-          className="mt-0.5 w-4 h-4 shrink-0 accent-stone-900"
+          className="mt-0.5 w-6 h-6 shrink-0 accent-stone-900"
         />
         <span>
           <span className="block font-semibold text-stone-800">I consent to receive communications in accordance with the terms below.</span>

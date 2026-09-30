@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AGENT, ListingStatus, STATUS_ORDER } from './profile';
+import { withBase } from '../lib/base';
 
 export interface SiteListing {
   id: string;
@@ -18,6 +19,7 @@ export interface SiteListing {
   sample?: boolean;
   listedDate: string;
   offMarket?: boolean;
+  listingType?: 'buy' | 'rent';
   ownership?: 'agent';
   financing?: string[];
 }
@@ -28,7 +30,7 @@ export function useListings() {
 
   useEffect(() => {
     let alive = true;
-    fetch(`/api/properties?agentId=${encodeURIComponent(AGENT.id)}`)
+    fetch(withBase(`/api/properties?agentId=${encodeURIComponent(AGENT.id)}`))
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error(`HTTP ${res.status}`))))
       .then((data: SiteListing[]) => {
         if (!alive) return;

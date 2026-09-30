@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-import { AGENT, FIRM, DPOR_LOOKUP_URL, SOCIAL } from './profile';
+import { AGENT, FIRM, DPOR_LOOKUP_URL, SOCIAL, DIGENTS_URL, DIGENTS_CONTACT_URL } from './profile';
 import { EqualHousingMark } from './components';
 
+// Investor first.
 const NAV = [
-  { to: '/listings', label: 'Listings' },
   { to: '/off-market', label: 'Off-Market' },
+  { to: '/rentals', label: 'Rentals' },
   { to: '/creative-financing', label: 'Creative Financing' },
+  { to: '/listings', label: 'Listings' },
   { to: '/foreclosure-help', label: 'Foreclosure Help' },
   { to: '/about', label: 'About' },
 ];
@@ -40,7 +42,7 @@ const Header: React.FC = () => {
     <header className="sticky top-0 z-40 bg-stone-50/90 backdrop-blur-md border-b border-stone-200">
       <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-6">
         <Brand />
-        <nav className="hidden lg:flex items-center gap-6" aria-label="Main">
+        <nav className="hidden xl:flex items-center gap-6" aria-label="Main">
           {NAV.map((n) => (
             <NavLink key={n.to} to={n.to} className={linkClass}>
               {n.label}
@@ -52,7 +54,7 @@ const Header: React.FC = () => {
         </nav>
         <button
           type="button"
-          className="lg:hidden p-2 -mr-2 text-stone-800"
+          className="xl:hidden p-2.5 -mr-2.5 text-stone-800"
           onClick={() => setOpen(!open)}
           aria-expanded={open}
           aria-label={open ? 'Close menu' : 'Open menu'}
@@ -61,7 +63,7 @@ const Header: React.FC = () => {
         </button>
       </div>
       {open && (
-        <nav className="lg:hidden border-t border-stone-200 bg-stone-50 px-5 py-4 flex flex-col gap-1" aria-label="Main">
+        <nav className="xl:hidden border-t border-stone-200 bg-stone-50 px-5 py-4 flex flex-col gap-1 max-h-[calc(100vh-6rem)] overflow-y-auto" aria-label="Main">
           {ALL_PAGES.map((n) => (
             <NavLink key={n.to} to={n.to} className={({ isActive }) => `py-2.5 text-base ${isActive ? 'font-semibold text-stone-950' : 'text-stone-700'}`}>
               {n.label}
@@ -116,9 +118,9 @@ const Footer: React.FC = () => (
             </li>
           ))}
         </ul>
-        <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+        <div className="mt-5 flex flex-wrap gap-x-2 text-sm">
           {SOCIAL.map((s) => (
-            <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="hover:text-white">
+            <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="inline-flex items-center min-h-11 min-w-11 px-2 -mx-0.5 hover:text-white">
               {s.label}
             </a>
           ))}
@@ -146,6 +148,16 @@ const Footer: React.FC = () => (
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-5 text-[11px] leading-relaxed text-stone-500 flex flex-col sm:flex-row gap-2 sm:justify-between">
         <span>© {new Date().getFullYear()} {AGENT.name}. Listings shown are listings of {AGENT.name}, {FIRM.name}.</span>
         <span>Information deemed reliable but not guaranteed.</span>
+      </div>
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-6 text-[11px] text-stone-500">
+        Website by{' '}
+        <a href={DIGENTS_URL} target="_blank" rel="noreferrer" className="font-semibold text-stone-300 hover:text-white">
+          Digents
+        </a>
+        {' · '}
+        <a href={DIGENTS_CONTACT_URL} target="_blank" rel="noreferrer" className="underline underline-offset-2 hover:text-white">
+          Want a site like this?
+        </a>
       </div>
     </div>
   </footer>

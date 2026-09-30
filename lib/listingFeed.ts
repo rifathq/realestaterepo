@@ -23,8 +23,8 @@ export function registerListingFeed(app: Express, getDb: () => any, port: number
       brokeragePhone: FIRM.phone,
     };
     const listings = (getDb().properties || [])
-      // Off-market, agent-owned homes stay on this site until Digentic can show the ownership disclosure.
-      .filter((p: any) => p.agentId === AGENT.id && !p.offMarket)
+      // Agent-owned homes and rentals stay on this site until Digentic can show the ownership disclosure.
+      .filter((p: any) => p.agentId === AGENT.id && !p.offMarket && p.ownership !== 'agent')
       .map((p: any) => ({
         ...p,
         images: (p.images || []).map(absolute),

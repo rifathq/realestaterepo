@@ -33,7 +33,7 @@ export const SellingPage: React.FC = () => (
     <aside className="lg:col-span-5 self-start lg:sticky lg:top-24 bg-white border border-stone-200 p-6 sm:p-8">
       <h2 className="text-xl font-bold font-architectural text-stone-950">Talk about selling</h2>
       <p className="mt-1 mb-6 text-sm text-stone-600">Tell me about your home and your timing. No obligation.</p>
-      <LeadForm compact defaultTopic="Selling a home" />
+      <LeadForm compact defaultTopic="Selling or just curious" />
     </aside>
   </div>
 );

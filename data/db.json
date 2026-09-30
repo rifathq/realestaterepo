@@ -338,8 +338,8 @@
       "listedDate": "2026-09-25",
       "sample": true,
       "financing": [
-        "Seller financing",
-        "Lease option",
+        "Seller Finance",
+        "Lease Option",
         "Cash"
       ],
       "offMarket": true,
@@ -398,8 +398,9 @@
       "listedDate": "2026-09-20",
       "sample": true,
       "financing": [
-        "Assumable loan",
-        "Subject-to existing loan"
+        "Assumable",
+        "SubTo",
+        "Hybrid"
       ],
       "offMarket": true,
       "ownership": "agent"
@@ -457,10 +458,179 @@
       "listedDate": "2026-09-28",
       "sample": true,
       "financing": [
-        "Seller financing",
+        "Seller Finance",
+        "Hybrid",
         "Cash"
       ],
       "offMarket": true,
+      "ownership": "agent"
+    },
+    {
+      "id": "masud-8",
+      "slug": "sample-condo-ballston",
+      "title": "Two-bedroom condo near Ballston Metro",
+      "tagline": "A short walk to the Metro, with parking included.",
+      "price": 2450,
+      "priceDisplay": "$2,450",
+      "listingType": "rent",
+      "category": "Houses",
+      "featured": false,
+      "editorialHighlight": "",
+      "location": {
+        "address": "Sample address, Ballston",
+        "neighborhood": "Ballston",
+        "city": "Arlington",
+        "state": "VA",
+        "zip": "22203",
+        "coordinates": {
+          "lat": 38.882,
+          "lng": -77.111
+        }
+      },
+      "specs": {
+        "beds": 2,
+        "baths": 2,
+        "sqft": 1050,
+        "parking": 1,
+        "yearBuilt": 2008,
+        "lotSize": "—",
+        "pricePerSqft": 0,
+        "hoaMonthly": 0
+      },
+      "description": "Sample listing for the demo site. A two-bedroom condo a short walk from the Ballston Metro, with in-unit laundry and a garage space.",
+      "features": [
+        "In-unit laundry",
+        "Garage parking space",
+        "Walk to Metro",
+        "Fitness room"
+      ],
+      "amenities": [],
+      "architecturalHighlights": [],
+      "verified": false,
+      "verifiedBadgeText": "",
+      "agentId": "agent-masud",
+      "status": "active",
+      "images": [
+        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "virtualTourAvailable": false,
+      "listedDate": "2026-09-26",
+      "sample": true,
+      "financing": [],
+      "offMarket": false,
+      "ownership": "agent"
+    },
+    {
+      "id": "masud-9",
+      "slug": "sample-townhouse-alexandria",
+      "title": "Townhouse with a garage",
+      "tagline": "Three bedrooms close to Old Town.",
+      "price": 3100,
+      "priceDisplay": "$3,100",
+      "listingType": "rent",
+      "category": "Houses",
+      "featured": false,
+      "editorialHighlight": "",
+      "location": {
+        "address": "Sample address, Seminary Hill",
+        "neighborhood": "Seminary Hill",
+        "city": "Alexandria",
+        "state": "VA",
+        "zip": "22304",
+        "coordinates": {
+          "lat": 38.818,
+          "lng": -77.101
+        }
+      },
+      "specs": {
+        "beds": 3,
+        "baths": 2.5,
+        "sqft": 1700,
+        "parking": 1,
+        "yearBuilt": 1999,
+        "lotSize": "—",
+        "pricePerSqft": 0,
+        "hoaMonthly": 0
+      },
+      "description": "Sample listing for the demo site. A three-bedroom townhouse with a one-car garage and a small patio. Currently leased.",
+      "features": [
+        "One-car garage",
+        "Private patio",
+        "Updated kitchen",
+        "Near Old Town"
+      ],
+      "amenities": [],
+      "architecturalHighlights": [],
+      "verified": false,
+      "verifiedBadgeText": "",
+      "agentId": "agent-masud",
+      "status": "rented",
+      "images": [
+        "https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "virtualTourAvailable": false,
+      "listedDate": "2026-06-01",
+      "sample": true,
+      "financing": [],
+      "offMarket": false,
+      "ownership": "agent"
+    },
+    {
+      "id": "masud-10",
+      "slug": "sample-garden-apartment-falls-church",
+      "title": "Garden apartment with a private entrance",
+      "tagline": "Quiet, bright and close to shops.",
+      "price": 1650,
+      "priceDisplay": "$1,650",
+      "listingType": "rent",
+      "category": "Houses",
+      "featured": false,
+      "editorialHighlight": "",
+      "location": {
+        "address": "Sample address, Falls Church",
+        "neighborhood": "Falls Church",
+        "city": "Falls Church",
+        "state": "VA",
+        "zip": "22042",
+        "coordinates": {
+          "lat": 38.866,
+          "lng": -77.19
+        }
+      },
+      "specs": {
+        "beds": 1,
+        "baths": 1,
+        "sqft": 700,
+        "parking": 1,
+        "yearBuilt": 1955,
+        "lotSize": "—",
+        "pricePerSqft": 0,
+        "hoaMonthly": 0
+      },
+      "description": "Sample listing for the demo site. A one-bedroom garden apartment with its own entrance, a renovated bath and space to park.",
+      "features": [
+        "Private entrance",
+        "Renovated bath",
+        "Off-street parking",
+        "Pets considered"
+      ],
+      "amenities": [],
+      "architecturalHighlights": [],
+      "verified": false,
+      "verifiedBadgeText": "",
+      "agentId": "agent-masud",
+      "status": "active",
+      "images": [
+        "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "virtualTourAvailable": false,
+      "listedDate": "2026-09-22",
+      "sample": true,
+      "financing": [],
+      "offMarket": false,
       "ownership": "agent"
     }
   ],

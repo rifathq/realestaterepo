@@ -7,7 +7,7 @@ import { ListingCard } from '../components';
 export const ListingsPage: React.FC = () => {
   const { listings, error } = useListings();
   const [filter, setFilter] = useState<'all' | ListingStatus>('all');
-  const all = (listings || []).filter((l) => !l.offMarket);
+  const all = (listings || []).filter((l) => !l.offMarket && l.listingType !== 'rent');
   const visible = filter === 'all' ? all : all.filter((l) => l.status === filter);
   const count = (s: ListingStatus) => all.filter((l) => l.status === s).length;
 

@@ -1,8 +1,13 @@
 import React from 'react';
-import { AGENT, FIRM } from '../profile';
+import { useSearchParams } from 'react-router-dom';
+import { AGENT, FIRM, PERSONAS } from '../profile';
 import { LeadForm } from '../components';
 
-export const ContactPage: React.FC = () => (
+export const ContactPage: React.FC = () => {
+  const [params] = useSearchParams();
+  const persona = PERSONAS.find((p) => p.key === params.get('topic'));
+  const topic = persona?.topic || 'Selling or just curious';
+  return (
   <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14 sm:py-20 grid gap-12 lg:grid-cols-12">
     <div className="lg:col-span-7">
       <div className="text-[11px] uppercase tracking-[0.2em] text-stone-500 font-semibold">Contact</div>
@@ -10,7 +15,7 @@ export const ContactPage: React.FC = () => (
       <p className="mt-4 mb-10 text-lg text-stone-700 leading-relaxed">
         Buying, selling, or just have a question. Tell me a little and I'll reply by email.
       </p>
-      <LeadForm />
+      <LeadForm key={topic} defaultTopic={topic} />
     </div>
     <aside className="lg:col-span-5 lg:pt-24 space-y-8 text-sm">
       <div>
@@ -46,3 +51,4 @@ export const ContactPage: React.FC = () => (
     </aside>
   </div>
 );
+};
