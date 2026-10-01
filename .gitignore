@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Private portfolio concepts for real people: local only, never committed or deployed.
+src/portfolio/concepts/

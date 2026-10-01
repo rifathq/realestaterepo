@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowDown, ArrowRight, Play } from 'lucide-react';
-import type { PortfolioConfig, PortfolioMedia } from './types';
+import type { JourneysConfig, PortfolioConfig, PortfolioMedia } from './types';
 import { MASUD, PORTFOLIOS } from './configs';
+import { SAMPLE_JOURNEYS } from './journeysConfigs';
+import { JourneyAlbumPage, JourneysPage } from './JourneysPage';
 import { withBase } from '../lib/base';
 import { useListings } from '../agent-site/useListings';
 import { EqualHousingMark, ListingCard } from '../agent-site/components';
@@ -335,29 +337,70 @@ const Footer: React.FC<{ cfg: PortfolioConfig }> = ({ cfg }) => (
   </footer>
 );
 
-// Demo only: a slim row under the header to flip between profiles.
-function TemplateSwitcher({ current }: { current: string }) {
+// Private concepts for real people live in ./concepts (git-ignored) and load only in local development.
+const CONCEPTS: JourneysConfig[] = import.meta.env.DEV
+  ? Object.values(import.meta.glob('./concepts/*.ts', { eager: true })).flatMap((m: any) => Object.values(m)).filter((c: any) => c?.layout === 'journeys') as JourneysConfig[]
+  : [];
+
+type AnyPortfolio = PortfolioConfig | JourneysConfig;
+const REGISTRY: AnyPortfolio[] = [...PORTFOLIOS, SAMPLE_JOURNEYS, ...CONCEPTS];
+const isJourneys = (c: AnyPortfolio): c is JourneysConfig => (c as JourneysConfig).layout === 'journeys';
+const LABEL: Record<string, string> = {
+  masud: 'Masud',
+  'sample-doctor': 'Doctor',
+  'sample-community': 'Community',
+  'sample-journeys': 'Journeys',
+};
+const pathFor = (slug: string) => (slug === 'masud' ? '/portfolio' : `/portfolio/${slug}`);
+
+// Demo only: a slim row to flip between profiles and layouts.
+function TemplateSwitcher({ current, tone = 'dark' }: { current: string; tone?: 'dark' | 'light' }) {
+  const dark = tone === 'dark';
   return (
-    <nav aria-label="Template demo" className="border-t border-white/10 bg-white/[0.04]">
+    <nav aria-label="Template demo" className={dark ? 'border-t border-white/10 bg-white/[0.04]' : 'border-b border-black/10 bg-black/[0.03]'}>
       <div className="max-w-6xl mx-auto px-5 sm:px-8 h-10 flex items-center gap-1 text-xs overflow-x-auto no-scrollbar">
-        <span className="pr-2 text-stone-500 whitespace-nowrap">Template demo</span>
-        {PORTFOLIOS.map((p) => (
-          <Link
-            key={p.slug}
-            to={p.slug === 'masud' ? '/portfolio' : `/portfolio/${p.slug}`}
-            className={`whitespace-nowrap min-h-8 inline-flex items-center px-3 font-semibold ${p.slug === current ? 'bg-white text-black' : 'text-stone-300 hover:text-white'}`}
-          >
-            {p.slug === 'masud' ? 'Masud' : p.slug === 'sample-doctor' ? 'Doctor' : 'Community'}
-          </Link>
-        ))}
+        <span className={`pr-2 whitespace-nowrap ${dark ? 'text-stone-500' : 'text-stone-600'}`}>Template demo</span>
+        {REGISTRY.map((p) => {
+          const active = p.slug === current;
+          const label = LABEL[p.slug] || `${p.person.name.replace(/^Dr\.?\s+/, '').split(' ')[0]} (private)`;
+          return (
+            <Link
+              key={p.slug}
+              to={pathFor(p.slug)}
+              className={`whitespace-nowrap min-h-8 inline-flex items-center px-3 font-semibold ${
+                active ? (dark ? 'bg-white text-black' : 'bg-stone-900 text-white') : dark ? 'text-stone-300 hover:text-white' : 'text-stone-700 hover:text-black'
+              }`}
+            >
+              {label}
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );
 }
 
+// Picks the layout from the profile: Journeys (light, albums first) or the editorial story layout.
 export const PortfolioPage: React.FC = () => {
-  const { slug } = useParams();
-  const cfg = PORTFOLIOS.find((p) => p.slug === slug) || MASUD;
+  const { slug, album } = useParams();
+  const found = slug ? REGISTRY.find((p) => p.slug === slug) : MASUD;
+  if (!found) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center px-6 text-center">
+        <div>
+          <h1 className="font-editorial text-4xl">This portfolio isn't here</h1>
+          <Link to="/portfolio" className="mt-4 inline-block underline">See the template</Link>
+        </div>
+      </div>
+    );
+  }
+  if (isJourneys(found)) {
+    return album ? <JourneyAlbumPage cfg={found} albumSlug={album} /> : <JourneysPage cfg={found} switcher={<TemplateSwitcher current={found.slug} tone="light" />} />;
+  }
+  return <EditorialPortfolio cfg={found} />;
+};
+
+const EditorialPortfolio: React.FC<{ cfg: PortfolioConfig }> = ({ cfg }) => {
 
   useEffect(() => {
     const root = document.documentElement;

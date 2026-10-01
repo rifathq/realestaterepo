@@ -124,6 +124,7 @@ export default function App() {
             {/* Portfolio template: one config per person (own header and footer) */}
             <Route path="/portfolio" element={<PortfolioPage />} />
             <Route path="/portfolio/:slug" element={<PortfolioPage />} />
+            <Route path="/portfolio/:slug/:album" element={<PortfolioPage />} />
 
             {/* 2. ADMIN PORTAL (Separated & Protected) */}
             <Route path="/admin/login" element={<AdminLoginPage />} />
