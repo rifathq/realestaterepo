@@ -55,6 +55,7 @@ import { SellingPage as SiteSellingPage } from './agent-site/pages/SellingPage';
 import { AboutPage as SiteAboutPage } from './agent-site/pages/AboutPage';
 import { ContactPage as SiteContactPage } from './agent-site/pages/ContactPage';
 import { LegalPage } from './agent-site/pages/LegalPage';
+import { PortfolioPage } from './portfolio/PortfolioPage';
 import { OffMarketPage as SiteOffMarketPage } from './agent-site/pages/OffMarketPage';
 import { RentalsPage as SiteRentalsPage } from './agent-site/pages/RentalsPage';
 import { CreativeFinancingPage as SiteCreativeFinancingPage } from './agent-site/pages/CreativeFinancingPage';
@@ -119,6 +120,10 @@ export default function App() {
               <Route path="/fair-housing" element={<LegalPage kind="fair-housing" />} />
               <Route path="/accessibility" element={<LegalPage kind="accessibility" />} />
             </Route>
+
+            {/* Portfolio template: one config per person (own header and footer) */}
+            <Route path="/portfolio" element={<PortfolioPage />} />
+            <Route path="/portfolio/:slug" element={<PortfolioPage />} />
 
             {/* 2. ADMIN PORTAL (Separated & Protected) */}
             <Route path="/admin/login" element={<AdminLoginPage />} />
