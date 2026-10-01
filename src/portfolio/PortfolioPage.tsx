@@ -5,6 +5,7 @@ import type { JourneysConfig, PortfolioConfig, PortfolioMedia } from './types';
 import { MASUD, PORTFOLIOS } from './configs';
 import { SAMPLE_JOURNEYS } from './journeysConfigs';
 import { JourneyAlbumPage, JourneysPage } from './JourneysPage';
+import { HASANAT_CONCEPT } from './previews/hasanat';
 import { withBase } from '../lib/base';
 import { useListings } from '../agent-site/useListings';
 import { EqualHousingMark, ListingCard } from '../agent-site/components';
@@ -341,9 +342,13 @@ const Footer: React.FC<{ cfg: PortfolioConfig }> = ({ cfg }) => (
 const CONCEPTS: JourneysConfig[] = import.meta.env.DEV
   ? Object.values(import.meta.glob('./concepts/*.ts', { eager: true })).flatMap((m: any) => Object.values(m)).filter((c: any) => c?.layout === 'journeys') as JourneysConfig[]
   : [];
+// Previews for real people that MSD chose to put on UAT: labelled as concepts and unlisted
+// (reachable by link only; the template switcher shows them in local development only).
+const PREVIEWS: JourneysConfig[] = [HASANAT_CONCEPT];
 
 type AnyPortfolio = PortfolioConfig | JourneysConfig;
-const REGISTRY: AnyPortfolio[] = [...PORTFOLIOS, SAMPLE_JOURNEYS, ...CONCEPTS];
+const REGISTRY: AnyPortfolio[] = [...PORTFOLIOS, SAMPLE_JOURNEYS, ...PREVIEWS, ...CONCEPTS];
+const LISTED: AnyPortfolio[] = REGISTRY.filter((p) => import.meta.env.DEV || !PREVIEWS.includes(p as JourneysConfig));
 const isJourneys = (c: AnyPortfolio): c is JourneysConfig => (c as JourneysConfig).layout === 'journeys';
 const LABEL: Record<string, string> = {
   masud: 'Masud',
@@ -360,7 +365,7 @@ function TemplateSwitcher({ current, tone = 'dark' }: { current: string; tone?: 
     <nav aria-label="Template demo" className={dark ? 'border-t border-white/10 bg-white/[0.04]' : 'border-b border-black/10 bg-black/[0.03]'}>
       <div className="max-w-6xl mx-auto px-5 sm:px-8 h-10 flex items-center gap-1 text-xs overflow-x-auto no-scrollbar">
         <span className={`pr-2 whitespace-nowrap ${dark ? 'text-stone-500' : 'text-stone-600'}`}>Template demo</span>
-        {REGISTRY.map((p) => {
+        {LISTED.map((p) => {
           const active = p.slug === current;
           const label = LABEL[p.slug] || `${p.person.name.replace(/^Dr\.?\s+/, '').split(' ')[0]} (private)`;
           return (
