@@ -31,6 +31,12 @@ echo "▶ inside the container"
 ssh "$HOST" "for i in \$(seq 1 30); do docker exec masud-site-uat wget -qO /dev/null http://127.0.0.1:8080/ && break; sleep 2; done; docker exec masud-site-uat wget -qO- http://127.0.0.1:8080/api/feed/listings | head -c 120; echo"
 
 echo "▶ from the internet"
-curl -s -o /dev/null -w "  /masud (no password, expect 401) -> %{http_code}\n" https://uat.digents.com/masud
-curl -s -o /dev/null -w "  /masud/ (no password, expect 401) -> %{http_code}\n" https://uat.digents.com/masud/
+curl -s -o /dev/null -w "  /masud -> %{http_code}\n" https://uat.digents.com/masud
+curl -s -o /dev/null -w "  /masud/ -> %{http_code}\n" https://uat.digents.com/masud/
+curl -s -o /dev/null -w "  /masud/api/leads (no admin token, expect 401) -> %{http_code}\n" https://uat.digents.com/masud/api/leads
+# The public seed login from the repo must be refused on UAT.
+DEMO_USER="admin@demo.digenticrealty.com"
+DEMO_PW="Admin@12345"
+curl -s -o /dev/null -w "  demo admin login (expect 401) -> %{http_code}\n" -X POST -H 'Content-Type: application/json' \
+  -d "{\"email\":\"$DEMO_USER\",\"password\":\"$DEMO_PW\"}" https://uat.digents.com/masud/api/auth/login
 echo "✅ $REF on UAT: https://uat.digents.com/masud"

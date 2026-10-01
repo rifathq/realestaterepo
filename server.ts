@@ -772,7 +772,27 @@ function requireAgentOrAdmin(req: Request & { user?: SessionUser }, res: Respons
   });
 }
 
+// The seeded demo accounts have well-known passwords. When ADMIN_PASSWORD is set (UAT and
+// beyond), the super admin gets that password (and ADMIN_EMAIL, if given) and every other
+// account gets a random one, so the demo logins stop working.
+function lockDemoLogins() {
+  const password = process.env.ADMIN_PASSWORD;
+  if (!password) return;
+  const db = getDb();
+  for (const user of db.users || []) {
+    if (user.role === 'super_admin') {
+      user.passwordHash = hashPassword(password);
+      if (process.env.ADMIN_EMAIL) user.email = process.env.ADMIN_EMAIL;
+    } else {
+      user.passwordHash = hashPassword(crypto.randomBytes(24).toString('hex'));
+    }
+  }
+  saveDb(db);
+  console.log('[auth] demo logins locked');
+}
+
 async function startServer() {
+  lockDemoLogins();
   const app = express();
   app.use(express.json());
 

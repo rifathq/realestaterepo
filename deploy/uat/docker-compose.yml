@@ -1,8 +1,9 @@
 # UAT: https://uat.digents.com/masud  (Masud Haque agent site)
 # Same shape as the other uat.digents.com slugs: Traefik path router, stripprefix,
 # cfdns certificate, joined to n8n_default, no host port published.
-# Behind basic auth (hash in /home/ubuntu/masud-site-uat/uat.env, never in git)
-# because the admin still has demo logins, and marked noindex.
+# Public (no basic auth since 2026-10-01). The demo logins are locked at startup:
+# the admin password comes from /home/ubuntu/masud-site-uat/uat.env (never in git)
+# and every other demo account gets a random password. Marked noindex.
 name: masud-site-uat
 
 services:
@@ -16,6 +17,8 @@ services:
     restart: unless-stopped
     environment:
       AGENT_SITE_URL: https://uat.digents.com/masud
+      ADMIN_EMAIL: ${UAT_ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${UAT_ADMIN_PASSWORD}
     mem_limit: 384m
     cpus: 0.5
     networks:
@@ -26,8 +29,7 @@ services:
       - "traefik.http.routers.masud-site-uat.entrypoints=web,websecure"
       - "traefik.http.routers.masud-site-uat.tls=true"
       - "traefik.http.routers.masud-site-uat.tls.certresolver=cfdns"
-      - "traefik.http.routers.masud-site-uat.middlewares=masud-site-uat-auth,masud-site-uat-noindex,masud-site-uat-strip"
-      - "traefik.http.middlewares.masud-site-uat-auth.basicauth.users=${MASUD_UAT_BASICAUTH}"
+      - "traefik.http.routers.masud-site-uat.middlewares=masud-site-uat-noindex,masud-site-uat-strip"
       - "traefik.http.middlewares.masud-site-uat-noindex.headers.customresponseheaders.X-Robots-Tag=noindex, nofollow"
       - "traefik.http.middlewares.masud-site-uat-strip.stripprefix.prefixes=/masud"
       - "traefik.http.services.masud-site-uat.loadbalancer.server.port=8080"
